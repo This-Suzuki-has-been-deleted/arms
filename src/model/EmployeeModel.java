@@ -6,7 +6,7 @@ public class EmployeeModel {
 	private int authNo;
 	private String employeeName;
 	private String password;
-	private boolean delFlg;
+	private int delFlg;
 
 	public String getEmployeeNo() {
 		return employeeNo;
@@ -38,10 +38,10 @@ public class EmployeeModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public boolean isDelFlg() {
+	public int getDelFlg() {
 		return delFlg;
 	}
-	public void setDelFlg(boolean delFlg) {
+	public void setDelFlg(int delFlg) {
 		this.delFlg = delFlg;
 	}
 

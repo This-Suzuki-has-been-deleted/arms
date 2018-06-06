@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.EmployeeModel;
+import others.LoginLogic;
 
 /**
  * Servlet implementation class RegistrationServlet
@@ -38,7 +39,8 @@ public class RegistrationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		 EmployeeModel employeeModel = new EmployeeModel();
+		EmployeeModel employeeModel = new EmployeeModel();
+		LoginLogic ll = new LoginLogic();
 
 		String textCode;
 		String textName;
@@ -60,7 +62,8 @@ public class RegistrationServlet extends HttpServlet {
 		employeeModel.setEmployeeName(textName);
 		employeeModel.setDepNo(Integer.parseInt(selectDivisionNo));
 		employeeModel.setAuthNo(Integer.parseInt(selectAuthorityNo));
-
+		employeeModel.setPassword(ll.passHash("pass1234"));
+		employeeModel.setDelFlg(1);
 
 
 	}
