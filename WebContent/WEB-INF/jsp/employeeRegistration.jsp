@@ -5,16 +5,16 @@
 		<table>
 			<tr>
 				<td>社員番号：</td>
-				<td><input type="text" value=""></td>
+				<td><input type="text" name="textCode" value=""></td>
 			</tr>
 			<tr>
-				<td>社員名 ：</td>
-				<td><input type="text" value=""></td>
+				<td>社員名　：</td>
+				<td><input type="text" name="textName" value=""></td>
 			</tr>
 			<c:if test="${0 == 0}">
 				<tr>
-					<td>部署 ：</td>
-					<td><select>
+					<td>部署　　：</td>
+					<td><select name="selectDivisionNo">
 							<option value="">部署を選択</option>
 							<option value="選択肢1">選択肢1</option>
 							<option value="選択肢2">選択肢2</option>
@@ -25,8 +25,8 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td>権限 ：</td>
-					<td><select>
+					<td>権限　　：</td>
+					<td><select name="selectAuthorityNo">
 							<option value="">権限を選択</option>
 							<option value="選択肢1">選択肢1</option>
 							<option value="選択肢2">選択肢2</option>

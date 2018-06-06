@@ -7,6 +7,7 @@ public class EmployeeModel {
 	private String employeeName;
 	private String password;
 	private boolean delFlg;
+
 	public String getEmployeeNo() {
 		return employeeNo;
 	}
