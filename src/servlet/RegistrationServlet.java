@@ -49,9 +49,11 @@ public class RegistrationServlet extends HttpServlet {
 
 		textCode = request.getParameter("textCode");
 		textName = request.getParameter("textName");
-		if(true){
+		if(textCode == null){
 			selectDivisionNo = request.getParameter("selectDivisionNo");
 			selectAuthorityNo = request.getParameter("selectAuthorityNo");
+		}else{
+			selectDivisionNo =
 		}
 
 		/**
@@ -64,6 +66,7 @@ public class RegistrationServlet extends HttpServlet {
 		employeeModel.setAuthNo(Integer.parseInt(selectAuthorityNo));
 		employeeModel.setPassword(ll.passHash("pass1234"));
 		employeeModel.setDelFlg(1);
+
 
 
 	}

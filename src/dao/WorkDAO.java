@@ -24,7 +24,7 @@ public class WorkDAO {
 		// データベース接続
 		conn = DriverManager
 				.getConnection(
-						"jdbc:mysql://localhost:3306/gameinfo?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
 						"root", "password");
 
 		// クラスのインスタンスを取得
@@ -60,7 +60,7 @@ public class WorkDAO {
 		// データベース接続
 		conn = DriverManager
 				.getConnection(
-						"jdbc:mysql://localhost:3306/gameinfo?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
 						"root", "password");
 
 		// クラスのインスタンスを取得
@@ -97,7 +97,7 @@ public class WorkDAO {
 		// データベース接続
 		conn = DriverManager
 				.getConnection(
-						"jdbc:mysql://localhost:3306/gameinfo?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
 						"root", "password");
 
 		// クラスのインスタンスを取得
@@ -132,7 +132,7 @@ public class WorkDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		// データベース接続
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gameinfo?verifyServerCertificate=false&useSSL=false&requireSSL=false","root", "password");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false","root", "password");
 
 		// クラスのインスタンスを取得
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
