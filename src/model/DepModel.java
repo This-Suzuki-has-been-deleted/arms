@@ -1,14 +1,14 @@
 package model;
 
 public class DepModel {
-	private int depNo;
+	private String depNo;
 	private String depName;
 	private boolean depFlg;
 
-	public int getDepNo() {
+	public String getDepNo() {
 		return depNo;
 	}
-	public void setDepNo(int depNo) {
+	public void setDepNo(String depNo) {
 		this.depNo = depNo;
 	}
 	public String getDepName() {

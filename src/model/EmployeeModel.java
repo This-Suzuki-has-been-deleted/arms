@@ -2,8 +2,8 @@ package model;
 
 public class EmployeeModel {
 	private String employeeNo;
-	private int depNo;
-	private int authNo;
+	private String depNo;
+	private String authNo;
 	private String employeeName;
 	private String password;
 	private int delFlg;
@@ -14,16 +14,16 @@ public class EmployeeModel {
 	public void setEmployeeNo(String employeeNo) {
 		this.employeeNo = employeeNo;
 	}
-	public int getDepNo() {
+	public String getDepNo() {
 		return depNo;
 	}
-	public void setDepNo(int depNo) {
+	public void setDepNo(String depNo) {
 		this.depNo = depNo;
 	}
-	public int getAuthNo() {
+	public String getAuthNo() {
 		return authNo;
 	}
-	public void setAuthNo(int authNo) {
+	public void setAuthNo(String authNo) {
 		this.authNo = authNo;
 	}
 	public String getEmployeeName() {
