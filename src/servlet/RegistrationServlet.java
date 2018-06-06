@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,6 +47,7 @@ public class RegistrationServlet extends HttpServlet {
 		String textName;
 		String selectDivisionNo;
 		String selectAuthorityNo;
+		String flg = "rs";
 
 		textCode = request.getParameter("textCode");
 		textName = request.getParameter("textName");
@@ -53,7 +55,8 @@ public class RegistrationServlet extends HttpServlet {
 			selectDivisionNo = request.getParameter("selectDivisionNo");
 			selectAuthorityNo = request.getParameter("selectAuthorityNo");
 		}else{
-			selectDivisionNo =
+			selectDivisionNo = "01";
+			selectAuthorityNo = "001";
 		}
 
 		/**
@@ -62,12 +65,21 @@ public class RegistrationServlet extends HttpServlet {
 
 		employeeModel.setEmployeeNo(textCode);
 		employeeModel.setEmployeeName(textName);
-		employeeModel.setDepNo(Integer.parseInt(selectDivisionNo));
-		employeeModel.setAuthNo(Integer.parseInt(selectAuthorityNo));
+		employeeModel.setDepNo(selectDivisionNo);
+		employeeModel.setAuthNo(selectAuthorityNo);
 		employeeModel.setPassword(ll.passHash("pass1234"));
 		employeeModel.setDelFlg(1);
 
+		/**
+		 * 重複チェック
+		 */
 
+		request.setAttribute("employeeModel",employeeModel);
+		request.setAttribute("flg",flg);
+		
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("/conf.jsp");
+		dispatcher.forward(request, response);
 
 	}
 
