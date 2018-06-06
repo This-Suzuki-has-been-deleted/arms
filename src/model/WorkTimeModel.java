@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Time;
+import java.util.Date;
 
 public class WorkTimeModel {
 	private String employeeNo;
@@ -8,8 +8,8 @@ public class WorkTimeModel {
 	private int month;
 	private int day;
 	private boolean workTimeFlg;
-	private Time attendance;
-	private Time leaving;
+	private Date attendance;
+	private Date leaving;
 	private boolean workFlg;
 	public String getEmployeeNo() {
 		return employeeNo;
@@ -41,17 +41,34 @@ public class WorkTimeModel {
 	public void setWorkTimeFlg(boolean workTimeFlg) {
 		this.workTimeFlg = workTimeFlg;
 	}
-	public Time getAttendance() {
-		return attendance;
+
+	/**
+	 * attendanceを取得します。
+	 * @return attendance
+	 */
+	public Date getAttendance() {
+	    return attendance;
 	}
-	public void setAttendance(Time attendance) {
-		this.attendance = attendance;
+	/**
+	 * attendanceを設定します。
+	 * @param attendance attendance
+	 */
+	public void setAttendance(Date attendance) {
+	    this.attendance = attendance;
 	}
-	public Time getLeaving() {
-		return leaving;
+	/**
+	 * leavingを取得します。
+	 * @return leaving
+	 */
+	public Date getLeaving() {
+	    return leaving;
 	}
-	public void setLeaving(Time leaving) {
-		this.leaving = leaving;
+	/**
+	 * leavingを設定します。
+	 * @param leaving leaving
+	 */
+	public void setLeaving(Date leaving) {
+	    this.leaving = leaving;
 	}
 	public boolean isWorkFlg() {
 		return workFlg;

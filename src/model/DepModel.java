@@ -3,7 +3,7 @@ package model;
 public class DepModel {
 	private String depNo;
 	private String depName;
-	private boolean depFlg;
+	private int depFlg;
 
 	public String getDepNo() {
 		return depNo;
@@ -17,12 +17,19 @@ public class DepModel {
 	public void setDepName(String depName) {
 		this.depName = depName;
 	}
-	public boolean isDepFlg() {
-		return depFlg;
+	/**
+	 * depFlgを取得します。
+	 * @return depFlg
+	 */
+	public int getDepFlg() {
+	    return depFlg;
 	}
-	public void setDepFlg(boolean depFlg) {
-		this.depFlg = depFlg;
+	/**
+	 * depFlgを設定します。
+	 * @param depFlg depFlg
+	 */
+	public void setDepFlg(int depFlg) {
+	    this.depFlg = depFlg;
 	}
-
 
 }
