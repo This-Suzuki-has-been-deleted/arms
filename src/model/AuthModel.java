@@ -1,13 +1,13 @@
 package model;
 
 public class AuthModel {
-	private int authNo;
+	private String authNo;
 	private String authName;
 
-	public int getAuthNo() {
+	public String getAuthNo() {
 		return authNo;
 	}
-	public void setAuthNo(int authNo) {
+	public void setAuthNo(String authNo) {
 		this.authNo = authNo;
 	}
 	public String getAuthName() {

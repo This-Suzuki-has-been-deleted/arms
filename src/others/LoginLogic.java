@@ -3,7 +3,21 @@ package others;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import model.EmployeeModel;
+import dao.EmployeeDAO;
+
 public class LoginLogic {
+	public boolean login(String id,String pw){
+
+		EmployeeDAO employeeDAO = new EmployeeDAO();
+		EmployeeModel empModel = new EmployeeModel();
+		empModel = employeeDAO.findEmployee(id);
+
+		if(empModel.getPassword() == pw){
+			return true;
+		}
+		return false;
+	}
 	public String passHash(String pass) {
 		MessageDigest md = null;
 		StringBuffer buffer = new StringBuffer();
