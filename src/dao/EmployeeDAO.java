@@ -9,46 +9,261 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import Fight.History;
-import model.AuthModel;
-import model.DepModel;
 import model.EmployeeModel;
 import model.FindEmpModel;
-import model.TotalResult;
 
 
 
 public class EmployeeDAO {
 	Connection conn;
 	PreparedStatement pStmt;
+	conn = null;
+	pStmt = null;
+
 	Date date1 = new Date();
-	ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
+	int lim = 20;
 
-	public boolean findEmployee(String ) {
-		conn = null;
-		pStmt = null;
+	Class.forName("com.mysql.jdbc.Driver");
 
-	}
-	public EmployeeModel findByEmployeeName(String ) {
 
-	}
-	public EmployeeModel findByDepNo(Integer ) {		//部署 = Dep
 
-	}
-	public EmployeeModel findAll() {
-		conn = null;
-		pStmt = null;
+
+	public EmployeeModel findEmployee(String empno){
+
 		try {
-			// 指定したクラスをロードする（・・と、DriverManagerに登録する）
-
-			Class.forName("com.mysql.jdbc.Driver");
-
-			// DBにコネクションを張る（接続させる）
 			conn = DriverManager
 					.getConnection(
 							"jdbc:mysql://localhost:3306/gameinfo"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
+
+			// SQLの実行
+			String sql = "select * from employee Where EmployeeNo = ?;";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			EmployeeModel empmodel = new EmployeeModel();
+
+			pStmt.setString(1,empno);		//(1,xxx)１個目のハテナ
+
+			// 結果の取得と出力
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+
+				String employeeno = rs.getString("EmployeeNo");
+				String employeename = rs.getString("EmployeeName");
+				int divisionno = rs.getInt("EmployeeDivisionNo");
+				int authorityno = rs.getInt("EmployeeAuthorityNo");
+				//Date enteringdate = rs.getDate("EmployeeEnteringDate");
+				String password = rs.getString("employeePassword");
+
+				empmodel.setEmployeeNo(employeeno);
+				empmodel.setEmployeeName(employeename);
+				empmodel.setDepNo(divisionno);
+				empmodel.setAuthNo(authorityno);
+				empmodel.setPassword(password);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				// 切断
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+
+		}
+		return empmodel;
+
+	}
+	public int CountEmp() {
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/gameinfo"
+									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
+							"root", "password");
+
+			String sql = "select count(*) AS Counter from employee  where EmployeeAuthorityNo != ? AND EmployeeNo != ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			pStmt.setString(1,);		//	権限番号
+			pStmt.setString(2,);		//ログイン中の社員番号
+
+			// 結果の取得と出力
+			ResultSet rs = pStmt.executeQuery();
+				int counter = rs.getInt("Counter");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// 切断
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+
+			}
+		}
+		return counter;
+	}
+	public EmployeeModel findByEmployeeName(String empname) {
+		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/gameinfo"
+									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
+							"root", "password");
+
+			// SQLの実行
+			String sql = "select EmployeeNo,EmployeeName,DivisionName,AuthorityName "
+					+ "from Employee AS e LEFT JOIN employeedivision AS ed ON(e.DivisionNo = ed.DivisionNo)"
+					+ "LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority) "
+					+ "where EmployeeName LIKE '%empname%' AND    権限番号 = '003' AND EmployeeNo != ログインNO)";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			EmployeeModel empmodel = new EmployeeModel();
+
+			pStmt.setString(1,empname);		//(1,xxx)１個目のハテナ
+
+			// 結果の取得と出力
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+
+				String employeeno = rs.getString("EmployeeNo");
+				String employeename = rs.getString("EmployeeName");
+				int divisionno = rs.getInt("EmployeeDivisionNo");
+				int authorityno = rs.getInt("EmployeeAuthorityNo");
+				//Date enteringdate = rs.getDate("EmployeeEnteringDate");
+				String password = rs.getString("employeePassword");
+
+				empmodel.setEmployeeNo(employeeno);
+				empmodel.setEmployeeName(employeename);
+				empmodel.setDepNo(divisionno);
+				empmodel.setAuthNo(authorityno);
+				empmodel.setPassword(password);
+
+				employeelist.add(empmodel);
+
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				// 切断
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+
+		}
+		return empmodel;
+
+	}
+	public EmployeeModel findByDepNo(Integer depno) {		//部署 = Dep
+		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/gameinfo"
+									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
+							"root", "password");
+
+			// SQLの実行
+			String sql = "select EmployeeNo,EmployeeName,DivisionName,AuthorityName "
+					+ "from Employee AS e LEFT JOIN employeedivision AS ed ON(e.DivisionNo = ed.DivisionNo)"
+					+ "LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority) "
+					+ "where  DivisionNo = ? AND 権限番号 = '003' AND EmployeeNo != ログインNO)";		//ログイン情報
+
+			pStmt.setInt(1,depno);		//(1,xxx)１個目のハテナ
+
+			String cntsql = "select count(*) from wmployee where AND ? = '003' AND EmployeeNo != ?";
+
+			pStmt.setInt(1,depno);
+			pS
+
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			EmployeeModel empmodel = new EmployeeModel();
+
+
+
+			// 結果の取得と出力
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+
+				String employeeno = rs.getString("EmployeeNo");
+				String employeename = rs.getString("EmployeeName");
+				int divisionno = rs.getInt("EmployeeDivisionNo");
+				int authorityno = rs.getInt("EmployeeAuthorityNo");
+				//Date enteringdate = rs.getDate("EmployeeEnteringDate");
+				String password = rs.getString("employeePassword");
+
+				empmodel.setEmployeeNo(employeeno);
+				empmodel.setEmployeeName(employeename);
+				empmodel.setDepNo(divisionno);
+				empmodel.setAuthNo(authorityno);
+				empmodel.setPassword(password);
+
+
+				employeelist.add(empmodel);
+
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				// 切断
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+
+		}
+		return empmodel;
+
+
+	}
+	public EmployeeModel findAll() {
+		ArrayList<FindEmpModel> employeelist = new ArrayList<FindEmpModel>();
+
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/gameinfo"
+									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
+							"root", "password");
+
+
 			// SQLの実行
 			String sql = "select EmployeeNo,EmployeeName,DivisionName,AuthorityName "
 					+ "from Employee AS e LEFT JOIN employeedivision AS ed ON(e.DivisionNo = ed.DivisionNo)"
@@ -60,7 +275,7 @@ public class EmployeeDAO {
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
 
-				int employeeno = rs.getInt("EmployeeNo");
+				String employeeno = rs.getString("EmployeeNo");
 				String employeename = rs.getString("EmployeeName");
 				String divisionname = rs.getString("DivisionName");
 				String authorityname = rs.getString("AuthorityName");		//SQLの値をgetでもってくる　上のsqlで宣言したもの
@@ -75,22 +290,8 @@ public class EmployeeDAO {
 
 				employeelist.add(femodel);
 
-
-				//String resultmsg = "ひきわけ";
-
-				if(his.getResult().equals("1")) {				//勝敗引き分けカウント＆セット
-					tr.setEnemyVictory(tr.getEnemyVictory() + 1);
-					//resultmsg = his.getEnemyName() + "のかち";
-				}else if(his.getResult().equals("2")) {
-					tr.setMyVictory(tr.getMyVictory() + 1);
-					//resultmsg = his.getMyName() + "のかち";
-				}else {
-					tr.setDraw(tr.getDraw() + 1);
-				}
-
-
 			}
-			tr.setHislist(hisarraylist);
+			return femodel;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -115,16 +316,12 @@ public class EmployeeDAO {
 	}
 	public boolean InsertEmployee(EmployeeModel em) {
 		try {
-			// 指定したクラスをロードする（・・と、DriverManagerに登録する）
-
-			Class.forName("com.mysql.jdbc.Driver");
-
-			// DBにコネクションを張る（接続させる）
 			conn = DriverManager
 					.getConnection(
 							"jdbc:mysql://localhost:3306/gameinfo"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
+
 			// 自動コミットOFF
 			conn.setAutoCommit(false);
 

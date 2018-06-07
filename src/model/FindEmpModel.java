@@ -1,12 +1,12 @@
 package model;
 
 public class FindEmpModel {
-	private int EmployeeNo;
+	private String EmployeeNo;
 	private String EmployeeName;
 	private String AuthName;
 	private String DepName;
 
-	public int getEmployeeNo() {
+	public String getEmployeeNo() {
 		return EmployeeNo;
 	}
 	public String getEmployeeName() {
@@ -18,7 +18,7 @@ public class FindEmpModel {
 	public String getDepName() {
 		return DepName;
 	}
-	public void setEmployeeNo(int employeeNo) {
+	public void setEmployeeNo(String employeeNo) {
 		EmployeeNo = employeeNo;
 	}
 	public void setEmployeeName(String employeeName) {
