@@ -280,10 +280,11 @@ public class EmployeeDAO {
 				String divisionname = rs.getString("DivisionName");
 				String authorityname = rs.getString("AuthorityName");		//SQLの値をgetでもってくる　上のsqlで宣言したもの
 
-				FindEmpModel femodel = new FindEmpModel();
+				EmployeeModel empmodel = new EmployeeModel();
+
 				//action_date,myname,myhp,mymp,enemyname,enemyhp,enemymp,result
 
-				femodel.setEmployeeNo(employeeno);
+				empmodel.setEmployeeNo(employeeno);
 				femodel.setEmployeeName(employeename);
 				femodel.setDepName(divisionname);
 				femodel.setAuthName(authorityname);
@@ -370,10 +371,62 @@ public class EmployeeDAO {
 
 		}
 		return true;
-	}
+
 
 	}
-	public EmployeeModel updateEmployee(boolean ) {
+	public EmployeeModel updateEmployee(boolean flg) {
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/gameinfo"
+									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
+							"root", "password");
+
+			// 自動コミットOFF
+			conn.setAutoCommit(false);
+
+			// SQLの実行
+			String sql = "update employee set EmployeeDivisionNo = ?,EmployeeAuthrityNo = ?,EmployeeName = ?"
+					+ "where EmployeeNo = ?";
+
+
+			pStmt = conn.prepareStatement(sql);
+
+			// パラメータの設定
+			pStmt.setString(1,);		//(1,xxx)１個目のハテナ
+			pStmt.setInt(2,);
+			pStmt.setInt(3,);
+			pStmt.setString(4,);
+
+			// 結果の取得と出力
+			if (pStmt.executeUpdate() > 0) {
+				// コミット
+				conn.commit();
+			} else {
+				conn.rollback();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//return false;
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			//return false;
+		} finally {
+			try {
+				// 切断
+				pStmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				//return false;
+			}
+
+		}
+		//return true;
+
+
 
 	}
 	public EmployeeModel deleteEmployee(String ) {

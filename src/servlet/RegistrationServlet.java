@@ -47,28 +47,46 @@ public class RegistrationServlet extends HttpServlet {
 		String textName;
 		String selectDivisionNo;
 		String selectAuthorityNo;
-		String flg = "rs";
+		String pageFlg = "rs";
 
-		textCode = request.getParameter("textCode");
-		textName = request.getParameter("textName");
-		if(textCode == null){
+		boolean flg = false;
+
+		String msg= null;
+		try{
+			msg = null;
+
+			textCode = request.getParameter("textCode");
+			textName = request.getParameter("textName");
 			selectDivisionNo = request.getParameter("selectDivisionNo");
 			selectAuthorityNo = request.getParameter("selectAuthorityNo");
-		}else{
-			selectDivisionNo = "01";
-			selectAuthorityNo = "001";
+
+			if(selectDivisionNo == null ){
+
+			}else{
+				selectDivisionNo = "01";
+				selectAuthorityNo = "001";
+			}
+			/**
+			 * 入力チェック
+			 */
+			if(flg){
+				msg = "入力に誤りがあります。";
+				request.setAttribute("msg",msg);
+			}
+
+			employeeModel.setEmployeeNo(textCode);
+			employeeModel.setEmployeeName(textName);
+			employeeModel.setDepNo(selectDivisionNo);
+			employeeModel.setAuthNo(selectAuthorityNo);
+			employeeModel.setPassword(ll.passHash("pass1234"));
+			employeeModel.setDelFlg(1);
+		}catch(NullPointerException e){
+			msg = msg + "\n入力されていない項目があります。";
 		}
 
-		/**
-		 * 入力チェック
-		 */
 
-		employeeModel.setEmployeeNo(textCode);
-		employeeModel.setEmployeeName(textName);
-		employeeModel.setDepNo(selectDivisionNo);
-		employeeModel.setAuthNo(selectAuthorityNo);
-		employeeModel.setPassword(ll.passHash("pass1234"));
-		employeeModel.setDelFlg(1);
+
+
 
 		/**
 		 * 重複チェック
@@ -76,7 +94,7 @@ public class RegistrationServlet extends HttpServlet {
 
 		request.setAttribute("employeeModel",employeeModel);
 		request.setAttribute("flg",flg);
-		
+
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/conf.jsp");
 		dispatcher.forward(request, response);
