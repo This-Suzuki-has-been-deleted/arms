@@ -9,6 +9,7 @@
 
 <!-- ヘッダー全体 -->
 <div class="header">
+<header>
 	<!-- 後々画像に差し替え。クリックでindexに遷移 -->
 	<div class="title">
 		<a href="index.jsp">ARMS</a>
@@ -22,6 +23,7 @@
 		<p id="RealtimeClockArea">
 		<p><%=em.getEmployeeName() %></p>
 	</div>
+</header>
 </div>
 
 <script>
