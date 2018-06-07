@@ -6,24 +6,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:choose>
-<c:when test="${flg = "rs" }"><title>登録確認</title></c:when>
-<c:when test="${flg = "ch" }"><title>変更確認</title></c:when>
+<c:when test="${pageFlg = 'rs' }"><title>登録確認</title></c:when>
+<c:when test="${pageFlg = 'ch' }"><title>変更確認</title></c:when>
 </c:choose>
 </head>
 <body>
-<c:choose>
-<c:when test="${flg = "rs" }">]
+<c:if test="${pageFlg = 'rs' }">
 <p>社員番号：${employeeModel.employeeNo }</p>
+</c:if>
 <p>社員名：${employeeModel.employeeName }</p>
-<p></p>
-<p></p>
-
-</c:when>
-<c:when test="${flg = "ch" }">
-
-
-</c:when>
-</c:choose>
-
+<c:if test="${employeeModel.employeeAuthNo = '03' or pageFlg = 'ch' }">
+<p>部署名:${employeeModel.depName}</p>
+<p>権限名:${employeeModel.authName }</p>
+</c:if>
 </body>
 </html>

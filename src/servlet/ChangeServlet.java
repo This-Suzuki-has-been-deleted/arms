@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,15 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class TimeStampServlet
+ * Servlet implementation class ChangeServlet
  */
-public class TimeStampServlet extends HttpServlet {
+public class ChangeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TimeStampServlet() {
+    public ChangeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,19 +27,38 @@ public class TimeStampServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String msg="ログインを行ってください。";
-		session.setAttribute("String", msg);
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-		rd.forward(request, response);
+		// TODO Auto-generated method stub
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		LocalDateTime date = LocalDateTime.now();
+		if(){
+		String employeeNo;
+		String divisionNo;
+		String authorityNo;
+		String pageFlg = "ch";
+		String msg = null;
+
+		try{
+			employeeNo = request.getParameter("employeeNo");
+			divisionNo = request.getParameter("selectDivisionNo");
+			authorityNo = request.getParameter("selectAuthorityNo");
+		}catch(NullPointerException e){
+			msg = "未入力の項目があります。";
+		}
+
+		if(msg == null){
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/change.jsp");
+			dispatcher.forward(request, response);
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/conf.jsp");
+
+
 	}
 
 }
