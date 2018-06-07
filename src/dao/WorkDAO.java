@@ -118,8 +118,8 @@ public class WorkDAO {
 		wt.setMonth(rs.getInt("month"));
 		wt.setDay(rs.getInt("day"));
 		wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
-		wt.setAttendance(rs.getTime("attendance"));
-		wt.setLeaving(rs.getTime("leaving"));
+		wt.setAttendance(rs.getDate("attendance"));
+		wt.setLeaving(rs.getDate("leaving"));
 
 		return wt;
 	}
@@ -151,8 +151,8 @@ public class WorkDAO {
 			wt.setMonth(rs.getInt("month"));
 			wt.setDay(rs.getInt("day"));
 			wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
-			wt.setAttendance(rs.getTime("attendance"));
-			wt.setLeaving(rs.getTime("leaving"));
+			wt.setAttendance(rs.getDate("attendance"));
+			wt.setLeaving(rs.getDate("leaving"));
 			list.add(wt);
 		}
 
