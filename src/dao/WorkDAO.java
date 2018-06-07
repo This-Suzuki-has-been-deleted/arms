@@ -32,7 +32,7 @@ public class WorkDAO {
 
 		// 自動コミットをオフ
 		conn.setAutoCommit(false);
-		String sql = "insert into employeeworktime(employeeno,year,month,day,attendance) values(?,?,?,?,?)";
+		String sql = "insert into employeeworktime(employeeno,year,month,day,attendance) values(?,?,?,?,?) where employeeno=?";
 		pstmt = conn.prepareStatement(sql);
 
 		pstmt.setString(1, wt.getEmployeeNo());
@@ -40,6 +40,7 @@ public class WorkDAO {
 		pstmt.setInt(3, wt.getMonth());
 		pstmt.setInt(4, wt.getDay());
 		pstmt.setDate(5, wt.getAttendance());
+		pstmt.setString(6, wt.getEmployeeNo());
 
 		if (pstmt.executeUpdate() > 0) {
 			conn.commit();

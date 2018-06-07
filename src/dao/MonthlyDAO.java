@@ -14,105 +14,141 @@ import model.MonthlyModel;
 
 public class MonthlyDAO {
 	// 打刻するメソッド
-		public void insertMonthlyTime(MonthlyModel mm) throws NamingException,
-				SQLException, InstantiationException, IllegalAccessException,
-				ClassNotFoundException {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
+	public void insertMonthlyTime(MonthlyModel mm) throws NamingException,
+			SQLException, InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 
-			// データベース接続
-			conn = DriverManager
-					.getConnection(
-							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false","root", "password");
+		// データベース接続
+		conn = DriverManager
+				.getConnection(
+						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+						"root", "password");
 
-			// クラスのインスタンスを取得
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+		// クラスのインスタンスを取得
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-			// 自動コミットをオフ
-			conn.setAutoCommit(false);
-			String sql = "insert into employeeworktime(employeeno,year,month,m_workingtime,m_overworkingtime,m_nightwokingtime) values(?,?,?,?,?,?,?)";
-			pstmt = conn.prepareStatement(sql);
+		// 自動コミットをオフ
+		conn.setAutoCommit(false);
+		String sql = "insert into employeeworktime(employeeno,year,month,m_workingtime,m_overworkingtime,m_nightwokingtime) values(?,?,?,?,?,?,?) where employeeno=?";
+		pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, mm.getEmployeeNo());
-			pstmt.setInt(2, mm.getYear());
-			pstmt.setInt(3, mm.getMonth());
-			pstmt.setDate(4, mm.getM_workTime());
-			pstmt.setDate(5, mm.getM_overTime());
-			pstmt.setDate(6, mm.getM_nightTime());
+		pstmt.setString(1, mm.getEmployeeNo());
+		pstmt.setInt(2, mm.getYear());
+		pstmt.setInt(3, mm.getMonth());
+		pstmt.setDate(4, mm.getM_workTime());
+		pstmt.setDate(5, mm.getM_overTime());
+		pstmt.setDate(6, mm.getM_nightTime());
+		pstmt.setString(7, mm.getEmployeeNo());
 
-			if (pstmt.executeUpdate() > 0) {
-				conn.commit();
-			} else {
-				conn.rollback();
-			}
-
-			pstmt.close();
-			conn.close();
+		if (pstmt.executeUpdate() > 0) {
+			conn.commit();
+		} else {
+			conn.rollback();
 		}
 
-		public void updateMonthlyTime(MonthlyModel mm) throws SQLException,
-				InstantiationException, IllegalAccessException,
-				ClassNotFoundException {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
+		pstmt.close();
+		conn.close();
+	}
 
-			// データベース接続
-			conn = DriverManager
-					.getConnection(
-							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
-							"root", "password");
+	public void updateMonthlyTime(MonthlyModel mm) throws SQLException,
+			InstantiationException, IllegalAccessException,
+			ClassNotFoundException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 
-			// クラスのインスタンスを取得
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+		// データベース接続
+		conn = DriverManager
+				.getConnection(
+						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+						"root", "password");
 
-			// 自動コミットをオフ
-			conn.setAutoCommit(false);
+		// クラスのインスタンスを取得
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-			String sql = "update employeemonthly set m_workingtime=?,m_overworkingtime=?,m_nightworkingtime=? where employeeno=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setDate(1, mm.getM_workTime());
-			pstmt.setDate(2, mm.getM_overTime());
-			pstmt.setDate(3, mm.getM_nightTime());
-			pstmt.setString(4, mm.getEmployeeNo());
+		// 自動コミットをオフ
+		conn.setAutoCommit(false);
 
+		String sql = "update employeemonthly set m_workingtime=?,m_overworkingtime=?,m_nightworkingtime=? where employeeno=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setDate(1, mm.getM_workTime());
+		pstmt.setDate(2, mm.getM_overTime());
+		pstmt.setDate(3, mm.getM_nightTime());
+		pstmt.setString(4, mm.getEmployeeNo());
 
-			if (pstmt.executeUpdate() > 0) {
-				conn.commit();
-			} else {
-				conn.rollback();
-			}
-
-			pstmt.close();
-			conn.close();
+		if (pstmt.executeUpdate() > 0) {
+			conn.commit();
+		} else {
+			conn.rollback();
 		}
 
-		public MonthlyModel findMonthlyTime(String eno, int y, int m)
-				throws SQLException, InstantiationException,
-				IllegalAccessException, ClassNotFoundException {
+		pstmt.close();
+		conn.close();
+	}
+
+	public MonthlyModel findMonthlyTime(String eno, int y, int m)
+			throws SQLException, InstantiationException,
+			IllegalAccessException, ClassNotFoundException {
+		MonthlyModel mm = new MonthlyModel();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		// データベース接続
+		conn = DriverManager
+				.getConnection(
+						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+						"root", "password");
+
+		// クラスのインスタンスを取得
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+		// 自動コミットをオフ
+		conn.setAutoCommit(false);
+		String sql = "select * from employeemonthly where employeeno=? and year=? and month=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, eno);
+		pstmt.setInt(2, y);
+		pstmt.setInt(3, m);
+
+		ResultSet rs = pstmt.executeQuery();
+
+		mm.setEmployeeNo(rs.getString("employeeno"));
+		mm.setYear(rs.getInt("year"));
+		mm.setMonth(rs.getInt("month"));
+		mm.setM_workTime(rs.getDate("m_workingtime"));
+		mm.setM_overTime(rs.getDate("m_overworkingtime"));
+		mm.setM_nightTime(rs.getDate("m_nightworkingtime"));
+
+		return mm;
+	}
+
+	public List<MonthlyModel> m_findByEmployeeNo(String eno)
+			throws SQLException, InstantiationException,
+			IllegalAccessException, ClassNotFoundException {
+		List<MonthlyModel> list = new ArrayList<MonthlyModel>();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		// データベース接続
+		conn = DriverManager
+				.getConnection(
+						"jdbc:mysql://localhost:3306/gameinfo?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+						"root", "password");
+
+		// クラスのインスタンスを取得
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+		// 自動コミットをオフ
+		conn.setAutoCommit(false);
+		String sql = "select * from employeemonthly where employeeno=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, eno);
+
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
 			MonthlyModel mm = new MonthlyModel();
-
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-
-			// データベース接続
-			conn = DriverManager
-					.getConnection(
-							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
-							"root", "password");
-
-			// クラスのインスタンスを取得
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-			// 自動コミットをオフ
-			conn.setAutoCommit(false);
-			String sql = "select * from employeemonthly where employeeno=? and year=? and month=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, eno);
-			pstmt.setInt(2, y);
-			pstmt.setInt(3, m);
-
-			ResultSet rs = pstmt.executeQuery();
-
 			mm.setEmployeeNo(rs.getString("employeeno"));
 			mm.setYear(rs.getInt("year"));
 			mm.setMonth(rs.getInt("month"));
@@ -120,42 +156,9 @@ public class MonthlyDAO {
 			mm.setM_overTime(rs.getDate("m_overworkingtime"));
 			mm.setM_nightTime(rs.getDate("m_nightworkingtime"));
 
-
-			return mm;
+			list.add(mm);
 		}
 
-		public List<MonthlyModel> m_findByEmployeeNo(String eno)
-				throws SQLException, InstantiationException,
-				IllegalAccessException, ClassNotFoundException {
-			List<MonthlyModel> list = new ArrayList<MonthlyModel>();
-
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			// データベース接続
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gameinfo?verifyServerCertificate=false&useSSL=false&requireSSL=false","root", "password");
-
-			// クラスのインスタンスを取得
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-			// 自動コミットをオフ
-			conn.setAutoCommit(false);
-			String sql = "select * from employeemonthly where employeeno=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, eno);
-
-			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()){
-				MonthlyModel mm = new MonthlyModel();
-				mm.setEmployeeNo(rs.getString("employeeno"));
-				mm.setYear(rs.getInt("year"));
-				mm.setMonth(rs.getInt("month"));
-				mm.setM_workTime(rs.getDate("m_workingtime"));
-				mm.setM_overTime(rs.getDate("m_overworkingtime"));
-				mm.setM_nightTime(rs.getDate("m_nightworkingtime"));
-
-				list.add(mm);
-			}
-
-			return list;
-		}
+		return list;
+	}
 }
