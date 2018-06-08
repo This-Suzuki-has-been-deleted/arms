@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.AnnualModel;
-
+//年次
 public class AnnualDAO {
 	// 打刻するメソッド
 	public void insertMonthlyTime(AnnualModel am){

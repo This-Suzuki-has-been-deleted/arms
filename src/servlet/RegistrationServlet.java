@@ -73,7 +73,7 @@ public class RegistrationServlet extends HttpServlet {
 		// 権限 authority
 
 		try {
-			//入力値受け取り
+			// 入力値受け取り
 			textCode = request.getParameter("textCode");
 			textName = request.getParameter("textName");
 			selectDivisionNo = request.getParameter("selectDivisionNo");
@@ -107,7 +107,7 @@ public class RegistrationServlet extends HttpServlet {
 			}
 		}
 
-		if(msg != null){
+		if (msg != null) {
 			request.setAttribute("msg", msg);
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("/index.jsp");
@@ -120,7 +120,5 @@ public class RegistrationServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/conf.jsp");
 		dispatcher.forward(request, response);
-
 	}
-
 }
