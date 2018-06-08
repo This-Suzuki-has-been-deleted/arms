@@ -22,30 +22,34 @@ import dao.EmployeeDAO;
 public class RegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RegistrationServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public RegistrationServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 		EmployeeModel employeeModel = new EmployeeModel();
 		EmployeeModel myEmp = (EmployeeModel) request.getAttribute("Employee");
-		
+
 		LoginLogic ll = new LoginLogic();
 		EmployeeDAO ed = new EmployeeDAO();
 
@@ -57,28 +61,24 @@ public class RegistrationServlet extends HttpServlet {
 		String msg = null;
 		boolean flg = false;
 
-		//部署 division,dep
-		//権限 authority
+		// 部署 division,dep
+		// 権限 authority
 
-		try{
+		try {
+			//入力値受け取り
 			textCode = request.getParameter("textCode");
 			textName = request.getParameter("textName");
+			selectDivisionNo = request.getParameter("selectDivisionNo");
+			selectAuthorityNo = request.getParameter("selectAuthorityNo");
 
-			if(myEmp.getAuthNo() == "003" || myEmp.getAuthNo() == "999"){
-				selectDivisionNo = request.getParameter("selectDivisionNo");
-				selectAuthorityNo = request.getParameter("selectAuthorityNo");
-			}else{
-				selectDivisionNo = myEmp.getDepNo();
-				selectAuthorityNo = "001";
-			}
-
+			// 入力チェック
 			/**
 			 * 入力チェック
 			 */
 
-			if(flg){
-				msg = "入力形式に誤りがあります。";
-				request.setAttribute("msg",msg);
+			if (flg) {
+				msg = "・入力形式に誤りがあります。";
+				request.setAttribute("msg", msg);
 			}
 
 			employeeModel.setEmployeeNo(textCode);
@@ -87,23 +87,27 @@ public class RegistrationServlet extends HttpServlet {
 			employeeModel.setAuthNo(selectAuthorityNo);
 			employeeModel.setPassword(ll.passHash("pass1234"));
 			employeeModel.setDelFlg(1);
-		}catch(NullPointerException e){
-			msg = msg + "\n未入力項目があります。";
+		} catch (NullPointerException e) {
+			msg = msg + "<br>・未入力項目があります。";
 		}
 
+		// 重複チェック
 		ArrayList<EmployeeModel> employeelist = ed.findAll();
 
-		for(EmployeeModel em:employeelist){
-			if(employeeModel.getEmployeeNo().equals(em.getEmployeeNo())){
-				msg = msg + "\n社員番号が重複しています。";
+		for (EmployeeModel em : employeelist) {
+			if (employeeModel.getEmployeeNo().equals(em.getEmployeeNo())) {
+				msg = msg + "<br>・社員番号が重複しています。";
 			}
 		}
-		/**
-		 * 重複チェック
-		 */
 
-		request.setAttribute("employeeModel",employeeModel);
-		request.setAttribute("pageFlg",pageFlg);
+		if(msg == null){
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher("/index.jsp");
+			dispatcher.forward(request, response);
+		}
+
+		request.setAttribute("employeeModel", employeeModel);
+		request.setAttribute("pageFlg", pageFlg);
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/conf.jsp");
