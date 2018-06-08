@@ -40,7 +40,7 @@ public class RegistrationServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		DepDAO dd = new DepDAO();
-		ArrayList<DepModel> depList = (ArrayList<DepModel>) dd.findDepOll();
+		ArrayList<DepModel> depList = (ArrayList<DepModel>) dd.findDepAll();
 		request.setAttribute("depList", depList);
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");

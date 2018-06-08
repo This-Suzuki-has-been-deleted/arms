@@ -11,7 +11,7 @@ import java.util.List;
 import model.DepModel;
 
 public class DepDAO {
-	public List<DepModel> findDepOll(){
+	public List<DepModel> findDepAll(){
 		List<DepModel> list = new ArrayList<DepModel>();
 
 		Connection conn = null;
