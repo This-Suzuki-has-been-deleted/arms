@@ -210,4 +210,54 @@ public class AnnualDAO {
 
 		return list;
 	}
+
+	public List<AnnualModel> findByYear(int year){
+		List<AnnualModel> list = new ArrayList<AnnualModel>();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		// データベース接続
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+							"root", "password");
+
+
+		// クラスのインスタンスを取得
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+		// 自動コミットをオフ
+		conn.setAutoCommit(false);
+		String sql = "select * from employeeannual where year=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, year);
+
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			AnnualModel am = new AnnualModel();
+			am.setEmployeeNo(rs.getString("employeeno"));
+			am.setYear(rs.getInt("year"));
+			am.setY_workTime(rs.getDate("y_workingtime"));
+			am.setY_overTime(rs.getDate("y_overworkingtime"));
+			am.setY_nightTime(rs.getDate("y_nightworkingtime"));
+
+			list.add(am);
+		}
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+		return list;
+	}
 }
