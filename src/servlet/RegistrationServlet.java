@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.DepModel;
 import model.EmployeeModel;
 import others.LoginLogic;
+import dao.DepDAO;
 import dao.EmployeeDAO;
 
 /**
@@ -37,6 +39,12 @@ public class RegistrationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		DepDAO dd = new DepDAO();
+		ArrayList<DepModel> depList = (ArrayList<DepModel>) dd.findDepOll();
+		request.setAttribute("depList", depList);
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -78,7 +86,6 @@ public class RegistrationServlet extends HttpServlet {
 
 			if (flg) {
 				msg = "・入力形式に誤りがあります。";
-				request.setAttribute("msg", msg);
 			}
 
 			employeeModel.setEmployeeNo(textCode);
@@ -101,6 +108,7 @@ public class RegistrationServlet extends HttpServlet {
 		}
 
 		if(msg != null){
+			request.setAttribute("msg", msg);
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("/index.jsp");
 			dispatcher.forward(request, response);
