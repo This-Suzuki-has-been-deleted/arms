@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.EmployeeModel;
+import model.MonthlyModel;
 import model.WorkTimeModel;
+import dao.MonthlyDAO;
 import dao.WorkDAO;
 
 /**
@@ -109,14 +112,63 @@ public class TimeStampServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String value = (String)session.getAttribute("buttonvalue");
 		WorkTimeModel wt = (WorkTimeModel)session.getAttribute("work");
+		WorkDAO wdao = new WorkDAO();
+		MonthlyDAO mdao = new MonthlyDAO();
 
 		if(value.equals("出勤")){
 			LocalDateTime date = LocalDateTime.now();
 			String temp = date.toString();
 			Date now = Date.valueOf(temp);
 			wt.setAttendance(now);
+			try {
+				wdao.updateWorkTime(wt);
+			} catch (InstantiationException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
 		}else{
+			LocalDateTime date = LocalDateTime.now();
+			String temp = date.toString();
+			Date now = Date.valueOf(temp);
+			Calendar cal = Calendar.getInstance();
 
+			wt.setLeaving(now);
+			wt.setWorkFlg(true);
+			try {
+				wdao.updateWorkTime(wt);							//日次をアップデート
+
+				//労働時間の算出
+				long attendance = wt.getAttendance().getTime();
+				long leaving = wt.getLeaving().getTime();
+
+				long diff = (leaving - attendance) / (1000 * 60);	//差分を分で取る
+				MonthlyModel mm = mdao.findMonthlyTime(wt.getEmployeeNo(), wt.getYear(), wt.getMonth());
+				Date workTime = mm.getM_workTime();
+				Date overTime = mm.getM_overTime();
+				Date nightTime = mm.getM_nightTime();
+
+			} catch (InstantiationException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
 		}
 	}
 

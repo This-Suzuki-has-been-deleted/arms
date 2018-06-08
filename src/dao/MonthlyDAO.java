@@ -11,7 +11,7 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import model.MonthlyModel;
-
+//月次
 public class MonthlyDAO {
 	// 打刻するメソッド
 	public void insertMonthlyTime(MonthlyModel mm) throws NamingException,
@@ -52,17 +52,17 @@ public class MonthlyDAO {
 		conn.close();
 	}
 
-	public void updateMonthlyTime(MonthlyModel mm) throws SQLException,
-			InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateMonthlyTime(MonthlyModel mm){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		// データベース接続
-		conn = DriverManager
-				.getConnection(
-						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
-						"root", "password");
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+							"root", "password");
+
 
 		// クラスのインスタンスを取得
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -85,21 +85,34 @@ public class MonthlyDAO {
 
 		pstmt.close();
 		conn.close();
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
-	public MonthlyModel findMonthlyTime(String eno, int y, int m)
-			throws SQLException, InstantiationException,
-			IllegalAccessException, ClassNotFoundException {
+	public MonthlyModel findMonthlyTime(String eno, int y, int m){
 		MonthlyModel mm = new MonthlyModel();
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		// データベース接続
-		conn = DriverManager
-				.getConnection(
-						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
-						"root", "password");
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+							"root", "password");
+
 
 		// クラスのインスタンスを取得
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -121,21 +134,34 @@ public class MonthlyDAO {
 		mm.setM_overTime(rs.getDate("m_overworkingtime"));
 		mm.setM_nightTime(rs.getDate("m_nightworkingtime"));
 
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
 		return mm;
 	}
 
-	public List<MonthlyModel> m_findByEmployeeNo(String eno)
-			throws SQLException, InstantiationException,
-			IllegalAccessException, ClassNotFoundException {
+	public List<MonthlyModel> m_findByEmployeeNo(String eno){
 		List<MonthlyModel> list = new ArrayList<MonthlyModel>();
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		// データベース接続
-		conn = DriverManager
-				.getConnection(
-						"jdbc:mysql://localhost:3306/gameinfo?verifyServerCertificate=false&useSSL=false&requireSSL=false",
-						"root", "password");
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/gameinfo?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+							"root", "password");
 
 		// クラスのインスタンスを取得
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -157,6 +183,19 @@ public class MonthlyDAO {
 			mm.setM_nightTime(rs.getDate("m_nightworkingtime"));
 
 			list.add(mm);
+		}
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
 		}
 
 		return list;

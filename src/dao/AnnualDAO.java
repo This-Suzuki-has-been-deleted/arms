@@ -8,23 +8,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.NamingException;
-
 import model.AnnualModel;
-
+//年次
 public class AnnualDAO {
 	// 打刻するメソッド
-	public void insertMonthlyTime(AnnualModel am) throws NamingException,
-			SQLException, InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void insertMonthlyTime(AnnualModel am){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		// データベース接続
-		conn = DriverManager
-				.getConnection(
-						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
-						"root", "password");
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+							"root", "password");
+
 
 		// クラスのインスタンスを取得
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -50,19 +48,33 @@ public class AnnualDAO {
 
 		pstmt.close();
 		conn.close();
+
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
-	public void updateMonthlyTime(AnnualModel am) throws SQLException,
-			InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateMonthlyTime(AnnualModel am){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		// データベース接続
-		conn = DriverManager
-				.getConnection(
-						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
-						"root", "password");
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+							"root", "password");
+
 
 		// クラスのインスタンスを取得
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -85,24 +97,38 @@ public class AnnualDAO {
 
 		pstmt.close();
 		conn.close();
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
-	public AnnualModel findMonthlyTime(String eno, int y)
-			throws SQLException, InstantiationException,
-			IllegalAccessException, ClassNotFoundException {
+	public AnnualModel findMonthlyTime(String eno, int y){
 		AnnualModel am = new AnnualModel();
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		// データベース接続
-		conn = DriverManager
-				.getConnection(
-						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
-						"root", "password");
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+							"root", "password");
+
 
 		// クラスのインスタンスを取得
-		Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+
 
 		// 自動コミットをオフ
 		conn.setAutoCommit(false);
@@ -118,22 +144,35 @@ public class AnnualDAO {
 		am.setY_workTime(rs.getDate("y_workingtime"));
 		am.setY_overTime(rs.getDate("y_overworkingtime"));
 		am.setY_nightTime(rs.getDate("y_nightworkingtime"));
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 
 		return am;
 	}
 
-	public List<AnnualModel> m_findByEmployeeNo(String eno)
-			throws SQLException, InstantiationException,
-			IllegalAccessException, ClassNotFoundException {
+	public List<AnnualModel> m_findByEmployeeNo(String eno){
 		List<AnnualModel> list = new ArrayList<AnnualModel>();
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		// データベース接続
-		conn = DriverManager
-				.getConnection(
-						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
-						"root", "password");
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+							"root", "password");
+
 
 		// クラスのインスタンスを取得
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -154,6 +193,19 @@ public class AnnualDAO {
 			am.setY_nightTime(rs.getDate("y_nightworkingtime"));
 
 			list.add(am);
+		}
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
 		}
 
 		return list;
