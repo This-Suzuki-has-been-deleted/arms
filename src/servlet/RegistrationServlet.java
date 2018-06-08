@@ -100,7 +100,7 @@ public class RegistrationServlet extends HttpServlet {
 			}
 		}
 
-		if(msg == null){
+		if(msg != null){
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("/index.jsp");
 			dispatcher.forward(request, response);
