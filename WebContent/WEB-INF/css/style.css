@@ -31,3 +31,33 @@ header .pagetitle {
 .side li a:hover {
 	background: images/side2.png no-repeat left center;
 }
+.y_next_btn.m_next_btn {
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #00BCD4;
+    background: #ECECEC;
+    border-radius: 0 15px 15px 0;
+    transition: .4s;
+  }
+
+.y_next_btn.m_next_btn:hover {
+    background: #636363;
+}
+.y_back_btn.m_back_btn {
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #00BCD4;
+    background: #ECECEC;
+    border-radius: 0 0 15px 15px;
+    transition: .4s;
+  }
+
+.y_back_btn.m_back_btn:hover {
+    background: #636363;
+}

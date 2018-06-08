@@ -10,8 +10,8 @@
 <title>出退勤確認</title>
 </head>
 <body>
-<button type="button" name="y_back_btn" value="-1">前年</button>
-<button type="button" name="y_next_btn" value="1">次年</button>
+<button type="button" class="y_back_btn" value="-1">前年</button>
+<button type="button" class="y_next_btn" value="1">次年</button>
 	<table>
 		<tr>
 			<th>年（今年度）</th>
@@ -29,8 +29,8 @@
 
 	<br>
 	<h3></h3>
-	<button type="button" name="m_back_btn" value="-1">前月</button>
-<button type="button" name="m_next_btn" value="1">次月</button>
+	<button type="button" class="m_back_btn" value="-1">前月</button>
+<button type="button" class="m_next_btn" value="1">次月</button>
 	<table>
 		<tr>
 			<th>日付</th>
@@ -41,12 +41,13 @@
 			<th>残業時間</th>
 			<th>総勤務時間</th>
 		</tr>
-		<c:forEach var="battlehis" items="${TR.hislist}">
+		<c:forEach var="" items="${}">
 			<tr>
 				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
+				<input type="image" class="wtimeEdit" src="/WEB-INF/images/wtimeedit.png">
 			</tr>
 		</c:forEach>
 	</table>
