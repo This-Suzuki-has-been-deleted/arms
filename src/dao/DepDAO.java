@@ -8,9 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.DepModel;
+
 public class DepDAO {
-	public List<String> findDepName(){
-		List<String> list = new ArrayList<String>();
+	public List<DepModel> findDepName(){
+		List<DepModel> list = new ArrayList<DepModel>();
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -23,12 +25,16 @@ public class DepDAO {
 		// クラスのインスタンスを取得
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-		String sql = "select divisionname from employeedivision";
+		String sql = "select * from employeedivision";
 		pstmt = conn.prepareStatement(sql);
 
 		ResultSet rs = pstmt.executeQuery();
 		while(rs.next()){
-			list.add(rs.getString("divisionname"));
+			DepModel dep = new DepModel();
+			dep.setDepName(rs.getString("divisionname"));
+			dep.setDepNo(rs.getString("divisionno"));
+			dep.setDepFlg(rs.getInt("divisionflg"));
+			list.add(dep);
 		}
 
 		// 自動コミットをオフ
