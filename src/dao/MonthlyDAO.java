@@ -11,7 +11,7 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import model.MonthlyModel;
-
+//月次
 public class MonthlyDAO {
 	// 打刻するメソッド
 	public void insertMonthlyTime(MonthlyModel mm) throws NamingException,
