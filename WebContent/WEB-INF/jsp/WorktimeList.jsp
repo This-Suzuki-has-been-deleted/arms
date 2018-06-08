@@ -10,7 +10,8 @@
 <title>出退勤確認</title>
 </head>
 <body>
-<a href="#" class="square_btn" value= -1>前月</a><a href="#" class="square_btn" value="aaa">次月</a>
+<button type="button" name="y_back_btn" value="-1">前年</button>
+<button type="button" name="y_next_btn" value="1">次年</button>
 	<table>
 		<tr>
 			<th>年（今年度）</th>
@@ -28,6 +29,8 @@
 
 	<br>
 	<h3></h3>
+	<button type="button" name="m_back_btn" value="-1">前月</button>
+<button type="button" name="m_next_btn" value="1">次月</button>
 	<table>
 		<tr>
 			<th>日付</th>
