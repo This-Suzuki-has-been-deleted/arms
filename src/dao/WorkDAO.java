@@ -8,24 +8,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.NamingException;
-
 import model.WorkTimeModel;
 
 public class WorkDAO {
 
 	// 打刻するメソッド
-	public void insertWorkTime(WorkTimeModel wt) throws NamingException,
-			SQLException, InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void insertWorkTime(WorkTimeModel wt){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		// データベース接続
-		conn = DriverManager
-				.getConnection(
-						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
-						"root", "password");
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+							"root", "password");
+
 
 		// クラスのインスタンスを取得
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -47,22 +45,35 @@ public class WorkDAO {
 		} else {
 			conn.rollback();
 		}
-
 		pstmt.close();
 		conn.close();
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
 	}
 
-	public void updateWorkTime(WorkTimeModel wt) throws SQLException,
-			InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
+	public void updateWorkTime(WorkTimeModel wt){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		// データベース接続
-		conn = DriverManager
-				.getConnection(
-						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
-						"root", "password");
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+							"root", "password");
+
 
 		// クラスのインスタンスを取得
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -85,21 +96,34 @@ public class WorkDAO {
 
 		pstmt.close();
 		conn.close();
+
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
-	public WorkTimeModel findWorkTime(String eno, int y, int m, int d)
-			throws SQLException, InstantiationException,
-			IllegalAccessException, ClassNotFoundException {
+	public WorkTimeModel findWorkTime(String eno, int y, int m, int d){
 		WorkTimeModel wt = new WorkTimeModel();
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		// データベース接続
-		conn = DriverManager
-				.getConnection(
-						"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
-						"root", "password");
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false",
+							"root", "password");
 
 		// クラスのインスタンスを取得
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -121,19 +145,32 @@ public class WorkDAO {
 		wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
 		wt.setAttendance(rs.getDate("attendance"));
 		wt.setLeaving(rs.getDate("leaving"));
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 
 		return wt;
 	}
 
-	public List<WorkTimeModel> d_findByEmployeeNo(String eno)
-			throws SQLException, InstantiationException,
-			IllegalAccessException, ClassNotFoundException {
+	public List<WorkTimeModel> d_findByEmployeeNo(String eno){
 		List<WorkTimeModel> list = new ArrayList<WorkTimeModel>();
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		// データベース接続
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false","root", "password");
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false","root", "password");
+
 
 		// クラスのインスタンスを取得
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -156,7 +193,19 @@ public class WorkDAO {
 			wt.setLeaving(rs.getDate("leaving"));
 			list.add(wt);
 		}
-
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 		return list;
 	}
 }
