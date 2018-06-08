@@ -79,4 +79,14 @@
     <servlet-name>ChangeServlet</servlet-name>
     <url-pattern>/ChangeServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConfServlet</display-name>
+    <servlet-name>ConfServlet</servlet-name>
+    <servlet-class>servlet.ConfServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfServlet</servlet-name>
+    <url-pattern>/ConfServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
