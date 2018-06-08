@@ -391,6 +391,53 @@ public class EmployeeDAO {
 		}
 			return true;
 	}
+	public boolean updateEmppass(EmployeeModel empmodel) {
+
+		conn = null;
+		pStmt = null;
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/gameinfo"
+									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
+							"root", "password");
+			// 自動コミットOFF
+			conn.setAutoCommit(false);
+			// SQLの実行
+			String sql = "update employee set EmployeePassword = ?"
+					+ "where EmployeeNo = ?";
+
+			pStmt = conn.prepareStatement(sql);
+
+			// パラメータの設定
+			pStmt.setString(1,empmodel.getPassword());		//(1,xxx)１個目のハテナ
+			pStmt.setString(2,empmodel.getEmployeeNo());
+
+			// 結果の取得と出力
+			if (pStmt.executeUpdate() > 0) {
+				// コミット
+				conn.commit();
+			} else {
+				conn.rollback();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+
+		} finally {
+			try {
+				// 切断
+				pStmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+
+		}
+			return true;
+	}
 	public boolean deleteEmployee(String empno) {
 
 		conn = null;
