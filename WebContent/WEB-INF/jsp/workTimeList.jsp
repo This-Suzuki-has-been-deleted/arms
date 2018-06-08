@@ -10,8 +10,8 @@
 <title>出退勤確認</title>
 </head>
 <body>
-<button type="button" class="y_back_btn" value="-1">前年</button>
-<button type="button" class="y_next_btn" value="1">次年</button>
+<button type="button" name="y_btn" value="-1">前年</button>
+<button type="button" name="y_btn" value="1">次年</button>
 	<table>
 		<tr>
 			<th>年（今年度）</th>
@@ -29,8 +29,8 @@
 
 	<br>
 	<h3></h3>
-	<button type="button" class="m_back_btn" value="-1">前月</button>
-<button type="button" class="m_next_btn" value="1">次月</button>
+	<button type="button" name="m_btn" value="-1">前月</button>
+<button type="button" name="m_btn" value="1">次月</button>
 	<table>
 		<tr>
 			<th>日付</th>
@@ -41,9 +41,10 @@
 			<th>残業時間</th>
 			<th>総勤務時間</th>
 		</tr>
-		<c:forEach var="" items="${}">
+		<c:forEach var="" items="${WORKTIME.list}">
 			<tr>
 				<td>${WORKTIME.day}</td>
+				<td></td>
 				<td>${WORKTIME.attendance}</td>
 				<td>${WORKTIME.leaving}</td>
 				<td>${WORKTIME.}</td>
