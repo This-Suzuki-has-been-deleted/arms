@@ -20,10 +20,10 @@
 			<th>総勤務合計時間</th>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td>${ANNUAL.year}</td>
+			<td>${ANNUAL.y_workTime}</td>
+			<td>${ANNUAL.y_overTime}</td>
+			<td>${ANNUAL.y_nightTime}</td>
 		</tr>
 	</table>
 
@@ -43,15 +43,14 @@
 		</tr>
 		<c:forEach var="" items="${}">
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>${WORKTIME.day}</td>
+				<td>${WORKTIME.attendance}</td>
+				<td>${WORKTIME.leaving}</td>
+				<td>${WORKTIME.}</td>
 				<input type="image" class="wtimeEdit" src="/WEB-INF/images/wtimeedit.png">
 			</tr>
 		</c:forEach>
 	</table>
-
 	<br>
 	<h3>当月勤務時間</h3>
 	<table>
@@ -62,10 +61,10 @@
 			<th>総勤務合計時間</th>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td>${MOUNTHLY.month}</td>
+			<td>${MOUNTHLY.m_workTime}</td>
+			<td>${MOUNTHLY.m_overTime}</td>
+			<td>${MOUNTHLY.m_nightTime}</td>
 		</tr>
 	</table>
 

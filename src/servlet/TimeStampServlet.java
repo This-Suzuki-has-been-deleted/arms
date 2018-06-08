@@ -60,7 +60,6 @@ public class TimeStampServlet extends HttpServlet {
 					}else{
 						session.setAttribute("work",wm);							//当日を参照する
 						session.setAttribute("buttonvalue", "退勤");				//ボタンのバリューを退勤に
-
 					}
 				}else{
 					session.setAttribute("work",wm);							//昨日を参照する
