@@ -111,7 +111,7 @@ public class ChangeServlet extends HttpServlet {
 			session.setAttribute("EmployeeModel", employee);
 
 			if(msg != null){
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/employeeChange.jsp");
 				dispatcher.forward(request, response);
 			}
 
