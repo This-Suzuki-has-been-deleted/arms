@@ -145,6 +145,7 @@ public class WorkDAO {
 		wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
 		wt.setAttendance(rs.getDate("attendance"));
 		wt.setLeaving(rs.getDate("leaving"));
+		wt.weekDate(wt);
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
@@ -191,6 +192,7 @@ public class WorkDAO {
 			wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
 			wt.setAttendance(rs.getDate("attendance"));
 			wt.setLeaving(rs.getDate("leaving"));
+			wt.weekDate(wt);
 			list.add(wt);
 		}
 		} catch (SQLException e) {

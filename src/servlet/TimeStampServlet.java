@@ -131,11 +131,15 @@ public class TimeStampServlet extends HttpServlet {
 			Date overTime = mm.getM_overTime();
 			Date nightTime = mm.getM_nightTime();
 
+			//勤務時間算出
 			int diff = dm.diff(leaving, attendance);
 			mm.setM_workTime(dm.addMinute(workTime, diff));
+			//残業時間算出
 			diff = dm.diff(leaving, dm.fixedTime(wt.getYear(), wt.getMonth(), wt.getDay()));
 			mm.setM_overTime(dm.addMinute(overTime, diff));
+			//深夜時間算出
 			diff = dm.diff(leaving, dm.overTime(wt.getYear(), wt.getMonth(), wt.getDay()));
+			mm.setM_nightTime(dm.addMinute(nightTime, diff));
 		}
 	}
 
