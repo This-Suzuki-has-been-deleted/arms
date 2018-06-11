@@ -21,7 +21,6 @@ import dao.WorkDAO;
 /**
  * Servlet implementation class TimeStampServlet
  */
-
 public class TimeStampServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
