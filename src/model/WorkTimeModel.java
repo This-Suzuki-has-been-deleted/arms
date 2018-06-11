@@ -13,9 +13,12 @@ public class WorkTimeModel {
 	private Date leaving;
 	private boolean workFlg;
 	private String week;
-	private Date workTime;
-	private Date overTime;
-	private Date nightTime;
+	private int workTimeH;
+	private int workTimeM;
+	private int overTimeH;
+	private int overTimeM;
+	private int nightTimeH;
+	private int nightTimeM;
 
 	/**
 	 * 年月日に対応する曜日を取得し、受け取ったWorkTimeModelにセットするメソッド
@@ -155,28 +158,51 @@ public class WorkTimeModel {
 		this.week = week;
 	}
 
-	public Date getWorkTime() {
-		return workTime;
+	public int getWorkTimeH() {
+		return workTimeH;
 	}
 
-	public void setWorkTime(Date workTime) {
-		this.workTime = workTime;
+	public void setWorkTimeH(int workTimeH) {
+		this.workTimeH = workTimeH;
 	}
 
-	public Date getOverTime() {
-		return overTime;
+	public int getWorkTimeM() {
+		return workTimeM;
 	}
 
-	public void setOverTime(Date overTime) {
-		this.overTime = overTime;
+	public void setWorkTimeM(int workTimeM) {
+		this.workTimeM = workTimeM;
 	}
 
-	public Date getNightTime() {
-		return nightTime;
+	public int getOverTimeH() {
+		return overTimeH;
 	}
 
-	public void setNightTime(Date nightTime) {
-		this.nightTime = nightTime;
+	public void setOverTimeH(int overTimeH) {
+		this.overTimeH = overTimeH;
 	}
 
+	public int getOverTimeM() {
+		return overTimeM;
+	}
+
+	public void setOverTimeM(int overTimeM) {
+		this.overTimeM = overTimeM;
+	}
+
+	public int getNightTimeH() {
+		return nightTimeH;
+	}
+
+	public void setNightTimeH(int nightTimeH) {
+		this.nightTimeH = nightTimeH;
+	}
+
+	public int getNightTimeM() {
+		return nightTimeM;
+	}
+
+	public void setNightTimeM(int nightTimeM) {
+		this.nightTimeM = nightTimeM;
+	}
 }

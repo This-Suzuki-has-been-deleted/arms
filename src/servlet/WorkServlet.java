@@ -79,7 +79,7 @@ public class WorkServlet extends HttpServlet {
 
 		monthlyModel = monthlyDao.findMonthlyTime(myEmp.getEmployeeNo(),year,month);
 
-		workTimeList = (ArrayList)workDao.d_findByEmployeeNoAndMonth(myEmp.getEmployeeNo(),year,month);
+		workTimeList = (ArrayList<WorkTimeModel>)workDao.d_findByEmployeeNoAndMonth(myEmp.getEmployeeNo(),year,month);
 
 		for(WorkTimeModel wtm :workTimeList){
 			long fix = dateMath.fixedTime(wtm.getYear(), wtm.getMonth(), wtm.getDay());
@@ -90,6 +90,13 @@ public class WorkServlet extends HttpServlet {
 			int workTime = dateMath.diff(leave, attend);	//勤務時間を算出
 			int overTime = dateMath.diff(leave, fix);		//残業時間を算出
 			int nightTime = dateMath.diff(leave, over);		//深夜時間を算出
+
+			wtm.setWorkTimeH((int)workTime / 60);
+			wtm.setWorkTimeM(workTime % 60);
+			wtm.setOverTimeH((int)overTime / 60);
+			wtm.setOverTimeM(overTime % 60);
+			wtm.setNightTimeH((int)nightTime / 60);
+			wtm.setNightTimeM(nightTime % 60);
 		}
 
 		request.setAttribute("ANNUAL", annualModel);
