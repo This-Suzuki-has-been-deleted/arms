@@ -29,7 +29,7 @@ public class AuthDAO {
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
 				AuthModel am = new AuthModel();
-				am.setAuthNo(rs.getInt("employeeAuthorityNo"));
+				am.setAuthNo(rs.getString("employeeAuthorityNo"));
 				am.setAuthName(rs.getString("authorityName"));
 				list.add(am);
 			}

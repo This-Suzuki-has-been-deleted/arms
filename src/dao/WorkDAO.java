@@ -210,4 +210,54 @@ public class WorkDAO {
 		}
 		return list;
 	}
+
+	public List<WorkTimeModel> d_findByEmployeeNoAndMonth(String eno,int y,int m){
+		List<WorkTimeModel> list = new ArrayList<WorkTimeModel>();
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		// データベース接続
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/arms?verifyServerCertificate=false&useSSL=false&requireSSL=false","root", "password");
+
+
+		// クラスのインスタンスを取得
+		Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+		// 自動コミットをオフ
+		conn.setAutoCommit(false);
+		String sql = "select * from employeeworktime where employeeno=? and year=? and month=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, eno);
+		pstmt.setInt(2, y);
+		pstmt.setInt(3, m);
+
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()){
+			WorkTimeModel wt = new WorkTimeModel();
+			wt.setEmployeeNo(rs.getString("employeeno"));
+			wt.setYear(rs.getInt("year"));
+			wt.setMonth(rs.getInt("month"));
+			wt.setDay(rs.getInt("day"));
+			wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
+			wt.setAttendance(rs.getDate("attendance"));
+			wt.setLeaving(rs.getDate("leaving"));
+			wt.weekDate(wt);
+			list.add(wt);
+		}
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
