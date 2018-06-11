@@ -59,8 +59,8 @@ public class WorkServlet extends HttpServlet {
 		DateMath dateMath = new DateMath();
 
 		//年月をセッションから取得
-		String yearBuf = (String)request.getParameter("y_btn");
-		String monthBuf = (String)request.getParameter("m_btn");
+		String yearBuf = request.getParameter("y_btn");
+		String monthBuf = request.getParameter("m_btn");
 
 		int year;
 		int month;
