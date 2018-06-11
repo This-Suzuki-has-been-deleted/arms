@@ -3,6 +3,10 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String cngdate = "";
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,8 +14,8 @@
 <title>出退勤確認</title>
 </head>
 <body>
-<button type="button" name="y_btn" value="-1">前年</button>
-<button type="button" name="y_btn" value="1">次年</button>
+<button type="submit" name="y_btn" value="${ANNUAL.year} -1"method="GET">前年</button>
+<button type="submit" name="y_btn" value="${ANNUAL.year} + 1"method="GET">次年</button>
 	<table>
 		<tr>
 			<th>年（今年度）</th>
@@ -29,8 +33,8 @@
 
 	<br>
 	<h3></h3>
-	<button type="button" name="m_btn" value="-1">前月</button>
-<button type="button" name="m_btn" value="1">次月</button>
+<button type="submit" name="m_btn" value="${MOUNTHLY.year} - 1"method="GET">前月</button>
+<button type="submit" name="m_btn" value="${MOUNTHLY.year} + 1"method="GET">次月</button>
 	<table>
 		<tr>
 			<th>日付</th>
@@ -41,10 +45,10 @@
 			<th>残業時間</th>
 			<th>総勤務時間</th>
 		</tr>
-		<c:forEach var="" items="${WORKTIME.list}">
+		<c:forEach var="emp_wtime" items="${WORKTIME.list}">
 			<tr>
 				<td>${WORKTIME.day}</td>
-				<td></td>
+				<td>リストに曜日がはいってる。鈴木悟めも.txt参照</td>
 				<td>${WORKTIME.attendance}</td>
 				<td>${WORKTIME.leaving}</td>
 				<td>${WORKTIME.}</td>
