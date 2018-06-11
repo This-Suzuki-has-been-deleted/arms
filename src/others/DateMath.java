@@ -38,7 +38,7 @@ public class DateMath {
 
 	/**
 	 * 深夜時間計算の時、22時以降に業務を開始した際を考慮した
-	 * 二つの時間の差(分)を算出するメソッド
+	 * 二つの時間の差(分)を算出するメソッド 未実装です
 	 * @param date1
 	 * @param date2
 	 * @param startTime
