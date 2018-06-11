@@ -42,6 +42,8 @@ public class WorkServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+		//宣言
 		AnnualDAO annualDao = new AnnualDAO();
 		MonthlyDAO monthlyDao = new MonthlyDAO();
 		WorkDAO workDao = new WorkDAO();
@@ -51,10 +53,12 @@ public class WorkServlet extends HttpServlet {
 
 		ArrayList<WorkTimeModel> workTimeList;
 
+		//ログイン中のユーザーの情報をセッションから得る
 		EmployeeModel myEmp = (EmployeeModel)request.getAttribute("Employee");
 
 		DateMath dateMath = new DateMath();
 
+		//年月をセッションから取得
 		String yearBuf = (String)request.getParameter("y_btn");
 		String monthBuf = (String)request.getParameter("m_btn");
 
@@ -63,24 +67,24 @@ public class WorkServlet extends HttpServlet {
 
 		Calendar now = Calendar.getInstance();
 
+		//yearとmonthの初期値を設定
 		if(yearBuf == null){
-			year = now.get(Calendar.YEAR);
+			year = now.get(Calendar.YEAR);		//セッションに年が入っていなかった場合は今日の年を取得
 		}else{
-			year = Integer.parseInt(yearBuf);
+			year = Integer.parseInt(yearBuf);	//セッションに年が入っていた場合はその年を取得
 		}
-
 		if(monthBuf == null){
-			month = now.get(Calendar.MONTH);
+			month = now.get(Calendar.MONTH);	//セッションに月が入っていなかった場合は今日の月を取得
 		}else{
-			month = Integer.parseInt(monthBuf);
+			month = Integer.parseInt(monthBuf);	//セッションに月が入っていた場合はその月を取得
 		}
 
+		//データベースからモデルに追加
 		annualModel = annualDao.findAnnualTime(myEmp.getEmployeeNo(),year);
-
 		monthlyModel = monthlyDao.findMonthlyTime(myEmp.getEmployeeNo(),year,month);
-
 		workTimeList = (ArrayList<WorkTimeModel>)workDao.d_findByEmployeeNoAndMonth(myEmp.getEmployeeNo(),year,month);
 
+		//モデルに必要な情報を他メソッドを使い追加
 		for(WorkTimeModel wtm :workTimeList){
 			long fix = dateMath.fixedTime(wtm.getYear(), wtm.getMonth(), wtm.getDay());
 			long over = dateMath.overTime(wtm.getYear(), wtm.getMonth(), wtm.getDay());
@@ -101,7 +105,7 @@ public class WorkServlet extends HttpServlet {
 
 		request.setAttribute("ANNUAL", annualModel);
 		request.setAttribute("MOUNTHLY", monthlyModel);
-		request.setAttribute("WORKTIME", workTimeList);
+		request.setAttribute("Worktime", workTimeList);
 
 
 		RequestDispatcher dispatcher = request
@@ -114,8 +118,12 @@ public class WorkServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		WorkTimeModel workTimeModel = (WorkTimeModel)request.getAttribute("wtm");
+		request.setAttribute("workTimeModel", workTimeModel);
 
-
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("/WEB-INF/jsp/workTimeChange.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

@@ -1,21 +1,25 @@
+<%@page import="model.WorkTimeModel"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-String cngdate = "";
+	String cngdate = "";
 
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>出退勤確認</title>
 </head>
 <body>
-<button type="submit" name="y_btn" value="${ANNUAL.year} -1"method="GET">前年</button>
-<button type="submit" name="y_btn" value="${ANNUAL.year} + 1"method="GET">次年</button>
+	<form action="workServlet" method="GET">
+		<button type="submit" name="y_btn" value="${ANNUAL.year - 1}">前年</button>
+		<button type="submit" name="y_btn" value="${ANNUAL.year + 1}">次年</button>
+	</form>
 	<table>
 		<tr>
 			<th>年（今年度）</th>
@@ -33,8 +37,10 @@ String cngdate = "";
 
 	<br>
 	<h3></h3>
-<button type="submit" name="m_btn" value="${MOUNTHLY.year} - 1" method="GET">前月</button>
-<button type="submit" name="m_btn" value="${MOUNTHLY.year} + 1" method="GET">次月</button>
+	<form action="workServlet" method="GET">
+		<button type="submit" name="m_btn" value="${MOUNTHLY.year - 1}">前月</button>
+		<button type="submit" name="m_btn" value="${MOUNTHLY.year + 1}">次月</button>
+	</form>
 	<table>
 		<tr>
 			<th>日付</th>
@@ -52,8 +58,11 @@ String cngdate = "";
 				<td>${wtime.attendance}</td>
 				<td>${wtime.leaving}</td>
 				<td>${wtime.}</td>
-				<input type="image" class="wtimeEdit" src="/WEB-INF/images/wtimeedit.png">
 			</tr>
+			<form action="WorkServlet" method="POST">
+				<input type="hidden" value="${wtime}" name="wtm" />
+				<input type="image" src="/WEB-INF/images/wtimeedit.png">
+			</form>
 		</c:forEach>
 	</table>
 	<br>
