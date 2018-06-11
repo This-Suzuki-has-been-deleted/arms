@@ -65,7 +65,7 @@ public class RegistrationServlet extends HttpServlet {
 		String textName;
 		String selectDivisionNo;
 		String selectAuthorityNo;
-		String pageFlg = "rs";
+		String pageFlg = "RegistrationServlet";
 		String msg = null;
 		boolean flg = false;
 

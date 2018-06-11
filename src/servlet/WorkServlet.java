@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.AnnualModel;
 import model.EmployeeModel;
+import model.MonthlyModel;
 import dao.AnnualDAO;
 import dao.MonthlyDAO;
 
@@ -39,10 +40,15 @@ public class WorkServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		AnnualDAO annualDao = new AnnualDAO();
 		MonthlyDAO monthlyDao = new MonthlyDAO();
+
 		EmployeeModel myEmp = (EmployeeModel)request.getAttribute("Employee");
-		ArrayList<AnnualModel> annualList = (ArrayList<AnnualModel>) annualDao.m_findByEmployeeNo(myEmp.getEmployeeNo());
 
+		int year = Integer.parseInt((String)request.getParameter("y_btn"));
+		int mBtn = Integer.parseInt((String)request.getParameter("m_btn"));
 
+		AnnualModel annualModel = annualDao.findAnnualTime(myEmp.getEmployeeNo(),year);
+
+		ArrayList<MonthlyModel> monthlyList = (ArrayList<MonthlyModel>) monthlyDao.m_findByEmployeeNo(myEmp.getEmployeeNo());
 
 
 
