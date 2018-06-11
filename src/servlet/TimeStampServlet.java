@@ -3,7 +3,6 @@ package servlet;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,13 +46,13 @@ public class TimeStampServlet extends HttpServlet {
 
 		EmployeeModel em = (EmployeeModel) session.getAttribute("employee");
 		WorkDAO wdao = new WorkDAO();
-		WorkTimeModel wm = wdao.findWorkTime(em.getEmployeeNo(), year,
-				month, day);
+		WorkTimeModel wm = wdao.findWorkTime(em.getEmployeeNo(), year, month,
+				day);
 
 		if (wm != null) { // 前日のレコードの有無を確認
 			if (wm.isWorkFlg()) { // 勤怠フラグを確認、本日のレコードの有無を確認
-				wm = wdao.findWorkTime(em.getEmployeeNo(), year, month,
-						day + 1);
+				wm = wdao
+						.findWorkTime(em.getEmployeeNo(), year, month, day + 1);
 				if (wm != null) {
 					wm.setEmployeeNo(em.getEmployeeNo());
 					wm.setYear(year);
@@ -72,8 +71,7 @@ public class TimeStampServlet extends HttpServlet {
 				session.setAttribute("buttonvalue", "退勤"); // ボタンのバリューを退勤に
 			}
 		} else {
-			wm = wdao
-					.findWorkTime(em.getEmployeeNo(), year, month, day + 1);
+			wm = wdao.findWorkTime(em.getEmployeeNo(), year, month, day + 1);
 			if (wm == null) { // 本日のレコードの有無を確認
 				wm.setEmployeeNo(em.getEmployeeNo());
 				wm.setYear(year);
@@ -115,7 +113,6 @@ public class TimeStampServlet extends HttpServlet {
 			LocalDateTime date = LocalDateTime.now();
 			String temp = date.toString();
 			Date now = Date.valueOf(temp);
-			Calendar cal = Calendar.getInstance();
 
 			wt.setLeaving(now);
 			wt.setWorkFlg(true);
@@ -125,22 +122,26 @@ public class TimeStampServlet extends HttpServlet {
 			long attendance = wt.getAttendance().getTime();
 			long leaving = wt.getLeaving().getTime();
 
-
-			MonthlyModel mm = mdao.findMonthlyTime(wt.getEmployeeNo(),wt.getYear(), wt.getMonth());
+			MonthlyModel mm = mdao.findMonthlyTime(wt.getEmployeeNo(),
+					wt.getYear(), wt.getMonth());
 			Date workTime = mm.getM_workTime();
 			Date overTime = mm.getM_overTime();
 			Date nightTime = mm.getM_nightTime();
 
-			//勤務時間算出
+			// 勤務時間算出
 			int diff = dm.diff(leaving, attendance);
 			mm.setM_workTime(dm.addMinute(workTime, diff));
-			//残業時間算出
-			diff = dm.diff(leaving, dm.fixedTime(wt.getYear(), wt.getMonth(), wt.getDay()));
+			// 残業時間算出
+			diff = dm.diff(leaving,
+					dm.fixedTime(wt.getYear(), wt.getMonth(), wt.getDay()));
 			mm.setM_overTime(dm.addMinute(overTime, diff));
-			//深夜時間算出
-			diff = dm.diff(leaving, dm.overTime(wt.getYear(), wt.getMonth(), wt.getDay()));
+			// 深夜時間算出
+			diff = dm.diff(leaving,
+					dm.overTime(wt.getYear(), wt.getMonth(), wt.getDay()));
 			mm.setM_nightTime(dm.addMinute(nightTime, diff));
 		}
+		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+		rd.forward(request, response);
 	}
 
 }
