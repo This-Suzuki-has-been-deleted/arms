@@ -42,15 +42,15 @@ public class ChangeServlet extends HttpServlet {
 		session = request.getSession();
 		EmployeeModel employee = (EmployeeModel) session.getAttribute("Employee");
 		String employeeNo = employee.getEmployeeNo();
+		List<DepModel> depModel = new ArrayList<DepModel>();
+		List<AuthModel> authModel = new ArrayList<AuthModel>();
+		DepDAO depDao = new DepDAO();
+		AuthDAO authDao = new AuthDAO();
+		depModel = depDao.findDepAll();
+		authModel = authDao.findAuthAll();
+		session.setAttribute("DepModel", depModel);
+		session.setAttribute("authModel",authModel);
 		if(employee.getAuthNo().equals("01") && employee.getEmployeeNo() == employeeNo ){
-			List<DepModel> depModel = new ArrayList<DepModel>();
-			List<AuthModel> authModel = new ArrayList<AuthModel>();
-			DepDAO depDao = new DepDAO();
-			AuthDAO authDao = new AuthDAO();
-			depModel = depDao.findDepAll();
-			authModel = authDao.findAuthAll();
-			session.setAttribute("DepModel", depModel);
-			session.setAttribute("authModel",authModel);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -67,7 +67,6 @@ public class ChangeServlet extends HttpServlet {
 		EmployeeModel employee = (EmployeeModel) session.getAttribute("Employee");
 		String employeeNo = employee.getEmployeeNo();
 		if(employee.getAuthNo().equals("01") && employee.getEmployeeNo() == employeeNo ){
-
 			String password = request.getParameter("pass");
 			String nextPassword = request.getParameter("nextPass");
 			String msg = null;
@@ -75,7 +74,6 @@ public class ChangeServlet extends HttpServlet {
 			String passHashCode = loginlogic.passHash(password);
 			EmployeeDAO employeeDao = new EmployeeDAO();
 			EmployeeModel emp = employeeDao.findEmployee(employeeNo);
-
 			if(emp == null || emp.getPassword() == passHashCode){
 				msg = "パスワードが重複しています。";
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
