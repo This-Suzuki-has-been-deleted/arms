@@ -112,7 +112,7 @@ public class EmployeeDAO {
 		}
 		return counter;
 	}
-	public ArrayList<EmployeeModel> findByEmployeeName(String empname,String logno) {
+	public ArrayList<EmployeeModel> findByEmployeeName(String empname,String empno) {
 
 		conn = null;
 		pStmt = null;
@@ -135,7 +135,7 @@ public class EmployeeDAO {
 			EmployeeModel empmodel = new EmployeeModel();
 
 			pStmt.setString(1,empname);		//(1,xxx)１個目のハテナ
-			pStmt.setString(2,logno);
+			pStmt.setString(2,empno);
 
 			// 結果の取得と出力
 			ResultSet rs = pStmt.executeQuery();
@@ -174,7 +174,7 @@ public class EmployeeDAO {
 		return employeelist;
 
 	}
-	public ArrayList<EmployeeModel> findByDepNo(String loginno,Integer depno,String divisionno) {		//部署 = Dep
+	public ArrayList<EmployeeModel> findByDepNo(String loginno,String dep_no,String authno) {		//部署 = Dep
 
 		conn = null;
 		pStmt = null;
@@ -191,8 +191,8 @@ public class EmployeeDAO {
 					+ "LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority) "
 					+ "where  DivisionNo = ? AND ? = '003' AND EmployeeNo != ?)";		//ログイン情報
 
-			pStmt.setInt(1,depno);		//(1,xxx)１個目のハテナ
-			pStmt.setString(2,divisionno);
+			pStmt.setString(1,dep_no);		//(1,xxx)１個目のハテナ
+			pStmt.setString(2,authno);
 			pStmt.setString(3,loginno);
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -229,6 +229,61 @@ public class EmployeeDAO {
 			}
 		}
 		return employeelist;
+	}
+	public ArrayList<EmployeeModel>findByNameDep(String dep_no, String employee_name) {
+		conn = null;
+		pStmt = null;
+		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
+		EmployeeModel empmodel = new EmployeeModel();
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/gameinfo"
+									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
+							"root", "password");
+			// SQLの実行
+			String sql = "select EmployeeNo,EmployeeName,DivisionName,AuthorityName "
+					+ "from Employee AS e LEFT JOIN employeedivision AS ed ON(e.DivisionNo = ed.DivisionNo)"
+					+ "LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority) WHERE )";
+
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// 結果の取得と出力
+			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+
+				String employeeno = rs.getString("EmployeeNo");
+				String employeename = rs.getString("EmployeeName");
+				String divisionname = rs.getString("DivisionName");
+				String authorityname = rs.getString("AuthorityName");
+
+				empmodel.setEmployeeNo(employeeno);
+				empmodel.setEmployeeName(employeename);
+				empmodel.setDepName(divisionname);
+				empmodel.setAuthName(authorityname);
+
+				employeelist.add(empmodel);
+
+			}
+			return employeelist;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				// 切断
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+
+		}
+
+
+		return employeelist;
+
 	}
 	public ArrayList<EmployeeModel> findAll() {
 

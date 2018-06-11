@@ -39,11 +39,20 @@ public class EmployeeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		cnt = edao.CountEmp(emodel.getAuthNo(),emodel.getEmployeeNo());
-		if(emodel.getAuthNo() == "003") {
-			text1 = request.getParameter("text1");
-			if() {
 
+		String dep_no = request.getParameter("dep_no");
+		String employee_name = request.getParameter("employee_no");
+
+		cnt = edao.CountEmp(emodel.getAuthNo(),emodel.getEmployeeNo());
+
+		edao.findByDepNo(emodel.getEmployeeNo(),dep_no,emodel.getAuthNo());
+
+
+		edao.findByNameDep(dep_no,employee_name);
+
+		if(emodel.getAuthNo() == "003") {
+			if(dep_no == emodel.getDepNo()) {
+				edao.findByEmployeeName(employee_name,emodel.getEmployeeNo());
 			}
 
 		}
