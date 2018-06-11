@@ -49,7 +49,7 @@ public class LoginCheckFilter implements Filter {
 			chain.doFilter(request, response);
 		}else{
 			session.setAttribute("msg", "ログインしてください。");
-			RequestDispatcher dr = request.getRequestDispatcher("login.jsp");
+			RequestDispatcher dr = request.getRequestDispatcher("/jsp/login.jsp");
 			dr.forward(httpRequest, httpResponse);
 		}
 	}

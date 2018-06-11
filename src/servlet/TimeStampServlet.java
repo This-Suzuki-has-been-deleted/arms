@@ -36,9 +36,16 @@ public class TimeStampServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@SuppressWarnings("null")
 	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+		HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		EmployeeModel emp= (EmployeeModel)session.getAttribute("employee");
+		if(emp==null){
+			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		}
+
 		LocalDateTime date = LocalDateTime.now();
 		int year = date.getYear();
 		int month = date.getMonthValue();
