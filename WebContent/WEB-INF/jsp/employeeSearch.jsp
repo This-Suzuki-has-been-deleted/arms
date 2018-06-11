@@ -26,7 +26,8 @@
 			<th>社員番号</th>
 			<th>社員名</th>
 			<th>部署</th>
-			<c:if test="{Employee.Divisionno == '003'}">				<!-- EmployeeModelのセッション名Employee -->
+			<c:if test="{Employee.Divisionno == '003'}">
+				<!-- EmployeeModelのセッション名Employee -->
 				<th>権限</th>
 			</c:if>
 		</tr>
