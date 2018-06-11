@@ -14,6 +14,7 @@ import model.AnnualModel;
 import model.EmployeeModel;
 import model.MonthlyModel;
 import model.WorkTimeModel;
+import others.DateMath;
 import dao.AnnualDAO;
 import dao.MonthlyDAO;
 import dao.WorkDAO;
@@ -52,6 +53,8 @@ public class WorkServlet extends HttpServlet {
 
 		EmployeeModel myEmp = (EmployeeModel)request.getAttribute("Employee");
 
+		DateMath dateMath = new DateMath();
+
 		String yearBuf = (String)request.getParameter("y_btn");
 		String monthBuf = (String)request.getParameter("m_btn");
 
@@ -77,6 +80,17 @@ public class WorkServlet extends HttpServlet {
 		monthlyModel = monthlyDao.findMonthlyTime(myEmp.getEmployeeNo(),year,month);
 
 		workTimeList = (ArrayList)workDao.d_findByEmployeeNoAndMonth(myEmp.getEmployeeNo(),year,month);
+
+		for(WorkTimeModel wtm :workTimeList){
+			long fix = dateMath.fixedTime(wtm.getYear(), wtm.getMonth(), wtm.getDay());
+			long over = dateMath.overTime(wtm.getYear(), wtm.getMonth(), wtm.getDay());
+			long leave = wtm.getLeaving().getTime();
+			long attend = wtm.getAttendance().getTime();
+
+			int workTime = dateMath.diff(leave, attend);	//勤務時間を算出
+			int overTime = dateMath.diff(leave, fix);		//残業時間を算出
+			int nightTime = dateMath.diff(leave, over);		//深夜時間を算出
+		}
 
 		request.setAttribute("ANNUAL", annualModel);
 		request.setAttribute("MOUNTHLY", monthlyModel);

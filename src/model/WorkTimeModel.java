@@ -13,6 +13,9 @@ public class WorkTimeModel {
 	private Date leaving;
 	private boolean workFlg;
 	private String week;
+	private Date workTime;
+	private Date overTime;
+	private Date nightTime;
 
 	/**
 	 * 年月日に対応する曜日を取得し、受け取ったWorkTimeModelにセットするメソッド
@@ -150,6 +153,30 @@ public class WorkTimeModel {
 
 	public void setWeek(String week) {
 		this.week = week;
+	}
+
+	public Date getWorkTime() {
+		return workTime;
+	}
+
+	public void setWorkTime(Date workTime) {
+		this.workTime = workTime;
+	}
+
+	public Date getOverTime() {
+		return overTime;
+	}
+
+	public void setOverTime(Date overTime) {
+		this.overTime = overTime;
+	}
+
+	public Date getNightTime() {
+		return nightTime;
+	}
+
+	public void setNightTime(Date nightTime) {
+		this.nightTime = nightTime;
 	}
 
 }
