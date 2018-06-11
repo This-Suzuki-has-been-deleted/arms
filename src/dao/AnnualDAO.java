@@ -112,7 +112,7 @@ public class AnnualDAO {
 		}
 	}
 
-	public AnnualModel findMonthlyTime(String eno, int y){
+	public AnnualModel findAnnualTime(String eno, int y){
 		AnnualModel am = new AnnualModel();
 
 		Connection conn = null;
