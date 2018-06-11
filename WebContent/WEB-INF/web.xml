@@ -89,4 +89,14 @@
     <servlet-name>ConfServlet</servlet-name>
     <url-pattern>/ConfServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>WorkModifiServlet</display-name>
+    <servlet-name>WorkModifiServlet</servlet-name>
+    <servlet-class>servlet.WorkModifiServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WorkModifiServlet</servlet-name>
+    <url-pattern>/WorkModifiServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
