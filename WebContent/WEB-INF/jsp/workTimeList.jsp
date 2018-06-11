@@ -33,8 +33,8 @@ String cngdate = "";
 
 	<br>
 	<h3></h3>
-<button type="submit" name="m_btn" value="${MOUNTHLY.year} - 1"method="GET">前月</button>
-<button type="submit" name="m_btn" value="${MOUNTHLY.year} + 1"method="GET">次月</button>
+<button type="submit" name="m_btn" value="${MOUNTHLY.year} - 1" method="GET">前月</button>
+<button type="submit" name="m_btn" value="${MOUNTHLY.year} + 1" method="GET">次月</button>
 	<table>
 		<tr>
 			<th>日付</th>
@@ -45,13 +45,13 @@ String cngdate = "";
 			<th>残業時間</th>
 			<th>総勤務時間</th>
 		</tr>
-		<c:forEach var="emp_wtime" items="${WORKTIME.list}">
+		<c:forEach var="wtime" items="${Worktime}">
 			<tr>
-				<td>${WORKTIME.day}</td>
+				<td>${wtime.day}</td>
 				<td>リストに曜日がはいってる。鈴木悟めも.txt参照</td>
-				<td>${WORKTIME.attendance}</td>
-				<td>${WORKTIME.leaving}</td>
-				<td>${WORKTIME.}</td>
+				<td>${wtime.attendance}</td>
+				<td>${wtime.leaving}</td>
+				<td>${wtime.}</td>
 				<input type="image" class="wtimeEdit" src="/WEB-INF/images/wtimeedit.png">
 			</tr>
 		</c:forEach>
