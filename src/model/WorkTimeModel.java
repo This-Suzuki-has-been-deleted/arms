@@ -11,6 +11,8 @@ public class WorkTimeModel {
 	private Date attendance;
 	private Date leaving;
 	private boolean workFlg;
+	private String week;
+
 	public String getEmployeeNo() {
 		return employeeNo;
 	}
@@ -75,6 +77,12 @@ public class WorkTimeModel {
 	}
 	public void setWorkFlg(boolean workFlg) {
 		this.workFlg = workFlg;
+	}
+	public String getWeek() {
+		return week;
+	}
+	public void setWeek(String week) {
+		this.week = week;
 	}
 
 
