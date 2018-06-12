@@ -45,12 +45,15 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		RequestDispatcher dispatcher;
-		String employeeNo = request.getParameter("");
-		String employeePw = request.getParameter("");
+		String employeeNo = request.getParameter("syainNo");
+		String employeePw = request.getParameter("password");
 
 		Validation validation = new Validation();
 
-		//if(){}else{};
+		if(validation.nullCheck(employeeNo) && validation.nullCheck(employeePw)){
+			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
+			dispatcher.forward(request, response);
+		};
 		LoginLogic loginlogic = new LoginLogic();
 		String passHashCode = loginlogic.passHash(employeePw);
 
