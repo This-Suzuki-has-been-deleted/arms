@@ -12,7 +12,7 @@
 
   <h2 class="login-header">Log in</h2>
 
-  <form class="login-container">
+  <form class="login-container" action="LoginServlet" method="POST">
     <p><input type="text" name = "syainNo" placeholder="id"></p>
     <p><input type="password" name= "password"placeholder="Password"></p>
     <p><input type="submit" value="Login"></p>
