@@ -36,7 +36,7 @@ public class EmployeeDAO {
 
 			String sql = "select * from employee Where EmployeeNo = ?;";
 
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt = conn.prepareStatement(sql);
 
 
 			pStmt.setString(1,empno);		//(1,xxx)１個目のハテナ
@@ -78,41 +78,9 @@ public class EmployeeDAO {
 		}
 		return empmodel;
 	}
-	public int CountEmp(String divno,String empno) {
 
-		conn = null;
-		pStmt = null;
 
-		int counter = 0;
-		try {
-			conn = DriverManager
-					.getConnection(
-							"jdbc:mysql://localhost:3306/arms"
-									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
-							"root", "password");
-
-			String sql = "select count(*) AS Counter from employee  where EmployeeAuthorityNo != ? AND EmployeeNo != ?";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-
-			pStmt.setString(1,divno);		//	権限番号
-			pStmt.setString(2,empno);		//ログイン中の社員番号
-
-			// 結果の取得と出力
-			ResultSet rs = pStmt.executeQuery();
-			counter = rs.getInt("Counter");
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return counter;
-	}
+	//社員名をキーに社員検索（現状使用しない）
 	public ArrayList<EmployeeModel> findByEmployeeName(String empname,String empno) {
 
 		conn = null;
@@ -132,7 +100,7 @@ public class EmployeeDAO {
 					+ "LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority) "
 					+ "where EmployeeName LIKE '%?%' AND DivisionNo != '999' AND EmployeeNo != ?)";
 
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt = conn.prepareStatement(sql);
 			EmployeeModel empmodel = new EmployeeModel();
 
 			pStmt.setString(1,empname);		//(1,xxx)１個目のハテナ
@@ -175,6 +143,8 @@ public class EmployeeDAO {
 		return employeelist;
 
 	}
+
+	//部署をキーに社員検索（現状使用しない）
 	public ArrayList<EmployeeModel> findByDepNo(String loginno,String dep_no,String authno) {		//部署 = Dep
 
 		conn = null;
@@ -196,7 +166,7 @@ public class EmployeeDAO {
 			pStmt.setString(2,authno);
 			pStmt.setString(3,loginno);
 
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt = conn.prepareStatement(sql);
 			EmployeeModel empmodel = new EmployeeModel();
 
 			// 結果の取得と出力
@@ -230,12 +200,14 @@ public class EmployeeDAO {
 		}
 		return employeelist;
 	}
-	public ArrayList<EmployeeModel>findByNameDep(String employee_no,String dep_no, String employee_name,int pageno,int cnt) {
+	/**社員検索メソッド
+	* 検索した社員情報を持つリストを返す
+	**/
+	public ArrayList<EmployeeModel>findByNameDep(String employee_no,String dep_no, String employee_name,int pageno) {
 		conn = null;
 		pStmt = null;
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
 		EmployeeModel empmodel = new EmployeeModel();
-		PreparedStatement pStmt2;
 
 		try {
 			conn = DriverManager
@@ -250,20 +222,19 @@ public class EmployeeDAO {
 					+ "from Employee AS e LEFT JOIN employeedivision AS ed ON(e.DivisionNo = ed.DivisionNo)"
 					+ "LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority) "
 					+ "WHERE  AutorityNo = '999' AND EmployeeNo = ?)";
-			String cntsql  = "select Count(*) AS Counter FROM Employee WHERE Authority != '999'  AND EmployeeNo != ?";
 
 			pStmt = conn.prepareStatement(sql);
-			pStmt = conn.prepareStatement(cntsql);
+
 
 			pStmt.setString(1,employee_no);
 
 			if(employee_name != "") {
 				sql = sql + " AND EmployeeName LIKE '%' + ? + '%'";
-				cntsql = cntsql + " AND EmployeeName LIKE '%' + ? + '%'";
 				pStmt.setString(1,employee_name);
 			}
 			sql = sql + " AND DivisionNo = ?";
 			pStmt.setString(1,dep_no);
+
 			sql = sql + "ORDER BY DivisionNo,EmployeeNo LIMIT lim * ?-20,lim";
 			pStmt.setInt(1,pageno);
 
@@ -271,6 +242,7 @@ public class EmployeeDAO {
 
 			// 結果の取得と出力
 			ResultSet rs = pStmt.executeQuery();
+
 			while (rs.next()) {
 				String employeeno = rs.getString("EmployeeNo");
 				String employeename = rs.getString("EmployeeName");
@@ -284,11 +256,6 @@ public class EmployeeDAO {
 
 				employeelist.add(empmodel);
 			}
-
-			sql = "select Count(*) AS Counter FROM Employee WHERE Authority != '999'  AND EmployeeNo != ?";
-
-			pStmt.setString(1,employee_no);
-
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -304,6 +271,57 @@ public class EmployeeDAO {
 		}
 		return employeelist;
 	}
+	/**社員検索メソッド
+	*検索結果の件数を算出する
+	**/
+	public int CountEmp(String employee_no,String dep_no, String employee_name) {
+		conn = null;
+		pStmt = null;
+		int counter = 0;
+
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms"
+									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
+							"root", "password");
+
+			// SQLの実行
+			String cntsql  = "select Count(*) AS Counter FROM Employee WHERE Authority != '999'  AND EmployeeNo != ?";
+
+
+			pStmt = conn.prepareStatement(cntsql);
+
+			pStmt.setString(1,employee_no);
+
+			if(employee_name != "") {
+				cntsql = cntsql + " AND EmployeeName LIKE '%' + ? + '%'";
+				pStmt.setString(1,employee_name);
+			}
+			cntsql = cntsql + " AND DivisionNo = ?";
+			pStmt.setString(1,dep_no);
+
+			// 結果の取得と出力
+			ResultSet rs = pStmt.executeQuery();
+
+			counter = rs.getInt("Counter");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return counter;
+		} finally {
+			try {
+				// 切断
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return counter;
+			}
+		}
+		return counter;
+	}
+
+	//社員情報全件表示（現在は使用しない）
 	public ArrayList<EmployeeModel> findAll() {
 
 		conn = null;
@@ -321,7 +339,7 @@ public class EmployeeDAO {
 					+ "from Employee AS e LEFT JOIN employeedivision AS ed ON(e.DivisionNo = ed.DivisionNo)"
 					+ "LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority))";
 
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt = conn.prepareStatement(sql);
 
 			// 結果の取得と出力
 			ResultSet rs = pStmt.executeQuery();
@@ -525,7 +543,6 @@ public class EmployeeDAO {
 							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
-
 			// 自動コミットOFF
 			conn.setAutoCommit(false);
 
