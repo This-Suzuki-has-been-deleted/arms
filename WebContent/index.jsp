@@ -13,12 +13,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>メインメニュー</title>
 </head>
+
 <body>
 <jsp:include page="WEB-INF/jsp/header.jsp" />
+<div class="main">
 	<form action="TimeStampServlet" method=POST>
 		<input type="submit" value=<%=value %>>
 	</form>
+</div>
 <jsp:include page="WEB-INF/jsp/navigation.jsp" />
+<div class="clear"></div>
 <jsp:include page="WEB-INF/jsp/footer.jsp" />
+
 </body>
 </html>
