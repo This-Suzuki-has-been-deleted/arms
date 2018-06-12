@@ -235,22 +235,31 @@ public class EmployeeDAO {
 		pStmt = null;
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
 		EmployeeModel empmodel = new EmployeeModel();
+		PreparedStatement pStmt2;
+
 		try {
 			conn = DriverManager
 					.getConnection(
 							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
+
+
 			// SQLの実行
 			String sql = "select EmployeeNo,EmployeeName,DivisionName,AuthorityName "
 					+ "from Employee AS e LEFT JOIN employeedivision AS ed ON(e.DivisionNo = ed.DivisionNo)"
 					+ "LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority) "
 					+ "WHERE  AutorityNo = '999' AND EmployeeNo = ?)";
+			String cntsql  = "select Count(*) AS Counter FROM Employee WHERE Authority != '999'  AND EmployeeNo != ?";
+
+			pStmt = conn.prepareStatement(sql);
+			pStmt = conn.prepareStatement(cntsql);
 
 			pStmt.setString(1,employee_no);
 
 			if(employee_name != "") {
 				sql = sql + " AND EmployeeName LIKE '%' + ? + '%'";
+				cntsql = cntsql + " AND EmployeeName LIKE '%' + ? + '%'";
 				pStmt.setString(1,employee_name);
 			}
 			sql = sql + " AND DivisionNo = ?";
@@ -258,8 +267,7 @@ public class EmployeeDAO {
 			sql = sql + "ORDER BY DivisionNo,EmployeeNo LIMIT lim * ?-20,lim";
 			pStmt.setInt(1,pageno);
 
-			//Like文
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+
 
 			// 結果の取得と出力
 			ResultSet rs = pStmt.executeQuery();
@@ -276,6 +284,12 @@ public class EmployeeDAO {
 
 				employeelist.add(empmodel);
 			}
+
+			sql = "select Count(*) AS Counter FROM Employee WHERE Authority != '999'  AND EmployeeNo != ?";
+
+			pStmt.setString(1,employee_no);
+
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
