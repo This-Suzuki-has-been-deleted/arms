@@ -18,7 +18,7 @@ import dao.EmployeeDAO;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/login")
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -51,9 +51,11 @@ public class LoginServlet extends HttpServlet {
 		Validation validation = new Validation();
 
 		if(validation.nullCheck(employeeNo) && validation.nullCheck(employeePw)){
+			String eMsg = "社員番号又はパスワードに誤りがあります。";
+			session.setAttribute("eMsg", eMsg);
 			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
-		};
+		}
 		LoginLogic loginlogic = new LoginLogic();
 		String passHashCode = loginlogic.passHash(employeePw);
 
