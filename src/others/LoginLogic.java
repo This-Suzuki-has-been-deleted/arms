@@ -13,7 +13,7 @@ public class LoginLogic {
 		EmployeeModel empModel = new EmployeeModel();
 		empModel = employeeDAO.findEmployee(id);
 
-		if(empModel.getPassword() == pw){
+		if(empModel.getPassword().equals(pw)){
 			return true;
 		}
 		return false;
