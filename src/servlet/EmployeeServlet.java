@@ -19,38 +19,39 @@ import dao.EmployeeDAO;
 public class EmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EmployeeServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public EmployeeServlet() {
+		super();
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
-		EmployeeDAO employeeDao = new  EmployeeDAO();
+		EmployeeDAO employeeDao = new EmployeeDAO();
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
-		int cnt = 0;
+
 		String emp_Name = request.getParameter("employee_name");
 		String dep_No = request.getParameter("dep_no");
 		int pageno = 1;
-		employeeDao.findByNameDep(emodel.getEmployeeNo(),emodel.getDepNo(),emp_Name, pageno,cnt);
 
+		employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),
+				emodel.getDepNo(), emp_Name, pageno); // 検索結果取得
+		pageno = employeeDao.CountEmp(emodel.getEmployeeNo(), dep_No, emp_Name); // ページ数取得
 
+		session.setAttribute("RESULT", employeelist);
+		session.setAttribute("PAGENO", pageno);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/employeeSearch");
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("/employeeSearch");
 		dispatcher.forward(request, response);
 
 	}

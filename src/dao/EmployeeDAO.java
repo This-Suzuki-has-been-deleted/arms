@@ -209,6 +209,7 @@ public class EmployeeDAO {
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
 		EmployeeModel empmodel = new EmployeeModel();
 
+
 		try {
 			conn = DriverManager
 					.getConnection(
@@ -279,6 +280,7 @@ public class EmployeeDAO {
 		pStmt = null;
 		int counter = 0;
 
+
 		try {
 			conn = DriverManager
 					.getConnection(
@@ -305,6 +307,9 @@ public class EmployeeDAO {
 			ResultSet rs = pStmt.executeQuery();
 
 			counter = rs.getInt("Counter");
+
+			counter = counter/20+1;
+
 
 		} catch (SQLException e) {
 			e.printStackTrace();
