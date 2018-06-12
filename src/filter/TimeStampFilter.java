@@ -22,7 +22,7 @@ import dao.WorkDAO;
 /**
  * Servlet Filter implementation class TimeStampFilter
  */
-@WebFilter(urlPatterns="/LoginServlet")
+@WebFilter("/LoginServlet")
 public class TimeStampFilter implements Filter {
 
     /**
@@ -100,6 +100,8 @@ public class TimeStampFilter implements Filter {
 			}
 
 		}
+
+		System.out.println("フィルタを通っているかどうか");
 
 		chain.doFilter(request, response);
 	}
