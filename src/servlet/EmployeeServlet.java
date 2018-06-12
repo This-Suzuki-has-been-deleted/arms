@@ -1,11 +1,14 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.EmployeeModel;
 import dao.EmployeeDAO;
@@ -17,6 +20,7 @@ public class EmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	EmployeeModel emodel = new  EmployeeModel();
 	EmployeeDAO edao = new  EmployeeDAO();
+	ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
 	int cnt = 0;
 
 
@@ -39,23 +43,21 @@ public class EmployeeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 
+		int pageno = 1;
+		String employee_no = emodel.getEmployeeNo();
 		String dep_no = request.getParameter("dep_no");
 		String employee_name = request.getParameter("employee_no");
 
 		cnt = edao.CountEmp(emodel.getAuthNo(),emodel.getEmployeeNo());
+		employeelist = edao.findByNameDep(employee_no,dep_no,employee_name,pageno,cnt);
 
-		edao.findByDepNo(emodel.getEmployeeNo(),dep_no,emodel.getAuthNo());
+		session.setAttribute("Emp",employeelist);
 
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/employeeSearch");
+		dispatcher.forward(request, response);
 
-		edao.findByNameDep(dep_no,employee_name);
-
-		if(emodel.getAuthNo() == "003") {
-			if(dep_no == emodel.getDepNo()) {
-				edao.findByEmployeeName(employee_name,emodel.getEmployeeNo());
-			}
-
-		}
 	}
 
 }

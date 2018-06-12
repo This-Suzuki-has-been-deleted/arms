@@ -214,7 +214,6 @@ public class EmployeeDAO {
 
 				employeelist.add(empmodel);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -230,7 +229,7 @@ public class EmployeeDAO {
 		}
 		return employeelist;
 	}
-	public ArrayList<EmployeeModel>findByNameDep(String dep_no, String employee_name) {
+	public ArrayList<EmployeeModel>findByNameDep(String employee_no,String dep_no, String employee_name,int pageno,int cnt) {
 		conn = null;
 		pStmt = null;
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
@@ -244,14 +243,26 @@ public class EmployeeDAO {
 			// SQLの実行
 			String sql = "select EmployeeNo,EmployeeName,DivisionName,AuthorityName "
 					+ "from Employee AS e LEFT JOIN employeedivision AS ed ON(e.DivisionNo = ed.DivisionNo)"
-					+ "LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority) WHERE )";
+					+ "LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority) "
+					+ "WHERE  AutorityNo = '999' AND EmployeeNo = ?)";
 
+			pStmt.setString(1,employee_no);
+
+			if(employee_name != "") {
+				sql = sql + " AND EmployeeName LIKE '%' + ? + '%'";
+				pStmt.setString(1,employee_name);
+			}
+			sql = sql + " AND DivisionNo = ?";
+			pStmt.setString(1,dep_no);
+			sql = sql + "ORDER BY DivisionNo,EmployeeNo LIMIT lim * ?-20,lim";
+			pStmt.setInt(1,pageno);
+
+			//Like文
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// 結果の取得と出力
 			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
-
 				String employeeno = rs.getString("EmployeeNo");
 				String employeename = rs.getString("EmployeeName");
 				String divisionname = rs.getString("DivisionName");
@@ -263,10 +274,7 @@ public class EmployeeDAO {
 				empmodel.setAuthName(authorityname);
 
 				employeelist.add(empmodel);
-
 			}
-			return employeelist;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -278,12 +286,8 @@ public class EmployeeDAO {
 				e.printStackTrace();
 				return null;
 			}
-
 		}
-
-
 		return employeelist;
-
 	}
 	public ArrayList<EmployeeModel> findAll() {
 
