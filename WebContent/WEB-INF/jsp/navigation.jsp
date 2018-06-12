@@ -3,7 +3,12 @@
 <%@page import="model.EmployeeModel" %>
 <%
 	EmployeeModel em = (EmployeeModel)session.getAttribute("employee");
-	String auth = em.getAuthNo();
+	String auth = "";
+	if(em != null){
+		auth = em.getAuthNo();
+	}else{
+		auth = "001";
+	}
 %>
 
 <div class="side">

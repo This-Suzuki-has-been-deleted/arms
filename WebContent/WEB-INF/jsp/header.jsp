@@ -4,27 +4,26 @@
 <%@page import="java.util.Date"%>
 <%
 	String pageTitle = (String) session.getAttribute("pageTitle");
+	if(pageTitle == null){
+		pageTitle = "";
+	}
 	EmployeeModel em = (EmployeeModel) session.getAttribute("emp");
 %>
 
 <!-- ヘッダー全体 -->
-<div class="header">
-<header>
-	<!-- 後々画像に差し替え。クリックでindexに遷移 -->
+<div class="gray">
 	<div class="title">
-		<a href="index.jsp">ARMS</a>
+		<a href="index.jsp"><img src="images/ARMS.png" alt="title" border="0"></a>
 	</div>
-
-	<!-- ページタイトルを受け取って表示する -->
-	<div class="page_title"><%=pageTitle%></div>
-
-	<!-- 右上の時計及び名前表示 -->
-	<div class="Employeedetails">
+	<div class="pagetitle">
+		<p><%= pageTitle%></p>
+	</div>
+	<div class="clock">
 		<p id="RealtimeClockArea">
-		<p><%=em.getEmployeeName() %></p>
 	</div>
-</header>
 </div>
+<div class="clear"></div>
+
 
 <script>
 	function showClock1() {
@@ -32,7 +31,7 @@
 		var nowHour = nowTime.getHours();
 		var nowMin = nowTime.getMinutes();
 		var nowSec = nowTime.getSeconds();
-		var msg = "現在時刻は、" + nowHour + ":" + nowMin + ":" + nowSec + " です。";
+		var msg = nowHour + ":" + nowMin + ":" + nowSec;
 		document.getElementById("RealtimeClockArea").innerHTML = msg;
 	}
 	setInterval('showClock1()', 1000);
