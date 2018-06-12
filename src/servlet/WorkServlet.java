@@ -50,14 +50,12 @@ public class WorkServlet extends HttpServlet {
 		//ログイン中のユーザーの情報をセッションから得る
 		EmployeeModel myEmp = (EmployeeModel)session.getAttribute("Employee");
 
-
-
-		//ログインチェック
-		if(myEmp == null){
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-			dispatcher.forward(request, response);
-		}
+//		//ログインチェック
+//		if(myEmp == null){
+//			RequestDispatcher dispatcher = request
+//					.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+//			dispatcher.forward(request, response);
+//		}
 
 		//宣言
 		AnnualDAO annualDao = new AnnualDAO();
