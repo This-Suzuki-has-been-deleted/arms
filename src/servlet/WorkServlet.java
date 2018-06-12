@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.AnnualModel;
 import model.EmployeeModel;
@@ -42,6 +43,19 @@ public class WorkServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+
+		//ログイン中のユーザーの情報をセッションから得る
+		EmployeeModel myEmp = (EmployeeModel)session.getAttribute("Employee");
+
+
+
+		//ログインチェック
+		if(myEmp == null){
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+			dispatcher.forward(request, response);
+		}
 
 		//宣言
 		AnnualDAO annualDao = new AnnualDAO();
@@ -52,9 +66,6 @@ public class WorkServlet extends HttpServlet {
 		MonthlyModel monthlyModel = null;
 
 		ArrayList<WorkTimeModel> workTimeList;
-
-		//ログイン中のユーザーの情報をセッションから得る
-		EmployeeModel myEmp = (EmployeeModel)request.getAttribute("Employee");
 
 		DateMath dateMath = new DateMath();
 
@@ -103,9 +114,10 @@ public class WorkServlet extends HttpServlet {
 			wtm.setNightTimeM(nightTime % 60);
 		}
 
-		request.setAttribute("ANNUAL", annualModel);
-		request.setAttribute("MOUNTHLY", monthlyModel);
-		request.setAttribute("Worktime", workTimeList);
+		//セッションに表示内容をセット
+		session.setAttribute("ANNUAL", annualModel);
+		session.setAttribute("MOUNTHLY", monthlyModel);
+		session.setAttribute("Worktime", workTimeList);
 
 
 		RequestDispatcher dispatcher = request
@@ -118,8 +130,16 @@ public class WorkServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		WorkTimeModel workTimeModel = (WorkTimeModel)request.getAttribute("wtm");
-		request.setAttribute("workTimeModel", workTimeModel);
+		HttpSession session = request.getSession();
+
+
+		//入力内容を取得
+		WorkTimeModel workTimeModel = (WorkTimeModel)session.getAttribute("wtm");
+
+
+
+		//入力内容をセッションにセット
+		session.setAttribute("workTimeModel", workTimeModel);
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/workTimeChange.jsp");

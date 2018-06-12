@@ -5,8 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%
-	EmployeeModel myEmp = (EmployeeModel) request.getAttribute("Employee");
-	ArrayList<DepModel> depList = (ArrayList<DepModel>) request.getAttribute("depList");
+	EmployeeModel myEmp = (EmployeeModel) session.getAttribute("Employee");
+	ArrayList<DepModel> depList = (ArrayList<DepModel>) session.getAttribute("depList");
 	String msg = (String) request.getAttribute("msg");
 %>
 <body>

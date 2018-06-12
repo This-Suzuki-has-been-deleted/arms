@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.DepModel;
 import model.EmployeeModel;
@@ -40,8 +41,24 @@ public class RegistrationServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		DepDAO dd = new DepDAO();
+
+		HttpSession session = request.getSession();
+
+//		// ログイン中のユーザーの情報をセッションから得る
+//		EmployeeModel myEmp = (EmployeeModel) request.getAttribute("Employee");
+//
+//		// ログインチェック
+//		if (myEmp == null) {
+//			RequestDispatcher dispatcher = request
+//					.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+//			dispatcher.forward(request, response);
+//		}
+
+		// 部署のプルダウンメニューのために一覧を持ってくる
 		ArrayList<DepModel> depList = (ArrayList<DepModel>) dd.findDepAll();
-		request.setAttribute("depList", depList);
+
+		// セッションにセット
+		session.setAttribute("depList", depList);
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");
 		dispatcher.forward(request, response);
@@ -55,19 +72,29 @@ public class RegistrationServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+		//宣言
 		EmployeeModel employeeModel = new EmployeeModel();
-		EmployeeModel myEmp = (EmployeeModel) request.getAttribute("Employee");
+//		EmployeeModel myEmp = (EmployeeModel) request.getAttribute("Employee");
 
 		LoginLogic ll = new LoginLogic();
 		EmployeeDAO ed = new EmployeeDAO();
 
-		String textCode;
-		String textName;
+		String textCode;	//入力内容を受け取る変数
+		String textName;	//入力内容を受け取る変数
 		String selectDivisionNo;
 		String selectAuthorityNo;
 		String pageFlg = "RegistrationServlet";
 		String msg = null;
 		boolean flg = false;
+
+		HttpSession session = request.getSession();
+
+//		// ログインチェック
+//		if (myEmp == null) {
+//			RequestDispatcher dispatcher = request
+//					.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+//			dispatcher.forward(request, response);
+//		}
 
 		// 部署 division,dep
 		// 権限 authority
@@ -84,10 +111,12 @@ public class RegistrationServlet extends HttpServlet {
 			 * 入力チェック
 			 */
 
+			//入力チェック
 			if (flg) {
 				msg = "・入力形式に誤りがあります。";
 			}
 
+			//モデルに入力された内容と初期値をセット
 			employeeModel.setEmployeeNo(textCode);
 			employeeModel.setEmployeeName(textName);
 			employeeModel.setDepNo(selectDivisionNo);
@@ -101,21 +130,23 @@ public class RegistrationServlet extends HttpServlet {
 		// 重複チェック
 		ArrayList<EmployeeModel> employeelist = ed.findAll();
 
+		//社員番号の重複チェック
 		for (EmployeeModel em : employeelist) {
 			if (employeeModel.getEmployeeNo().equals(em.getEmployeeNo())) {
 				msg = msg + "<br>・社員番号が重複しています。";
 			}
 		}
 
+		//入力内容に不正なものがなかったか
 		if (msg != null) {
-			request.setAttribute("msg", msg);
+			session.setAttribute("msg", msg);
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("/index.jsp");
 			dispatcher.forward(request, response);
 		}
 
-		request.setAttribute("employeeModel", employeeModel);
-		request.setAttribute("pageFlg", pageFlg);
+		session.setAttribute("employeeModel", employeeModel);
+		session.setAttribute("pageFlg", pageFlg);
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/conf.jsp");
