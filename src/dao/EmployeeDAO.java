@@ -17,6 +17,7 @@ public class EmployeeDAO {
 	Connection conn;
 	PreparedStatement pStmt;
 
+
 	int lim = 20;
 
 	public EmployeeModel findEmployee(String empno){
@@ -29,7 +30,7 @@ public class EmployeeDAO {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager
 					.getConnection(
-							"jdbc:mysql://localhost:3306/gameinfo"
+							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
 
@@ -53,8 +54,8 @@ public class EmployeeDAO {
 
 				empmodel.setEmployeeNo(employeeno);
 				empmodel.setEmployeeName(employeename);
-				empmodel.setDepName(divisionno);
-				empmodel.setAuthName(authorityno);
+				empmodel.setDepNo(divisionno);
+				empmodel.setAuthNo(authorityno);
 				empmodel.setPassword(password);
 
 			}
@@ -86,7 +87,7 @@ public class EmployeeDAO {
 		try {
 			conn = DriverManager
 					.getConnection(
-							"jdbc:mysql://localhost:3306/gameinfo"
+							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
 
@@ -121,7 +122,7 @@ public class EmployeeDAO {
 		try {
 			conn = DriverManager
 					.getConnection(
-							"jdbc:mysql://localhost:3306/gameinfo"
+							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
 
@@ -182,7 +183,7 @@ public class EmployeeDAO {
 		try {
 			conn = DriverManager
 					.getConnection(
-							"jdbc:mysql://localhost:3306/gameinfo"
+							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
 			// SQLの実行
@@ -237,7 +238,7 @@ public class EmployeeDAO {
 		try {
 			conn = DriverManager
 					.getConnection(
-							"jdbc:mysql://localhost:3306/gameinfo"
+							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
 			// SQLの実行
@@ -298,7 +299,7 @@ public class EmployeeDAO {
 		try {
 			conn = DriverManager
 					.getConnection(
-							"jdbc:mysql://localhost:3306/gameinfo"
+							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
 			// SQLの実行
@@ -351,7 +352,7 @@ public class EmployeeDAO {
 		try {
 			conn = DriverManager
 					.getConnection(
-							"jdbc:mysql://localhost:3306/gameinfo"
+							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
 
@@ -406,7 +407,7 @@ public class EmployeeDAO {
 		try {
 			conn = DriverManager
 					.getConnection(
-							"jdbc:mysql://localhost:3306/gameinfo"
+							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
 
@@ -457,7 +458,7 @@ public class EmployeeDAO {
 		try {
 			conn = DriverManager
 					.getConnection(
-							"jdbc:mysql://localhost:3306/gameinfo"
+							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
 			// 自動コミットOFF
@@ -501,10 +502,13 @@ public class EmployeeDAO {
 
 		conn = null;
 		pStmt = null;
+
+
+
 		try {
 			conn = DriverManager
 					.getConnection(
-							"jdbc:mysql://localhost:3306/gameinfo"
+							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
 
