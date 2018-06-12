@@ -10,10 +10,14 @@
 </head>
 <body>
 <h2>出退勤修正</h2>
-<h3><!-- WorkServletから修正するWorkTimeModelを受け取る　下記も同じ　こうき　6/11 10:30 --></h3>
-<input type="text" value="">
-<input type="text" value="">
+<h3>${workTimeModel.year}/${workTimeModel.month}/${workTimeModel.day} </h3>
+<input type="text" value="${ workTimeModel.attendance}">
+<input type="text" value="${ workTimeModel.leaving}">
+<form action="WorkServlet" method="get">
 <input type="submit" value="戻る">
+</form>
+<form action="WorkModifiServlet" method="post">
 <input type="submit" value="更新">
+</form>
 </body>
 </html>
