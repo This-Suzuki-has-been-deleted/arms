@@ -12,7 +12,7 @@
 	<form method="post" action="EmployeeServlet">
 		社員名 <input type="text" name="employee_name">
 		部署名<select name="dep_no">
-			<option value="">${Dep.list}
+			<option value="${Dep.list}">${Dep.list}
 				<c:forEach var="dep" items="${Dep}">
 					<c:if test="{Employee.Divisionno == '003'}">
 						<option value="${Dep.divisionno}">${Dep.divisionname}
