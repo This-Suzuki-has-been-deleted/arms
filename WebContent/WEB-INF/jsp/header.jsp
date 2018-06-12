@@ -8,6 +8,10 @@
 		pageTitle = "";
 	}
 	EmployeeModel em = (EmployeeModel) session.getAttribute("Employee");
+	String name="a";
+	if(em==null){
+		name="ログインできていない";
+	}
 %>
 
 <!-- ヘッダー全体 -->
@@ -19,6 +23,7 @@
 		<p><%= pageTitle%></p>
 	</div>
 	<div class="clock">
+		<%=name %>
 		<p id="RealtimeClockArea">
 	</div>
 </div>
