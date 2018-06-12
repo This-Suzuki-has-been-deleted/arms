@@ -51,7 +51,7 @@ public class EmployeeServlet extends HttpServlet {
 		String employee_name = request.getParameter("employee_no");
 
 		cnt = edao.CountEmp(emodel.getAuthNo(),emodel.getEmployeeNo());
-		employeelist = edao.findByNameDep(employee_no,dep_no,employee_name,pageno,cnt);
+		employeelist = edao.findByNameDep(employee_no,dep_no,employee_name,pageno,);
 
 		session.setAttribute("Emp",employeelist);
 
