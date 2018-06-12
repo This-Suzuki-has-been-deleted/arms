@@ -18,11 +18,6 @@ import dao.EmployeeDAO;
  */
 public class EmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	EmployeeModel emodel = new  EmployeeModel();
-	EmployeeDAO edao = new  EmployeeDAO();
-	ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
-	int cnt = 0;
-
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -44,16 +39,16 @@ public class EmployeeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-
+		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
+		EmployeeDAO employeeDao = new  EmployeeDAO();
+		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
+		int cnt = 0;
+		String emp_Name = request.getParameter("employee_name");
+		String dep_No = request.getParameter("dep_no");
 		int pageno = 1;
-		String employee_no = emodel.getEmployeeNo();
-		String dep_no = request.getParameter("dep_no");
-		String employee_name = request.getParameter("employee_no");
+		employeeDao.findByNameDep(emodel.getEmployeeNo(),emodel.getDepNo(),emp_Name, pageno,cnt);
 
-		cnt = edao.CountEmp(emodel.getAuthNo(),emodel.getEmployeeNo());
-		employeelist = edao.findByNameDep(employee_no,dep_no,employee_name,pageno,cnt);
 
-		session.setAttribute("Emp",employeelist);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/employeeSearch");
 		dispatcher.forward(request, response);
