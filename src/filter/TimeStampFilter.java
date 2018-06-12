@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +21,7 @@ import dao.WorkDAO;
 /**
  * Servlet Filter implementation class TimeStampFilter
  */
-//@WebFilter("/LoginServlet")
+@WebFilter(urlPatterns="/LoginServlet")
 public class TimeStampFilter implements Filter {
 
     /**
@@ -48,8 +48,7 @@ public class TimeStampFilter implements Filter {
 
 		EmployeeModel emp= (EmployeeModel)session.getAttribute("Employee");
 		if(emp==null){
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
-			rd.forward(request, response);
+			chain.doFilter(request, response);
 		}
 
 		LocalDateTime date = LocalDateTime.now();
