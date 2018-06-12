@@ -42,7 +42,7 @@ public class TimeStampServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		EmployeeModel emp= (EmployeeModel)session.getAttribute("Employee");
 		if(emp==null){
-			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 			rd.forward(request, response);
 		}
 
