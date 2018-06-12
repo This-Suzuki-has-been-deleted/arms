@@ -132,11 +132,8 @@ public class WorkServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 
-
 		//入力内容を取得
 		WorkTimeModel workTimeModel = (WorkTimeModel)session.getAttribute("wtm");
-
-
 
 		//入力内容をセッションにセット
 		session.setAttribute("workTimeModel", workTimeModel);
