@@ -34,7 +34,6 @@
 			<td>${ANNUAL.y_nightTime}</td>
 		</tr>
 	</table>
-
 	<br>
 	<h3></h3>
 	<form action="workServlet" method="GET">
@@ -81,7 +80,5 @@
 			<td>${MOUNTHLY.m_nightTime}</td>
 		</tr>
 	</table>
-
-
 </body>
 </html>
