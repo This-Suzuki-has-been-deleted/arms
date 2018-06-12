@@ -9,16 +9,16 @@
 <title>社員検索</title>
 </head>
 <body>
-	<form method="post" action="EmployeeServlet">
+	<form method="post" action="ChangeServlet">
 		社員名 <input type="text" name="employee_name">
 		部署名<select name="dep_no">
-			<option value="${Dep.list}">${Dep.list}
-				<c:forEach var="dep" items="${Dep}">
+			<option value="${RESULT.list.depNo}">${RESULT.list.depName}
+				<c:forEach var="result" items="${RESULT}">
 					<c:if test="{Employee.Divisionno == '003'}">
-						<option value="${Dep.divisionno}">${Dep.divisionname}
+						<option value="${result.list.divisionno}">${result.list.divisionName}
 					</c:if>
 				</c:forEach>
-			<option value="">${Dep.divisionname}</option>
+			<option value="RESULT.list.divisionNo">${RESULT.list.divisionName}</option>
 		</select>
 	</form>
 	<table>

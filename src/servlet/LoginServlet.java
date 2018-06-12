@@ -22,7 +22,7 @@ import dao.EmployeeDAO;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
+	 /**
      * @see HttpServlet#HttpServlet()
      */
     public LoginServlet() {
@@ -35,6 +35,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("GETだよ");
 
 	}
 
@@ -43,6 +44,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("POSTだよ");
 		HttpSession session = request.getSession();
 		RequestDispatcher dispatcher;
 		String employeeNo = request.getParameter("syainNo");
