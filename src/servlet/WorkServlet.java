@@ -133,7 +133,7 @@ public class WorkServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		//入力内容を取得
-		WorkTimeModel workTimeModel = (WorkTimeModel)session.getAttribute("wtm");
+		WorkTimeModel workTimeModel = (WorkTimeModel)request.getAttribute("wtm");
 
 		//入力内容をセッションにセット
 		session.setAttribute("workTimeModel", workTimeModel);
