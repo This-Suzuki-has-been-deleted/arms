@@ -7,7 +7,7 @@
 	if(pageTitle == null){
 		pageTitle = "";
 	}
-	EmployeeModel em = (EmployeeModel) session.getAttribute("emp");
+	EmployeeModel em = (EmployeeModel) session.getAttribute("Employee");
 %>
 
 <!-- ヘッダー全体 -->

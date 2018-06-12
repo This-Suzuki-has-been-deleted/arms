@@ -44,7 +44,7 @@ public class LoginCheckFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse)response;
 		HttpSession session = httpRequest.getSession();
 
-		EmployeeModel em = (EmployeeModel)session.getAttribute("employee");
+		EmployeeModel em = (EmployeeModel)session.getAttribute("Employee");
 		if(em != null){
 			chain.doFilter(request, response);
 		}else{

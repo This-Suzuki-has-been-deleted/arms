@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="model.EmployeeModel" %>
 <%
-	EmployeeModel em = (EmployeeModel)session.getAttribute("employee");
+	EmployeeModel em = (EmployeeModel)session.getAttribute("Employee");
 	String auth = "";
 	if(em != null){
 		auth = em.getAuthNo();

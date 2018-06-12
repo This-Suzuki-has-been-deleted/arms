@@ -40,7 +40,7 @@ public class TimeStampServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		EmployeeModel emp= (EmployeeModel)session.getAttribute("employee");
+		EmployeeModel emp= (EmployeeModel)session.getAttribute("Employee");
 		if(emp==null){
 			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 			rd.forward(request, response);
@@ -51,7 +51,7 @@ public class TimeStampServlet extends HttpServlet {
 		int month = date.getMonthValue();
 		int day = date.getDayOfMonth() - 1;
 
-		EmployeeModel em = (EmployeeModel) session.getAttribute("employee");
+		EmployeeModel em = (EmployeeModel) session.getAttribute("Employee");
 		WorkDAO wdao = new WorkDAO();
 		WorkTimeModel wm = wdao.findWorkTime(em.getEmployeeNo(), year, month,
 				day);
