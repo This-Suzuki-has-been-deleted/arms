@@ -42,7 +42,8 @@ public class ConfServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		String pageFlg = (String) session.getAttribute("pageFlg");
+		String pageFlg = null;
+		pageFlg  = (String) session.getAttribute("pageFlg");
 		EmployeeModel empModel;
 		EmployeeDAO employeeDao;
 		if(pageFlg.equals("RegistrationServlet")){
