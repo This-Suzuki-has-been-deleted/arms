@@ -153,7 +153,7 @@ public class EmployeeDAO {
 							"root", "password");
 			// SQLの実行
 			String sql = "select authorityName "
-					+ "from employeeposition WHERE employeeAuthrityNo = ?"; // 権限
+					+ "from employeeposition WHERE employeeAuthorityNo = ?"; // 権限
 
 			pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, authno);
