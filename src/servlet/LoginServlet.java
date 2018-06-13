@@ -40,7 +40,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("GETだよ");
+		HttpSession session = request.getSession();
+		session.removeAttribute("eMsg");
 
 	}
 
@@ -133,7 +134,7 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			String eMsg = "社員番号又はパスワードに誤りがあります。";
 			session.setAttribute("eMsg", eMsg);
-			dispatcher = request.getRequestDispatcher("login.jsp");
+			dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
 		}
 

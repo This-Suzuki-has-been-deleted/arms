@@ -81,20 +81,23 @@ public class RegistrationServlet extends HttpServlet {
 
 		//宣言
 		EmployeeModel employeeModel = new EmployeeModel();
+		EmployeeModel employee = null;
 //		EmployeeModel myEmp = (EmployeeModel) request.getAttribute("Employee");
 
 		LoginLogic ll = new LoginLogic();
 		EmployeeDAO ed = new EmployeeDAO();
 
+
 		String textCode = null;	//入力内容を受け取る変数
 		String textName;	//入力内容を受け取る変数
 		String selectDivisionNo;
 		String selectAuthorityNo;
-		String pageFlg = "RegistrationServlet";
+		String pageFlg = null;
 		String msg = null;
 		boolean flg = false;
 
 		HttpSession session = request.getSession();
+
 
 //		// ログインチェック
 //		if (myEmp == null) {
@@ -108,6 +111,7 @@ public class RegistrationServlet extends HttpServlet {
 
 		try {
 			// 入力値受け取り
+
 			textCode = request.getParameter("textCode");
 			textName = request.getParameter("textName");
 			selectDivisionNo = request.getParameter("selectDivisionNo");
@@ -131,15 +135,30 @@ public class RegistrationServlet extends HttpServlet {
 			employeeModel.setPassword(ll.passHash("pass1234"));
 			employeeModel.setDelFlg(1);
 		} catch (NullPointerException e) {
-			msg = msg + "\n・未入力項目があります。";
+			if(msg == null){
+				msg ="・未入力項目があります。";
+			}else{
+				msg = msg + "\n・未入力項目があります。";
+			}
 		}
-
+		try{
 		// 重複チェック
-		EmployeeModel employee = ed.findEmployee(textCode);
+			employee = ed.findEmployee(textCode);
+		}catch(Exception e){
+			if(msg == null){
+				msg ="・入力した値が不正です。";
+			}else{
+				msg = msg + "\n・入力した値が不正です。";
+			}
+		}
 
 		//社員番号の重複チェック
 		if(employee.getEmployeeNo() != null){
-			msg = msg + "\n・社員番号が重複しています。";
+			if(msg == null){
+				msg ="・社員番号が重複しています。";
+			}else{
+				msg = msg + "\n・社員番号が重複しています。";
+			}
 		}
 
 		//入力内容に不正なものがなかったか
@@ -150,7 +169,12 @@ public class RegistrationServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 
+		employeeModel.setDepName(ed.findByDepName(employeeModel.getDepNo()));
+		employeeModel.setAuthName(ed.findByAuthName(employeeModel.getAuthNo()));
+
 		session.setAttribute("employeeModel", employeeModel);
+
+		pageFlg = "RegistrationServlet";
 		session.setAttribute("pageFlg", pageFlg);
 
 		RequestDispatcher dispatcher = request

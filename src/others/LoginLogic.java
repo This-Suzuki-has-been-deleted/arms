@@ -13,10 +13,11 @@ public class LoginLogic {
 		EmployeeModel empModel = new EmployeeModel();
 		empModel = employeeDAO.findEmployee(id);
 
-		if(empModel.getPassword().equals(pw)){
-			return true;
+		if(empModel.getEmployeeNo() == null || !empModel.getPassword().equals(pw)){
+			return false;
 		}
-		return false;
+
+		return true;
 	}
 	public String passHash(String pass) {
 		MessageDigest md = null;

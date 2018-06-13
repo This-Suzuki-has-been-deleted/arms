@@ -11,7 +11,7 @@
   <div class="login-triangle"></div>
 
   <h2 class="login-header">Log in</h2>
-
+	<h3>${eMsg}</h3>
   <form class="login-container" action="LoginServlet" method="POST">
     <p><input type="text" name = "syainNo" placeholder="id"></p>
     <p><input type="password" name= "password"placeholder="Password"></p>

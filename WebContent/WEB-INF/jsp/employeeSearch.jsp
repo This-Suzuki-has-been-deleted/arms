@@ -15,7 +15,7 @@
 			<option value="${Employee.depNo}">${Employee.depName}</option>
 				<c:forEach var="deplist" items="${DepList}">
 					<c:if test="${Employee.authNo == '003' || Employee.authNo =='999'}">
-						<option value="${deplist.divisionno}">${deplist.divisionName}</option>
+						<option value="${deplist.depNo}">${deplist.depName}</option>
 					</c:if>
 				</c:forEach>
 		</select>
@@ -26,7 +26,7 @@
 			<th>社員番号</th>
 			<th>社員名</th>
 			<th>部署</th>
-			<c:if test="{Employee.Divisionno == '003'}">
+			<c:if test="{Employee.depNo == '003'}">
 				<!-- EmployeeModelのセッション名Employee -->
 				<th>権限</th>
 			</c:if>

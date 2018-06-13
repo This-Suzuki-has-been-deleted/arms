@@ -42,11 +42,13 @@ public class ConfServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		String pageFlg = (String) session.getAttribute("pageFlg");
+		String pageFlg = null;
+		pageFlg  = (String) session.getAttribute("pageFlg");
 		EmployeeModel empModel;
 		EmployeeDAO employeeDao;
 		if(pageFlg.equals("RegistrationServlet")){
-			 empModel = (EmployeeModel) session.getAttribute("EmployeeModel");
+			empModel = (EmployeeModel) session.getAttribute("employeeModel");
+			System.out.println(empModel.getEmployeeName());
 			employeeDao = new EmployeeDAO();
 			employeeDao.InsertEmployee(empModel);
 
@@ -56,7 +58,7 @@ public class ConfServlet extends HttpServlet {
 			employeeDao.updateEmployee(empModel);
 		}
 		String Msg = null;
-		session.setAttribute(Msg, "完了です！");
+		session.setAttribute("Msg", "完了です！");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 

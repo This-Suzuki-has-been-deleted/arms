@@ -46,6 +46,7 @@ public class LoginCheckFilter implements Filter {
 
 		EmployeeModel em = (EmployeeModel)session.getAttribute("Employee");
 		if(em != null){
+			httpRequest.setCharacterEncoding("UTF-8");
 			chain.doFilter(httpRequest, httpResponse);
 		}else{
 			session.setAttribute("msg", "ログインしてください。");
