@@ -60,6 +60,7 @@ public class TimeStampServlet extends HttpServlet {
 			wt.setAttendance(now);
 			wdao.updateWorkTime(wt);
 			session.setAttribute("buttonvalue", "退勤");
+			session.setAttribute("index_date",date);
 		} else {
 			java.util.Date date = new java.util.Date();
 			long nowTime = date.getTime();
