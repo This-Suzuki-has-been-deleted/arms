@@ -8,9 +8,11 @@
 		pageTitle = "";
 	}
 	EmployeeModel em = (EmployeeModel) session.getAttribute("Employee");
-	String name="a";
+	String name = "";
 	if(em==null){
 		name="ログインできていない";
+	}else{
+		name = em.getEmployeeName();
 	}
 %>
 
