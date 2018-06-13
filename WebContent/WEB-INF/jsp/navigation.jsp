@@ -15,7 +15,7 @@
 	<ul class=sidelist>
 		<li><a href="WorkServlet">勤怠確認</a></li>
 		<li><a href="ChangeServlet">情報変更</a></li>
-		<%if(auth.equals("003")||auth.equals("999")){ %>
+		<%if(!auth.equals("001")){ %>
 		<li><a href="EmployeeServlet">社員検索</a></li>
 		<li><a href="RegistrationServlet">社員登録</a></li>
 		<%} %>
