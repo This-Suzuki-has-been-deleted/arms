@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import dao.EmployeeDAO;
 /**
  * Servlet implementation class ChangeServlet
  */
+@WebServlet("/ChangeServlet")
 public class ChangeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	HttpSession session;
@@ -42,6 +44,9 @@ public class ChangeServlet extends HttpServlet {
 		session = request.getSession();
 		EmployeeModel employee = (EmployeeModel) session.getAttribute("Employee");
 		String employeeNo = employee.getEmployeeNo();
+		if(employeeNo == null){
+			employeeNo = employee.getEmployeeNo();
+		}
 		List<DepModel> depModel = new ArrayList<DepModel>();
 		List<AuthModel> authModel = new ArrayList<AuthModel>();
 		DepDAO depDao = new DepDAO();
@@ -50,7 +55,7 @@ public class ChangeServlet extends HttpServlet {
 		authModel = authDao.findAuthAll();
 		session.setAttribute("DepModel", depModel);
 		session.setAttribute("authModel",authModel);
-		if(employee.getAuthNo().equals("01") && employee.getEmployeeNo() == employeeNo ){
+		if(employee.getAuthNo().equals("01") || employee.getEmployeeNo() == employeeNo ){
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 			dispatcher.forward(request, response);
 		}
