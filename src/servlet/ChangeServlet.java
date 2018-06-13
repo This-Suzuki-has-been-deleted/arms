@@ -16,6 +16,7 @@ import model.AuthModel;
 import model.DepModel;
 import model.EmployeeModel;
 import others.LoginLogic;
+import validation.Validation;
 import dao.AuthDAO;
 import dao.DepDAO;
 import dao.EmployeeDAO;
@@ -84,12 +85,18 @@ public class ChangeServlet extends HttpServlet {
 			String passHashCode = loginlogic.passHash(password);
 			EmployeeDAO employeeDao = new EmployeeDAO();
 			EmployeeModel emp = employeeDao.findEmployee(employeeNo);
-			if(emp == null || emp.getPassword() == passHashCode){
+			Validation validation = new Validation();
+			if(validation.nullCheck(password) || validation.nullCheck(nextPassword)){
+				eMsg = "パスワードが未入力です。";
+				session.setAttribute("eMsg",eMsg);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
+				dispatcher.forward(request, response);
+			}else if(emp.getPassword() == passHashCode){
 				eMsg = "パスワードが重複しています。";
 				session.setAttribute("eMsg",eMsg);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 				dispatcher.forward(request, response);
-			}
+			}else{
 			Msg = "パスワード変更しました。";
 			session.setAttribute("Msg",Msg);
 			String nextPassHashCode = loginlogic.passHash(nextPassword);
@@ -97,7 +104,7 @@ public class ChangeServlet extends HttpServlet {
 			employeeDao.updateEmppass(emp);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
-
+			}
 		}else{
 			String employeeName = null;
 			String divisionNo = null;

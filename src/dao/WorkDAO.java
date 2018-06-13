@@ -225,7 +225,7 @@ public class WorkDAO {
 
 		// 自動コミットをオフ
 		conn.setAutoCommit(false);
-		String sql = "select * from employeeworktime where employeeno=? and year=? and month=?";
+		String sql = "select * from employeeWorkTime where employeeno=? and year=? and month=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, eno);
 		pstmt.setInt(2, y);
