@@ -138,12 +138,13 @@ public class AnnualDAO {
 		pstmt.setInt(2, y);
 
 		ResultSet rs = pstmt.executeQuery();
-
-		am.setEmployeeNo(rs.getString("employeeno"));
-		am.setYear(rs.getInt("year"));
-		am.setY_workTime(rs.getTimestamp("y_workingtime"));
-		am.setY_overTime(rs.getTimestamp("y_overworkingtime"));
-		am.setY_nightTime(rs.getTimestamp("y_nightworkingtime"));
+		if(rs.next()){
+			am.setEmployeeNo(rs.getString("employeeno"));
+			am.setYear(rs.getInt("year"));
+			am.setY_workTime(rs.getTimestamp("y_workingtime"));
+			am.setY_overTime(rs.getTimestamp("y_overworkingtime"));
+			am.setY_nightTime(rs.getTimestamp("y_nightworkingtime"));
+		}
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

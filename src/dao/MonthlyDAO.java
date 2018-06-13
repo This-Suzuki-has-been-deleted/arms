@@ -124,14 +124,14 @@ public class MonthlyDAO {
 			pstmt.setInt(3, m);
 
 			ResultSet rs = pstmt.executeQuery();
-
-			mm.setEmployeeNo(rs.getString("employeeno"));
-			mm.setYear(rs.getInt("year"));
-			mm.setMonth(rs.getInt("month"));
-			mm.setM_workTime(rs.getTimestamp("m_workingtime"));
-			mm.setM_overTime(rs.getTimestamp("m_overworkingtime"));
-			mm.setM_nightTime(rs.getTimestamp("m_nightworkingtime"));
-
+			if(rs.next()){
+				mm.setEmployeeNo(rs.getString("employeeno"));
+				mm.setYear(rs.getInt("year"));
+				mm.setMonth(rs.getInt("month"));
+				mm.setM_workTime(rs.getTimestamp("m_workingtime"));
+				mm.setM_overTime(rs.getTimestamp("m_overworkingtime"));
+				mm.setM_nightTime(rs.getTimestamp("m_nightworkingtime"));
+			}
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
