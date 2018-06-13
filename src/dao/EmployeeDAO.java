@@ -164,7 +164,7 @@ public class EmployeeDAO {
 
 			while (rs.next()) {
 
-				authname = rs.getString("AuthorityName");
+				authname = rs.getString("authorityName");
 
 			}
 
@@ -183,7 +183,6 @@ public class EmployeeDAO {
 		}
 		return authname;
 	}
-
 	public String findByDepName(String depno) { // 部署 = Dep
 
 		conn = null;
@@ -206,8 +205,7 @@ public class EmployeeDAO {
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-
-				divisionname = rs.getString("DivisionName");
+				divisionname = rs.getString("divisionName");
 			}
 
 		} catch (SQLException e) {
