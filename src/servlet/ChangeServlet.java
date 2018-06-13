@@ -42,6 +42,7 @@ public class ChangeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		session = request.getSession();
+		session.removeAttribute("eMsg");
 		EmployeeModel employee = (EmployeeModel) session.getAttribute("Employee");
 		String employeeNo = employee.getEmployeeNo();
 		if(employeeNo == null){
@@ -71,21 +72,29 @@ public class ChangeServlet extends HttpServlet {
 		session = request.getSession();
 		EmployeeModel employee = (EmployeeModel) session.getAttribute("Employee");
 		String employeeNo = employee.getEmployeeNo();
-		if(employee.getAuthNo().equals("01") && employee.getEmployeeNo() == employeeNo ){
+		if(employeeNo == null){
+			employeeNo = employee.getEmployeeNo();
+		}
+		if(employee.getAuthNo().equals("01") || employee.getEmployeeNo() == employeeNo ){
 			String password = request.getParameter("pass");
 			String nextPassword = request.getParameter("nextPass");
-			String msg = null;
+			String Msg = null;
+			String eMsg = null;
 			LoginLogic loginlogic = new LoginLogic();
 			String passHashCode = loginlogic.passHash(password);
 			EmployeeDAO employeeDao = new EmployeeDAO();
 			EmployeeModel emp = employeeDao.findEmployee(employeeNo);
 			if(emp == null || emp.getPassword() == passHashCode){
-				msg = "パスワードが重複しています。";
+				eMsg = "パスワードが重複しています。";
+				session.setAttribute("eMsg",eMsg);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 				dispatcher.forward(request, response);
 			}
+			Msg = "パスワード変更しました。";
+			session.setAttribute("Msg",Msg);
 			String nextPassHashCode = loginlogic.passHash(nextPassword);
-			//employeeDao.パスワード変更DAO完成しだい追加
+			emp.setPassword(nextPassHashCode);
+			employeeDao.updateEmppass(emp);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 
