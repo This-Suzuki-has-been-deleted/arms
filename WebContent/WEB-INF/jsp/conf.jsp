@@ -19,7 +19,7 @@
 	<p>社員番号：${employeeModel.employeeNo }</p>
 </c:if>
 	<p>社員名：${employeeModel.employeeName }</p>
-	<c:if test="${employeeModel.authNo == '003' or employeeModel.authNo == '999' or pageFlg == 'ChangeServlet' }">
+	<c:if test="${employeeModel.authNo == '003' or employeeModel.authNo == '999'}">
 	<p>部署名:${employeeModel.depName}</p>
 	<p>権限名:${employeeModel.authName }</p>
 	</c:if>
