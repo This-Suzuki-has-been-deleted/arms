@@ -33,11 +33,14 @@ public class DateMath {
 	 * @return diff
 	 */
 	public int diff(long date1, long date2) {
-		int diff = (int) (date1 - date2) / (1000 * 60);
+		System.out.println(date1+" "+date2);
+		long diff = (date1 - date2) / (1000 * 60);
+		System.out.println(diff);
 		if (diff <= 0) {
 			diff = 0;
 		}
-		return diff;
+		int dif = (int)diff;
+		return dif;
 	}
 
 	/**
