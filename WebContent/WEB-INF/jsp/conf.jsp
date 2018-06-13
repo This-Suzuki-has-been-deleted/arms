@@ -6,8 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:choose>
-<c:when test="${pageFlg = 'RegistrationServlet' }"><title>登録確認</title></c:when>
-<c:when test="${pageFlg = 'ChangeServlet' }"><title>変更確認</title></c:when>
+<c:when test="${pageFlg == 'ChangeServlet' }"><title>変更確認</title></c:when>
+<c:when test="${pageFlg == 'RegistrationServlet' }"><title>登録確認</title></c:when>
+
 </c:choose>
 </head>
 <body>
