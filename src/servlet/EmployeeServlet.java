@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.DepModel;
 import model.EmployeeModel;
 import dao.EmployeeDAO;
 
@@ -20,6 +21,9 @@ import dao.EmployeeDAO;
 @WebServlet("/EmployeeServlet")
 public class EmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	EmployeeDAO employeeDao = new EmployeeDAO();
+	ArrayList<DepModel> deplist = new ArrayList<DepModel>();
 
 	public EmployeeServlet() {
 		super();
@@ -31,16 +35,29 @@ public class EmployeeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");
+		HttpSession session = request.getSession();
+
+
+
+		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
+		emodel.setDepName(employeeDao.findByDepName(emodel.getDepNo()));	//depnoを渡してdepnameをset
+
+		deplist = employeeDao.findByDepNo(emodel);		//ログイン中ユーザの所属部署以外をリストに挿入
+
+		session.setAttribute("Employee",emodel);
+		session.setAttribute("DepList",deplist);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");
 		dispatcher.forward(request, response);
+
+
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
-		EmployeeDAO employeeDao = new EmployeeDAO();
+
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
 
 		String emp_Name = request.getParameter("employee_name");
@@ -52,6 +69,7 @@ public class EmployeeServlet extends HttpServlet {
 
 		session.setAttribute("RESULT", employeelist);
 		session.setAttribute("PAGENO", pageno);
+
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");
