@@ -23,7 +23,7 @@
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="main">
 		<form method="post" action="RegistrationServlet">
-			<c:out value="${msg}">
+			<c:out value="${msg}"/>
 				<table>
 					<tr>
 						<td>社員番号：</td>
@@ -70,9 +70,8 @@
 				<%
 					}
 				%>
-			</c:out>
+			<input type="submit" value="確認">
 		</form>
-		<input type="submit" value="確認">
 	</div>
 	<jsp:include page="/WEB-INF/jsp/navigation.jsp" />
 	<div class="clear"></div>

@@ -46,7 +46,8 @@ public class RegistrationServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 //		// ログイン中のユーザーの情報をセッションから得る
-//		EmployeeModel myEmp = (EmployeeModel) request.getAttribute("Employee");
+		EmployeeModel myEmp = (EmployeeModel) session.getAttribute("Employee");
+		System.out.println(myEmp.getDepNo());
 //
 //		// ログインチェック
 //		if (myEmp == null) {
@@ -85,7 +86,7 @@ public class RegistrationServlet extends HttpServlet {
 		LoginLogic ll = new LoginLogic();
 		EmployeeDAO ed = new EmployeeDAO();
 
-		String textCode;	//入力内容を受け取る変数
+		String textCode = null;	//入力内容を受け取る変数
 		String textName;	//入力内容を受け取る変数
 		String selectDivisionNo;
 		String selectAuthorityNo;
@@ -130,24 +131,22 @@ public class RegistrationServlet extends HttpServlet {
 			employeeModel.setPassword(ll.passHash("pass1234"));
 			employeeModel.setDelFlg(1);
 		} catch (NullPointerException e) {
-			msg = msg + "<br>・未入力項目があります。";
+			msg = msg + "\n・未入力項目があります。";
 		}
 
 		// 重複チェック
-		ArrayList<EmployeeModel> employeelist = ed.findAll();
+		EmployeeModel employee = ed.findEmployee(textCode);
 
 		//社員番号の重複チェック
-		for (EmployeeModel em : employeelist) {
-			if (employeeModel.getEmployeeNo().equals(em.getEmployeeNo())) {
-				msg = msg + "<br>・社員番号が重複しています。";
-			}
+		if(employee.getEmployeeNo() != null){
+			msg = msg + "\n・社員番号が重複しています。";
 		}
 
 		//入力内容に不正なものがなかったか
 		if (msg != null) {
 			session.setAttribute("msg", msg);
 			RequestDispatcher dispatcher = request
-					.getRequestDispatcher("/index.jsp");
+					.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");
 			dispatcher.forward(request, response);
 		}
 
@@ -155,7 +154,7 @@ public class RegistrationServlet extends HttpServlet {
 		session.setAttribute("pageFlg", pageFlg);
 
 		RequestDispatcher dispatcher = request
-				.getRequestDispatcher("/conf.jsp");
+				.getRequestDispatcher("/WEB-INF/jsp/conf.jsp");
 		dispatcher.forward(request, response);
 	}
 }

@@ -39,15 +39,18 @@ public class LoginCheckFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpSession session = ((HttpServletRequest)request).getSession();
+
+		HttpServletRequest httpRequest = (HttpServletRequest)request;
+		ServletResponse httpResponse = (ServletResponse)response;
+		HttpSession session = httpRequest.getSession();
 
 		EmployeeModel em = (EmployeeModel)session.getAttribute("Employee");
 		if(em != null){
-			chain.doFilter(request, response);
+			chain.doFilter(httpRequest, httpResponse);
 		}else{
 			session.setAttribute("msg", "ログインしてください。");
 			RequestDispatcher dr = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
-			dr.forward(request, response);
+			dr.forward(httpRequest, httpResponse);
 		}
 	}
 
