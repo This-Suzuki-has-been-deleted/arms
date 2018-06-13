@@ -46,7 +46,8 @@ public class ConfServlet extends HttpServlet {
 		EmployeeModel empModel;
 		EmployeeDAO employeeDao;
 		if(pageFlg.equals("RegistrationServlet")){
-			 empModel = (EmployeeModel) session.getAttribute("EmployeeModel");
+			empModel = (EmployeeModel) session.getAttribute("employeeModel");
+			System.out.println(empModel.getEmployeeName());
 			employeeDao = new EmployeeDAO();
 			employeeDao.InsertEmployee(empModel);
 

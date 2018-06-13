@@ -92,7 +92,7 @@ public class RegistrationServlet extends HttpServlet {
 		String textName;	//入力内容を受け取る変数
 		String selectDivisionNo;
 		String selectAuthorityNo;
-		String pageFlg = "RegistrationServlet";
+		String pageFlg = null;
 		String msg = null;
 		boolean flg = false;
 
@@ -173,6 +173,8 @@ public class RegistrationServlet extends HttpServlet {
 		employeeModel.setAuthName(ed.findByAuthName(employeeModel.getAuthNo()));
 
 		session.setAttribute("employeeModel", employeeModel);
+
+		pageFlg = "RegistrationServlet";
 		session.setAttribute("pageFlg", pageFlg);
 
 		RequestDispatcher dispatcher = request
