@@ -13,16 +13,16 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp" />
 <div class="main">
-<form action="${pageFlg}" method="post">
-<c:if test="${pageFlg = 'RegistrationServlet' }">
+<form action="ConfServlet" method="post">
+<c:if test="${pageFlg == 'RegistrationServlet' }">
 	<p>社員番号：${employeeModel.employeeNo }</p>
 </c:if>
 	<p>社員名：${employeeModel.employeeName }</p>
-	<c:if test="${employeeModel.employeeAuthNo = '003' or employeeModel.employeeAuthNo = '999' or pageFlg = 'ChangeServlet' }">
+	<c:if test="${employeeModel.authNo == '003' or employeeModel.authNo == '999' or pageFlg == 'ChangeServlet' }">
 	<p>部署名:${employeeModel.depName}</p>
 	<p>権限名:${employeeModel.authName }</p>
 	</c:if>
-
+<input type="submit" value="確認">
 </form>
 </div>
 <jsp:include page="/WEB-INF/jsp/navigation.jsp" />
