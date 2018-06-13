@@ -32,7 +32,7 @@ public class MonthlyDAO {
 
 		// 自動コミットをオフ
 		conn.setAutoCommit(false);
-		String sql = "insert into employeeworktime(employeeno,year,month,m_workingtime,m_overworkingtime,m_nightwokingtime) values(?,?,?,?,?,?)";
+		String sql = "insert into employeemonthly(employeeno,year,month,monthworkingtime,monthoverworkingtime,monthnightworkingtime) values(?,?,?,?,?,?)";
 		pstmt = conn.prepareStatement(sql);
 
 		pstmt.setString(1, mm.getEmployeeNo());
@@ -42,11 +42,9 @@ public class MonthlyDAO {
 		pstmt.setTimestamp(5, mm.getM_overTime());
 		pstmt.setTimestamp(6, mm.getM_nightTime());
 
-		if (pstmt.executeUpdate() > 0) {
-			conn.commit();
-		} else {
-			conn.rollback();
-		}
+		pstmt.executeUpdate();
+
+		conn.commit();
 
 		pstmt.close();
 		conn.close();
@@ -69,18 +67,17 @@ public class MonthlyDAO {
 			// 自動コミットをオフ
 			conn.setAutoCommit(false);
 
-			String sql = "update employeemonthly set m_workingtime=?,m_overworkingtime=?,m_nightworkingtime=? where employeeno=?";
+			String sql = "update employeemonthly set monthworkingtime=?,monthoverworkingtime=?,monthnightworkingtime=? where employeeno=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setTimestamp(1, mm.getM_workTime());
 			pstmt.setTimestamp(2, mm.getM_overTime());
 			pstmt.setTimestamp(3, mm.getM_nightTime());
 			pstmt.setString(4, mm.getEmployeeNo());
 
-			if (pstmt.executeUpdate() > 0) {
-				conn.commit();
-			} else {
-				conn.rollback();
-			}
+			pstmt.executeUpdate();
+
+			conn.commit();
+
 
 			pstmt.close();
 			conn.close();
@@ -128,9 +125,9 @@ public class MonthlyDAO {
 				mm.setEmployeeNo(rs.getString("employeeno"));
 				mm.setYear(rs.getInt("year"));
 				mm.setMonth(rs.getInt("month"));
-				mm.setM_workTime(rs.getTimestamp("m_workingtime"));
-				mm.setM_overTime(rs.getTimestamp("m_overworkingtime"));
-				mm.setM_nightTime(rs.getTimestamp("m_nightworkingtime"));
+				mm.setM_workTime(rs.getTimestamp("monthworkingtime"));
+				mm.setM_overTime(rs.getTimestamp("monthoverworkingtime"));
+				mm.setM_nightTime(rs.getTimestamp("monthnightworkingtime"));
 			}
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
@@ -176,9 +173,9 @@ public class MonthlyDAO {
 				mm.setEmployeeNo(rs.getString("employeeno"));
 				mm.setYear(rs.getInt("year"));
 				mm.setMonth(rs.getInt("month"));
-				mm.setM_workTime(rs.getTimestamp("m_workingtime"));
-				mm.setM_overTime(rs.getTimestamp("m_overworkingtime"));
-				mm.setM_nightTime(rs.getTimestamp("m_nightworkingtime"));
+				mm.setM_workTime(rs.getTimestamp("monthworkingtime"));
+				mm.setM_overTime(rs.getTimestamp("monthoverworkingtime"));
+				mm.setM_nightTime(rs.getTimestamp("monthnightworkingtime"));
 
 				list.add(mm);
 			}
@@ -227,9 +224,9 @@ public class MonthlyDAO {
 				mm.setEmployeeNo(rs.getString("employeeno"));
 				mm.setYear(rs.getInt("year"));
 				mm.setMonth(rs.getInt("month"));
-				mm.setM_workTime(rs.getTimestamp("m_workingtime"));
-				mm.setM_overTime(rs.getTimestamp("m_overworkingtime"));
-				mm.setM_nightTime(rs.getTimestamp("m_nightworkingtime"));
+				mm.setM_workTime(rs.getTimestamp("monthworkingtime"));
+				mm.setM_overTime(rs.getTimestamp("monthoverworkingtime"));
+				mm.setM_nightTime(rs.getTimestamp("monthnightworkingtime"));
 
 				list.add(mm);
 			}

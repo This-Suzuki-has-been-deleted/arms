@@ -1,6 +1,7 @@
 package others;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -18,7 +19,8 @@ public class DateMath {
 		cal.setTime(workTime);
 		cal.add(Calendar.MINUTE, minute);
 		Date temp = cal.getTime();
-		String dates = temp.toString();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String dates = sdf.format(temp);
 		Timestamp resultDate = Timestamp.valueOf(dates);
 		return resultDate;
 	}

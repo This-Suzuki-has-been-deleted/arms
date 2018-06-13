@@ -29,7 +29,7 @@ public class AnnualDAO {
 
 		// 自動コミットをオフ
 		conn.setAutoCommit(false);
-		String sql = "insert into employeeannual(employeeno,year,y_workingtime,y_overworkingtime,y_nightwokingtime) values(?,?,?,?,?) where employeeno=?";
+		String sql = "insert into employeeannual(employeeno,year,yearworkingtime,yearoverworkingtime,yearnightworkingtime) values(?,?,?,?,?)";
 		pstmt = conn.prepareStatement(sql);
 
 		pstmt.setString(1, am.getEmployeeNo());
@@ -37,14 +37,10 @@ public class AnnualDAO {
 		pstmt.setTimestamp(3, am.getY_workTime());
 		pstmt.setTimestamp(4, am.getY_overTime());
 		pstmt.setTimestamp(5, am.getY_nightTime());
-		pstmt.setString(6, am.getEmployeeNo());
 
+		pstmt.executeUpdate();
 
-		if (pstmt.executeUpdate() > 0) {
-			conn.commit();
-		} else {
-			conn.rollback();
-		}
+		conn.commit();
 
 		pstmt.close();
 		conn.close();
@@ -82,18 +78,16 @@ public class AnnualDAO {
 		// 自動コミットをオフ
 		conn.setAutoCommit(false);
 
-		String sql = "update employeemonthly set y_workingtime=?,y_overworkingtime=?,y_nightworkingtime=? where employeeno=?";
+		String sql = "update employeeannual set yearworkingtime=?,yearoverworkingtime=?,yearnightworkingtime=? where employeeno=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setTimestamp(1, am.getY_workTime());
 		pstmt.setTimestamp(2, am.getY_overTime());
 		pstmt.setTimestamp(3, am.getY_nightTime());
 		pstmt.setString(4, am.getEmployeeNo());
 
-		if (pstmt.executeUpdate() > 0) {
-			conn.commit();
-		} else {
-			conn.rollback();
-		}
+		pstmt.executeUpdate();
+
+		conn.commit();
 
 		pstmt.close();
 		conn.close();
@@ -141,9 +135,9 @@ public class AnnualDAO {
 		if(rs.next()){
 			am.setEmployeeNo(rs.getString("employeeno"));
 			am.setYear(rs.getInt("year"));
-			am.setY_workTime(rs.getTimestamp("y_workingtime"));
-			am.setY_overTime(rs.getTimestamp("y_overworkingtime"));
-			am.setY_nightTime(rs.getTimestamp("y_nightworkingtime"));
+			am.setY_workTime(rs.getTimestamp("yearworkingtime"));
+			am.setY_overTime(rs.getTimestamp("yearoverworkingtime"));
+			am.setY_nightTime(rs.getTimestamp("year_nightworkingtime"));
 		}
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
@@ -189,9 +183,9 @@ public class AnnualDAO {
 			AnnualModel am = new AnnualModel();
 			am.setEmployeeNo(rs.getString("employeeno"));
 			am.setYear(rs.getInt("year"));
-			am.setY_workTime(rs.getTimestamp("y_workingtime"));
-			am.setY_overTime(rs.getTimestamp("y_overworkingtime"));
-			am.setY_nightTime(rs.getTimestamp("y_nightworkingtime"));
+			am.setY_workTime(rs.getTimestamp("yearworkingtime"));
+			am.setY_overTime(rs.getTimestamp("yearoverworkingtime"));
+			am.setY_nightTime(rs.getTimestamp("yearnightworkingtime"));
 
 			list.add(am);
 		}
@@ -239,9 +233,9 @@ public class AnnualDAO {
 			AnnualModel am = new AnnualModel();
 			am.setEmployeeNo(rs.getString("employeeno"));
 			am.setYear(rs.getInt("year"));
-			am.setY_workTime(rs.getTimestamp("y_workingtime"));
-			am.setY_overTime(rs.getTimestamp("y_overworkingtime"));
-			am.setY_nightTime(rs.getTimestamp("y_nightworkingtime"));
+			am.setY_workTime(rs.getTimestamp("yearworkingtime"));
+			am.setY_overTime(rs.getTimestamp("yearoverworkingtime"));
+			am.setY_nightTime(rs.getTimestamp("yearnightworkingtime"));
 
 			list.add(am);
 		}

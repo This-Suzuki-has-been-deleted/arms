@@ -77,18 +77,24 @@ public class TimeStampServlet extends HttpServlet {
 			MonthlyModel mm = mdao.findMonthlyTime(wt.getEmployeeNo(),wt.getYear(), wt.getMonth());
 			AnnualModel am = adao.findAnnualTime(wt.getEmployeeNo(), wt.getYear());
 
+			System.out.println(mm.getEmployeeNo()+" "+am.getEmployeeNo());
+
 			//月次データがなかった場合の処理
 			if(mm.getEmployeeNo() ==null){
 				mm.setEmployeeNo(wt.getEmployeeNo());
 				mm.setYear(wt.getYear());
 				mm.setMonth(wt.getMonth());
 				try {
-					Timestamp work = new Timestamp(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse("0000/00/00 00:00:00").getTime());
-					Timestamp over = new Timestamp(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse("0000/00/00 00:00:00").getTime());
-					Timestamp night = new Timestamp(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse("0000/00/00 00:00:00").getTime());
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					Date dates = sdf.parse("2000-01-01 00:00:00");
+
+					Timestamp work = new Timestamp(dates.getTime());
+					Timestamp over = new Timestamp(dates.getTime());
+					Timestamp night = new Timestamp(dates.getTime());
 					mm.setM_workTime(work);
 					mm.setM_overTime(over);
 					mm.setM_nightTime(night);
+
 					mdao.insertMonthlyTime(mm);
 				} catch (ParseException | InstantiationException | IllegalAccessException | ClassNotFoundException | NamingException | SQLException e) {
 					e.printStackTrace();
@@ -100,14 +106,17 @@ public class TimeStampServlet extends HttpServlet {
 			if(am.getEmployeeNo() == null){
 				am.setEmployeeNo(wt.getEmployeeNo());
 				am.setYear(wt.getYear());
-
 				try {
-					Timestamp work = new Timestamp(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse("0000/00/00 00:00:00").getTime());
-					Timestamp over = new Timestamp(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse("0000/00/00 00:00:00").getTime());
-					Timestamp night = new Timestamp(new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse("0000/00/00 00:00:00").getTime());
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					Date dates = sdf.parse("2000-01-01 00:00:00");
+
+					Timestamp work = new Timestamp(dates.getTime());
+					Timestamp over = new Timestamp(dates.getTime());
+					Timestamp night = new Timestamp(dates.getTime());
 					am.setY_workTime(work);
 					am.setY_overTime(over);
 					am.setY_nightTime(night);
+
 					adao.insertMonthlyTime(am);
 				} catch (ParseException e) {
 					// TODO 自動生成された catch ブロック
