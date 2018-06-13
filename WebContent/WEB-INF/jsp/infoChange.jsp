@@ -18,7 +18,7 @@
 					<option value="${dep.depNo}">${dep.depName}</option>
 				</c:forEach>
 				</select>
-		<c:if test="${Employee.AuthNo = '003' } ">
+		<c:if test="${Employee.authNo = '003'}">
 			権限  ：<select name="selectAuthorityNo">
 				<c:forEach var="auth" items="${ChangeEmployee.AuthModel}" varStatus="status">
 					<option value="${auth.authNo}">${auth.authName}</option>

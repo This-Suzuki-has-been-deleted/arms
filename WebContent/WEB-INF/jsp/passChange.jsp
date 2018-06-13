@@ -4,9 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>ユーザー情報変更</title>
 </head>
 <body>
-
+<p>"${eMsg}"</p>
+<form action="ChangeServlet" method="post">
+現在パスワード<input type="password" name="pass">
+<br>
+新しいパスワード<input type="password" name="nextPass">
+<br>
+<input type="submit" value="戻る"><input type="submit" value="確認">
+</form>
 </body>
 </html>
