@@ -133,7 +133,7 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			String eMsg = "社員番号又はパスワードに誤りがあります。";
 			session.setAttribute("eMsg", eMsg);
-			dispatcher = request.getRequestDispatcher("login.jsp");
+			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
 		}
 
