@@ -73,10 +73,25 @@ public class WorkServlet extends HttpServlet {
 		String yearBuf = request.getParameter("y_btn");
 		String monthBuf = request.getParameter("m_btn");
 
+		Calendar now = Calendar.getInstance();
+		Calendar first = Calendar.getInstance();
+
+		String[] week = {"日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日"};
+
 		int year;
 		int month;
 
-		Calendar now = Calendar.getInstance();
+		first.set( Calendar.DATE,1);
+		int firstWeek = (first.get( Calendar.DAY_OF_WEEK )-1);
+		int maxDayCnt = now.getActualMaximum(Calendar.DAY_OF_MONTH);
+		System.out.println(week[firstWeek]);
+
+		//セッションに曜日の情報が入っている配列をセット
+		session.setAttribute("week",week);
+		//セッションに月初めの曜日情報を1～7の数値でセット
+		session.setAttribute("firstWeek",firstWeek);
+		//セッションに月末の日にちをセット
+		session.setAttribute("maxDayCnt",maxDayCnt);
 
 		//yearとmonthの初期値を設定
 		if(yearBuf == null){
