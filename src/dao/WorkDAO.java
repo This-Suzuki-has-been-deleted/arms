@@ -37,7 +37,7 @@ public class WorkDAO {
 		pstmt.setInt(2, wt.getYear());
 		pstmt.setInt(3, wt.getMonth());
 		pstmt.setInt(4, wt.getDay());
-		pstmt.setDate(5, wt.getAttendance());
+		pstmt.setTimestamp(5, wt.getAttendance());
 
 		pstmt.executeUpdate();
 
@@ -81,8 +81,8 @@ public class WorkDAO {
 		String sql = "update employeeworktime set worktimeflg=?,attendance=?,leaving=? where employeeno=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setBoolean(1, wt.isWorkTimeFlg());
-		pstmt.setDate(2, wt.getAttendance());
-		pstmt.setDate(3, wt.getLeaving());
+		pstmt.setTimestamp(2, wt.getAttendance());
+		pstmt.setTimestamp(3, wt.getLeaving());
 		pstmt.setString(4, wt.getEmployeeNo());
 
 		if (pstmt.executeUpdate() > 0) {
@@ -140,8 +140,8 @@ public class WorkDAO {
 			wt.setMonth(rs.getInt("month"));
 			wt.setDay(rs.getInt("day"));
 			wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
-			wt.setAttendance(rs.getDate("attendance"));
-			wt.setLeaving(rs.getDate("leaving"));
+			wt.setAttendance(rs.getTimestamp("attendance"));
+			wt.setLeaving(rs.getTimestamp("leaving"));
 			wt.weekDate(wt);
 		}
 
@@ -189,8 +189,8 @@ public class WorkDAO {
 			wt.setMonth(rs.getInt("month"));
 			wt.setDay(rs.getInt("day"));
 			wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
-			wt.setAttendance(rs.getDate("attendance"));
-			wt.setLeaving(rs.getDate("leaving"));
+			wt.setAttendance(rs.getTimestamp("attendance"));
+			wt.setLeaving(rs.getTimestamp("leaving"));
 			wt.weekDate(wt);
 			list.add(wt);
 		}
@@ -239,8 +239,8 @@ public class WorkDAO {
 			wt.setMonth(rs.getInt("month"));
 			wt.setDay(rs.getInt("day"));
 			wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
-			wt.setAttendance(rs.getDate("attendance"));
-			wt.setLeaving(rs.getDate("leaving"));
+			wt.setAttendance(rs.getTimestamp("attendance"));
+			wt.setLeaving(rs.getTimestamp("leaving"));
 			wt.weekDate(wt);
 			list.add(wt);
 		}

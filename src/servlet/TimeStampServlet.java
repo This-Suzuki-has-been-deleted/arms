@@ -1,8 +1,8 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,29 +45,29 @@ public class TimeStampServlet extends HttpServlet {
 		WorkDAO wdao = new WorkDAO();
 		MonthlyDAO mdao = new MonthlyDAO();
 		DateMath dm = new DateMath();
-		System.out.println(value);
 
 		if (value.equals("出勤")) {
-			LocalDateTime date = LocalDateTime.now();
-			String temp = date.toString();
-			Date now = Date.valueOf(temp);
+			java.util.Date date = new java.util.Date();
+			long nowTime = date.getTime();
+			Timestamp now = new Timestamp(nowTime);
 			wt.setAttendance(now);
 			wdao.updateWorkTime(wt);
+			session.setAttribute("buttonvalue", "退勤");
 		} else {
-			LocalDateTime date = LocalDateTime.now();
-			String temp = date.toString();
-			Date now = Date.valueOf(temp);
+			java.util.Date date = new java.util.Date();
+			long nowTime = date.getTime();
+			Timestamp now = new Timestamp(nowTime);
 
 			wt.setLeaving(now);
 			wt.setWorkFlg(true);
 			wdao.updateWorkTime(wt); // 日次をアップデート
+			session.setAttribute("buttonvalue", "出勤");
 
 			// 労働時間の算出
 			long attendance = wt.getAttendance().getTime();
 			long leaving = wt.getLeaving().getTime();
 
-			MonthlyModel mm = mdao.findMonthlyTime(wt.getEmployeeNo(),
-					wt.getYear(), wt.getMonth());
+			MonthlyModel mm = mdao.findMonthlyTime(wt.getEmployeeNo(),wt.getYear(), wt.getMonth());
 			Date workTime = mm.getM_workTime();
 			Date overTime = mm.getM_overTime();
 			Date nightTime = mm.getM_nightTime();
