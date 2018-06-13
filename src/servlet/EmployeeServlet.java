@@ -37,12 +37,12 @@ public class EmployeeServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-
-
 		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
 		emodel.setDepName(employeeDao.findByDepName(emodel.getDepNo()));	//depnoを渡してdepnameをset
 
-		deplist = employeeDao.findByDepNo(emodel);		//ログイン中ユーザの所属部署以外をリストに挿入
+		deplist = employeeDao.findAllByDepNo(emodel.getDepNo());
+
+		//deplist = employeeDao.findByDepNo(emodel);		//ログイン中ユーザの所属部署以外をリストに挿入
 
 		session.setAttribute("Employee",emodel);
 		session.setAttribute("DepList",deplist);

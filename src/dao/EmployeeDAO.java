@@ -77,8 +77,7 @@ public class EmployeeDAO {
 	}
 
 	// 社員名をキーに社員検索（重複チェック
-	public ArrayList<EmployeeModel> findByEmployeeName(String empname,
-			String empno) {
+	public ArrayList<EmployeeModel> findByEmployeeName(String empname,String empno) {
 
 		conn = null;
 		pStmt = null;
@@ -154,7 +153,7 @@ public class EmployeeDAO {
 							"root", "password");
 			// SQLの実行
 			String sql = "select authorityName "
-					+ "from employeeposition WHERE employeeAuthorityNo = ?"; // 権限
+					+ "from employeeposition WHERE employeeAuthrityNo = ?"; // 権限
 
 			pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, authno);
@@ -182,6 +181,57 @@ public class EmployeeDAO {
 			}
 		}
 		return authname;
+	}
+
+	//全ての部署をリストに挿入して返す
+	public ArrayList<DepModel> findAllByDepNo(String depno) {
+
+		ArrayList<DepModel> deplist = new ArrayList<DepModel>();
+		conn = null;
+		pStmt = null;
+
+		String divisionname = "";
+		DepModel dmodel = new DepModel();
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms"
+									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
+							"root", "password");
+			// SQLの実行
+			String sql = "select divisionno,divisionName "
+					+ "from employeedivision WHERE divisionNo <> ?"; // 部署
+
+			pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, depno);
+
+			// 結果の取得と出力
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+				String divisionno = rs.getString("divisionNo");
+					divisionname = rs.getString("divisionName");
+
+				dmodel.setDepName(divisionname);
+				dmodel.setDepNo(divisionno);
+				deplist.add(dmodel);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+
+		} finally {
+			try {
+				// 切断
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return deplist;
+
 	}
 	public String findByDepName(String depno) { // 部署 = Dep
 
@@ -474,9 +524,9 @@ public class EmployeeDAO {
 			pStmt.setString(1, empmodel.getEmployeeNo()); // (1,xxx)１個目のハテナ
 			pStmt.setString(2, empmodel.getDepNo());
 			pStmt.setString(3, empmodel.getAuthNo());
-			pStmt.setDate(5, sqlDate);
-			pStmt.setString(6, empmodel.getEmployeeName());
-			pStmt.setString(7, empmodel.getPassword());
+			pStmt.setDate(4, sqlDate);
+			pStmt.setString(5, empmodel.getEmployeeName());
+			pStmt.setString(6, empmodel.getPassword());
 
 			// 結果の取得と出力
 			if (pStmt.executeUpdate() > 0) {

@@ -15,7 +15,7 @@
 			<option value="${Employee.depNo}">${Employee.depName}</option>
 				<c:forEach var="deplist" items="${DepList}">
 					<c:if test="${Employee.authNo == '003' || Employee.authNo =='999'}">
-						<option value="${deplist.Depno}">${deplist.DepName}</option>
+						<option value="${deplist.depNo}">${deplist.depName}</option>
 					</c:if>
 				</c:forEach>
 		</select>
