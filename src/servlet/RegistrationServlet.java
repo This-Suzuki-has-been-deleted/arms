@@ -98,6 +98,7 @@ public class RegistrationServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
+
 //		// ログインチェック
 //		if (myEmp == null) {
 //			RequestDispatcher dispatcher = request
@@ -110,6 +111,7 @@ public class RegistrationServlet extends HttpServlet {
 
 		try {
 			// 入力値受け取り
+
 			textCode = request.getParameter("textCode");
 			textName = request.getParameter("textName");
 			selectDivisionNo = request.getParameter("selectDivisionNo");
