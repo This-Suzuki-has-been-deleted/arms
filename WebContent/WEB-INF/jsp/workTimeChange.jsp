@@ -9,6 +9,8 @@
 <title>出退勤修正</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/header.jsp" />
+<div class="main">
 <h2>出退勤修正</h2>
 <h3>${workTimeModel.year}/${workTimeModel.month}/${workTimeModel.day} </h3>
 <input type="text" value="${ workTimeModel.attendance}">
@@ -19,5 +21,9 @@
 <form action="WorkModifiServlet" method="post">
 <input type="submit" value="更新">
 </form>
+</div>
+<jsp:include page="/WEB-INF/jsp/navigation.jsp" />
+<div class="clear"></div>
+<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

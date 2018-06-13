@@ -7,7 +7,9 @@
 <title>ユーザー情報変更</title>
 </head>
 <body>
-<p>"${eMsg}"</p>
+<jsp:include page="/WEB-INF/jsp/header.jsp" />
+<div class="main">
+<p>${eMsg}</p>
 <form action="ChangeServlet" method="post">
 現在パスワード<input type="password" name="pass">
 <br>
@@ -15,5 +17,9 @@
 <br>
 <input type="submit" value="戻る"><input type="submit" value="確認">
 </form>
+</div>
+<jsp:include page="/WEB-INF/jsp/navigation.jsp" />
+<div class="clear"></div>
+<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

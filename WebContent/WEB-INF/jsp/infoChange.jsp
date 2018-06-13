@@ -8,9 +8,9 @@
 <title>社員情報変更</title>
 </head>
 <body>
-
+<jsp:include page="/WEB-INF/jsp/header.jsp" />
+<div class="main">
 	<form action="" method="post">
-
 		<input type="text" name="employeeName">
 
 		部署 ：<select name="selectDivisionNo">
@@ -29,6 +29,10 @@
 		<input type="reset" value="戻る">
 		<input type="submit" value="確認">
 	</form>
+</div>
+<jsp:include page="/WEB-INF/jsp/navigation.jsp" />
+<div class="clear"></div>
+<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 
 </body>
 </html>

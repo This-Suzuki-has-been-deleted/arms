@@ -122,7 +122,7 @@ public class ChangeServlet extends HttpServlet {
 			employee.setDepNo(divisionNo);
 
 			session.setAttribute("pageFlg", pageFlg);
-			session.setAttribute("EmployeeModel", employee);
+			session.setAttribute("employeeModel", employee);
 
 			if(msg != null){
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/employeeChange.jsp");
