@@ -51,7 +51,6 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("POSTだよ");
 		HttpSession session = request.getSession();
 		RequestDispatcher dispatcher;
 		String employeeNo = request.getParameter("syainNo");
@@ -118,7 +117,7 @@ public class LoginServlet extends HttpServlet {
 					wm.setEmployeeNo(em.getEmployeeNo());
 					wm.setYear(year);
 					wm.setMonth(month);
-					wm.setDay(day);
+					wm.setDay(day+1);
 					wdao.insertWorkTime(wm); // レコード作成
 					session.setAttribute("work", wm); // 当日を参照する
 					session.setAttribute("buttonvalue", "出勤"); // ボタンのバリューを出勤に

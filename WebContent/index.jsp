@@ -17,7 +17,7 @@
 <body>
 <jsp:include page="WEB-INF/jsp/header.jsp" />
 <div class="main">
-	<form action="TimeStampServlet" method=POST>
+	<form action="TimeStampServlet" method="POST">
 		<input type="submit" value=<%=value %>>
 	</form>
 </div>
