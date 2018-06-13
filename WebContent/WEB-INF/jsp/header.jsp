@@ -24,6 +24,7 @@
 	<div class="pagetitle">
 		<p><%= pageTitle%></p>
 	</div>
+	<h1>${Msg}</h1>
 	<div class="clock">
 		<%=name %>
 		<p id="RealtimeClockArea">

@@ -58,7 +58,7 @@ public class ConfServlet extends HttpServlet {
 			employeeDao.updateEmployee(empModel);
 		}
 		String Msg = null;
-		session.setAttribute(Msg, "完了です！");
+		session.setAttribute("Msg", "完了です！");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 
