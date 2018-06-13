@@ -3,7 +3,7 @@ package model;
 public class DepModel {
 	private String depNo;
 	private String depName;
-	private int depFlg;
+	private int depFlg = 0;
 
 	public String getDepNo() {
 		return depNo;
