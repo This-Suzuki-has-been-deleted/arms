@@ -34,9 +34,9 @@ public class AnnualDAO {
 
 		pstmt.setString(1, am.getEmployeeNo());
 		pstmt.setInt(2, am.getYear());
-		pstmt.setDate(3, am.getY_workTime());
-		pstmt.setDate(4, am.getY_overTime());
-		pstmt.setDate(5, am.getY_nightTime());
+		pstmt.setTimestamp(3, am.getY_workTime());
+		pstmt.setTimestamp(4, am.getY_overTime());
+		pstmt.setTimestamp(5, am.getY_nightTime());
 		pstmt.setString(6, am.getEmployeeNo());
 
 
@@ -84,9 +84,9 @@ public class AnnualDAO {
 
 		String sql = "update employeemonthly set y_workingtime=?,y_overworkingtime=?,y_nightworkingtime=? where employeeno=?";
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setDate(1, am.getY_workTime());
-		pstmt.setDate(2, am.getY_overTime());
-		pstmt.setDate(3, am.getY_nightTime());
+		pstmt.setTimestamp(1, am.getY_workTime());
+		pstmt.setTimestamp(2, am.getY_overTime());
+		pstmt.setTimestamp(3, am.getY_nightTime());
 		pstmt.setString(4, am.getEmployeeNo());
 
 		if (pstmt.executeUpdate() > 0) {
@@ -141,9 +141,9 @@ public class AnnualDAO {
 
 		am.setEmployeeNo(rs.getString("employeeno"));
 		am.setYear(rs.getInt("year"));
-		am.setY_workTime(rs.getDate("y_workingtime"));
-		am.setY_overTime(rs.getDate("y_overworkingtime"));
-		am.setY_nightTime(rs.getDate("y_nightworkingtime"));
+		am.setY_workTime(rs.getTimestamp("y_workingtime"));
+		am.setY_overTime(rs.getTimestamp("y_overworkingtime"));
+		am.setY_nightTime(rs.getTimestamp("y_nightworkingtime"));
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
@@ -188,9 +188,9 @@ public class AnnualDAO {
 			AnnualModel am = new AnnualModel();
 			am.setEmployeeNo(rs.getString("employeeno"));
 			am.setYear(rs.getInt("year"));
-			am.setY_workTime(rs.getDate("y_workingtime"));
-			am.setY_overTime(rs.getDate("y_overworkingtime"));
-			am.setY_nightTime(rs.getDate("y_nightworkingtime"));
+			am.setY_workTime(rs.getTimestamp("y_workingtime"));
+			am.setY_overTime(rs.getTimestamp("y_overworkingtime"));
+			am.setY_nightTime(rs.getTimestamp("y_nightworkingtime"));
 
 			list.add(am);
 		}
@@ -238,9 +238,9 @@ public class AnnualDAO {
 			AnnualModel am = new AnnualModel();
 			am.setEmployeeNo(rs.getString("employeeno"));
 			am.setYear(rs.getInt("year"));
-			am.setY_workTime(rs.getDate("y_workingtime"));
-			am.setY_overTime(rs.getDate("y_overworkingtime"));
-			am.setY_nightTime(rs.getDate("y_nightworkingtime"));
+			am.setY_workTime(rs.getTimestamp("y_workingtime"));
+			am.setY_overTime(rs.getTimestamp("y_overworkingtime"));
+			am.setY_nightTime(rs.getTimestamp("y_nightworkingtime"));
 
 			list.add(am);
 		}

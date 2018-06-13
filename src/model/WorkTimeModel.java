@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 public class WorkTimeModel {
@@ -9,8 +9,8 @@ public class WorkTimeModel {
 	private int month;
 	private int day;
 	private boolean workTimeFlg;
-	private Date attendance;
-	private Date leaving;
+	private Timestamp attendance;
+	private Timestamp leaving;
 	private boolean workFlg;
 	private String week;
 	private int workTimeH;
@@ -109,7 +109,7 @@ public class WorkTimeModel {
 	 *
 	 * @return attendance
 	 */
-	public Date getAttendance() {
+	public Timestamp getAttendance() {
 		return attendance;
 	}
 
@@ -119,7 +119,7 @@ public class WorkTimeModel {
 	 * @param attendance
 	 *            attendance
 	 */
-	public void setAttendance(Date attendance) {
+	public void setAttendance(Timestamp attendance) {
 		this.attendance = attendance;
 	}
 
@@ -128,7 +128,7 @@ public class WorkTimeModel {
 	 *
 	 * @return leaving
 	 */
-	public Date getLeaving() {
+	public Timestamp getLeaving() {
 		return leaving;
 	}
 
@@ -138,7 +138,7 @@ public class WorkTimeModel {
 	 * @param leaving
 	 *            leaving
 	 */
-	public void setLeaving(Date leaving) {
+	public void setLeaving(Timestamp leaving) {
 		this.leaving = leaving;
 	}
 

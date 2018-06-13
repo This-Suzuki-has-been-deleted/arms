@@ -29,6 +29,7 @@ public class RegistrationServlet extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public RegistrationServlet() {
+
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -59,6 +60,11 @@ public class RegistrationServlet extends HttpServlet {
 
 		// セッションにセット
 		session.setAttribute("depList", depList);
+		if(depList == null){
+			System.out.println("depはnullだよ");
+		}else{
+			System.out.println("depはあるみたい");
+		}
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");
 		dispatcher.forward(request, response);
