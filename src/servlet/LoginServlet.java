@@ -25,27 +25,31 @@ import dao.WorkDAO;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	 /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public LoginServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("GETだよ");
 
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("POSTだよ");
 		HttpSession session = request.getSession();
@@ -55,7 +59,8 @@ public class LoginServlet extends HttpServlet {
 
 		Validation validation = new Validation();
 
-		if(!validation.nullCheck(employeeNo) && !validation.nullCheck(employeePw)){
+		if (!validation.nullCheck(employeeNo)
+				&& !validation.nullCheck(employeePw)) {
 			String eMsg = "社員番号又はパスワードに誤りがあります。";
 			session.setAttribute("eMsg", eMsg);
 			dispatcher = request.getRequestDispatcher("WEB-INF/jsp/login.jsp");
@@ -64,16 +69,14 @@ public class LoginServlet extends HttpServlet {
 		LoginLogic loginlogic = new LoginLogic();
 		String passHashCode = loginlogic.passHash(employeePw);
 
-
-		if( loginlogic.login(employeeNo, passHashCode) ){
+		if (loginlogic.login(employeeNo, passHashCode)) {
 
 			EmployeeModel employee = new EmployeeModel();
 			EmployeeDAO employeeDAO = new EmployeeDAO();
 			employee = employeeDAO.findEmployee(employeeNo);
 			session.setAttribute("Employee", employee);
 
-
-			//ここから鈴木追加分
+			// ここから鈴木追加分
 			LocalDateTime date = LocalDateTime.now();
 			int year = date.getYear();
 			int month = date.getMonthValue();
@@ -81,13 +84,14 @@ public class LoginServlet extends HttpServlet {
 
 			EmployeeModel em = employee;
 			WorkDAO wdao = new WorkDAO();
-			WorkTimeModel wm = wdao.findWorkTime(em.getEmployeeNo(), year, month,
-					day);
+			WorkTimeModel wm = wdao.findWorkTime(em.getEmployeeNo(), year,
+					month, day);
+			String no =wm.getEmployeeNo();
 
-			if (wm != null) { // 前日のレコードの有無を確認
+			if (no != null) { // 前日のレコードの有無を確認
 				if (wm.isWorkFlg()) { // 勤怠フラグを確認、本日のレコードの有無を確認
-					wm = wdao
-							.findWorkTime(em.getEmployeeNo(), year, month, day + 1);
+					wm = wdao.findWorkTime(em.getEmployeeNo(), year, month,
+							day + 1);
 					if (wm != null) {
 						wm.setEmployeeNo(em.getEmployeeNo());
 						wm.setYear(year);
@@ -106,8 +110,11 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("buttonvalue", "退勤"); // ボタンのバリューを退勤に
 				}
 			} else {
-				wm = wdao.findWorkTime(em.getEmployeeNo(), year, month, day + 1);
-				if (wm == null) { // 本日のレコードの有無を確認
+				wm = wdao
+						.findWorkTime(em.getEmployeeNo(), year, month, day + 1);
+				no =wm.getEmployeeNo();
+
+				if (no == null) { // 本日のレコードの有無を確認
 					wm.setEmployeeNo(em.getEmployeeNo());
 					wm.setYear(year);
 					wm.setMonth(month);
@@ -124,13 +131,12 @@ public class LoginServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 
-		}else{
+		} else {
 			String eMsg = "社員番号又はパスワードに誤りがあります。";
 			session.setAttribute("eMsg", eMsg);
 			dispatcher = request.getRequestDispatcher("login.jsp");
 			dispatcher.forward(request, response);
 		}
-
 
 	}
 

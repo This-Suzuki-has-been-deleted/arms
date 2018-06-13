@@ -30,7 +30,7 @@ public class WorkDAO {
 
 		// 自動コミットをオフ
 		conn.setAutoCommit(false);
-		String sql = "insert into employeeworktime(employeeno,year,month,day,attendance) values(?,?,?,?,?) where employeeno=?";
+		String sql = "insert into employeeworktime(employeeno,year,month,day,attendance) values(?,?,?,?,?)";
 		pstmt = conn.prepareStatement(sql);
 
 		pstmt.setString(1, wt.getEmployeeNo());
@@ -38,13 +38,10 @@ public class WorkDAO {
 		pstmt.setInt(3, wt.getMonth());
 		pstmt.setInt(4, wt.getDay());
 		pstmt.setDate(5, wt.getAttendance());
-		pstmt.setString(6, wt.getEmployeeNo());
 
-		if (pstmt.executeUpdate() > 0) {
-			conn.commit();
-		} else {
-			conn.rollback();
-		}
+		pstmt.executeUpdate();
+
+		conn.commit();
 		pstmt.close();
 		conn.close();
 		} catch (SQLException e) {
@@ -130,22 +127,24 @@ public class WorkDAO {
 
 		// 自動コミットをオフ
 		conn.setAutoCommit(false);
-		String sql = "select * from employeeworktime where employeeno=? and year=?,month=?,day=?";
+		String sql = "select * from employeeworktime where employeeno=? and year=? and month=? and day=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, eno);
 		pstmt.setInt(2, y);
 		pstmt.setInt(3, m);
 		pstmt.setInt(4, d);
 		ResultSet rs = pstmt.executeQuery();
+		if(rs.next()){
+			wt.setEmployeeNo(rs.getString("employeeNo"));
+			wt.setYear(rs.getInt("year"));
+			wt.setMonth(rs.getInt("month"));
+			wt.setDay(rs.getInt("day"));
+			wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
+			wt.setAttendance(rs.getDate("attendance"));
+			wt.setLeaving(rs.getDate("leaving"));
+			wt.weekDate(wt);
+		}
 
-		wt.setEmployeeNo(rs.getString("employeeno"));
-		wt.setYear(rs.getInt("year"));
-		wt.setMonth(rs.getInt("month"));
-		wt.setDay(rs.getInt("day"));
-		wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
-		wt.setAttendance(rs.getDate("attendance"));
-		wt.setLeaving(rs.getDate("leaving"));
-		wt.weekDate(wt);
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
