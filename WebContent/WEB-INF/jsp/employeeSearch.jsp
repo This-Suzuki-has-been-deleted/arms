@@ -10,59 +10,58 @@
 <title>社員検索</title>
 </head>
 <body>
-<jsp:include page="/WEB-INF/jsp/header.jsp" />
-<div class="main">
-	<form method="post" action="EmployeeServlet">
-		社員名 <input type="text" name="employee_name">
-		部署名<select name="dep_no">
-			<option value="${Employee.depNo}">${Employee.depName}</option>
+	<jsp:include page="/WEB-INF/jsp/header.jsp" />
+	<div class="main">
+		<form method="post" action="EmployeeServlet">
+			社員名 <input type="text" name="employee_name">
+			部署名<select name="dep_no">
+				<option value="${Employee.depNo}">${Employee.depName}</option>
 				<c:forEach var="deplist" items="${DepList}">
 					<c:if test="${Employee.authNo == '003' || Employee.authNo =='999'}">
 						<option value="${deplist.depNo}">${deplist.depName}</option>
 					</c:if>
 				</c:forEach>
-		</select>
-		<input type="submit" value="検索">
-	</form>
-	<table border="1">
-		<tr>
-			<th>社員番号</th>
-			<th>社員名</th>
-			<th>部署</th>
-			<c:if test="{Employee.depNo == '003'}">
-				<!-- EmployeeModelのセッション名Employee -->
-				<th>権限</th>
-			</c:if>
-		</tr>
-		<tr>
-			<c:forEach var="Emp" items="${RESULT}">
-
-				<td>${Emp.employeeNo}</td>
-				<td>${Emp.employeeName}</td>
-				<td>${Emp.depName}</td>
-				<c:if test="{Employee.Divisionno == '003'}">
-					<td>${Emp.authName}</td>
+			</select> <input type="submit" value="検索">
+		</form>
+		<table border="1">
+			<tr>
+				<th>社員番号</th>
+				<th>社員名</th>
+				<th>部署</th>
+				<c:if test="${Employee.depNo == '003'}">
+					<!-- EmployeeModelのセッション名Employee -->
+					<th>権限</th>
 				</c:if>
-			</c:forEach>
+			</tr>
 
-		</tr>
-	</table>
-	<%
-	int i = 1;
-	%>
-	<c:forEach var="pageno" items="${PAGENO}">
-	<input type="employeeServlet" value="i">
-	<form action="WorkServlet" method="POST">
-			<input type="hidden" value="${wtime}" name="wtm" />
-			<input type="image" src="/WEB-INF/images/wtimeedit.png">
-	</form>
-	<%
-	i = i + 1;
-	%>
-	</c:forEach>
+				<c:forEach var="Emp" items="${RESULT}">
+					<tr>
+						<td>${Emp.employeeNo}</td>
+						<td>${Emp.employeeName}</td>
+						<td>${Emp.depName}</td>
+						<c:if test="${Employee.depNo == '003'}">
+							<td>${Emp.authName}</td>
+						</c:if>
+					</tr>
+				</c:forEach>
+
+
+		</table>
+		<%
+		int pageno = (Integer) session.getAttribute("PAGENO");
+			for(int i = 1;i < pageno;i++) {
+		%>
+			<form action="EmployeeServlet" method="POST">
+				<input type="submit" value="<%=i %>" name="pgno" />
+			</form>
+		<%
+			}
+
+		%>
+
 	</div>
-<jsp:include page="/WEB-INF/jsp/navigation.jsp" />
-<div class="clear"></div>
-<jsp:include page="/WEB-INF/jsp/footer.jsp" />
+	<jsp:include page="/WEB-INF/jsp/navigation.jsp" />
+	<div class="clear"></div>
+	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>

@@ -33,8 +33,7 @@ public class EmployeeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
 		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
@@ -46,22 +45,27 @@ public class EmployeeServlet extends HttpServlet {
 
 		session.setAttribute("Employee",emodel);
 		session.setAttribute("DepList",deplist);
+		session.setAttribute("PAGENO",0);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");
 		dispatcher.forward(request, response);
-
-
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+
+		 session.removeAttribute("RESULT");
+		 session.removeAttribute("PAGENO");
+
 		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
 
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
 
 		String emp_Name = request.getParameter("employee_name");
 		String dep_No = request.getParameter("dep_no");
+		String page_no = request.getParameter("pgno");		//ページ選択value
 		int pageno = 1;
 
 		employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),dep_No,emp_Name,pageno); // 検索結果取得 ログイン番号、入力部署、入力社員名、ページ番号

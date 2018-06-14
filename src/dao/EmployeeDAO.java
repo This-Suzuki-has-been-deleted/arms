@@ -349,30 +349,31 @@ public class EmployeeDAO {
 					+ " WHERE  E.employeeAuthorityNo <> '999' AND E.EmployeeNo <> ?";
 
 			pStmt = conn.prepareStatement(sql);
-
 			pStmt.setString(1, employee_no);
 
 			if (employee_name != "") {
-				sql = sql + " AND E.EmployeeName LIKE '%' + ? + '%'";
+				sql = sql +  " AND E.EmployeeName LIKE ?";		//SQLの％記号はpreparestatementだと変換されるため
+				employee_name = "%" + employee_name + "%";		//% + + %をsetしてあげる
 				pStmt.setString(1, employee_name);
 			}
 			sql = sql + " AND E.DivisionNo = ?";
-			pStmt.setString(1, dep_no);
-
-			sql = sql + "ORDER BY E.employeeDivisionNo,E.EmployeeNo LIMIT lim * ?-20,lim";
-			pStmt.setInt(1, pageno);
+			if(employee_name != ""){
+				pStmt.setString(1, dep_no);
+			}else{
+				pStmt.setString(1, dep_no);
+			}
 
 			// 結果の取得と出力
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
 				 empmodel = new EmployeeModel();
-				String employeeno = rs.getString("EmployeeNo");
-				String employeename = rs.getString("EmployeeName");
-				String divisionno = rs.getString("employeeDivisionNo");
-				String divisionname = rs.getString("DivisionName");
-				String authorityno = rs.getString("employeeAuthorityNo");
-				String authorityname = rs.getString("AuthorityName");
+				String employeeno = rs.getString("E.EmployeeNo");
+				String employeename = rs.getString("E.EmployeeName");
+				String divisionno = rs.getString("E.employeeDivisionNo");
+				String divisionname = rs.getString("ED.DivisionName");
+				String authorityno = rs.getString("E.employeeAuthorityNo");
+				String authorityname = rs.getString("EP.AuthorityName");
 
 				empmodel.setEmployeeNo(employeeno);
 				empmodel.setEmployeeName(employeename);
@@ -414,21 +415,26 @@ public class EmployeeDAO {
 							"root", "password");
 
 			// SQLの実行
-			String cntsql = "select Count(*) AS Counter FROM Employee WHERE AuthorityNo <> '999'  AND EmployeeNo <> ?";
+			String cntsql = "select Count(*) AS Counter FROM Employee WHERE employeeAuthorityNo <> '999'  AND EmployeeNo <> ?";
 
 			pStmt = conn.prepareStatement(cntsql);
 
 			pStmt.setString(1, employee_no);
 
 			if (employee_name != "") {
-				cntsql = cntsql + " AND EmployeeName LIKE '%' + ? + '%'";
+				cntsql = cntsql +  " AND E.EmployeeName LIKE ?";
+				employee_name = "%" + employee_name + "%";
 				pStmt.setString(1, employee_name);
 			}
-			cntsql = cntsql + " AND DivisionNo = ?";
-			pStmt.setString(1, dep_no);
-
+			cntsql = cntsql + " AND E.DivisionNo = ?";
+			if(employee_name != ""){
+				pStmt.setString(1, dep_no);
+			}else{
+				pStmt.setString(1, dep_no);
+			}
 			// 結果の取得と出力
 			ResultSet rs = pStmt.executeQuery();
+			rs.next();
 
 			counter = rs.getInt("Counter");
 
