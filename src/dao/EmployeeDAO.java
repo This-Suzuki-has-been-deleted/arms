@@ -348,19 +348,19 @@ public class EmployeeDAO {
 					+ " LEFT JOIN employeeposition AS EP ON(E.employeeAuthorityNo = EP.employeeAuthorityNo) "
 					+ " WHERE  E.employeeAuthorityNo <> '999' AND E.EmployeeNo <> ?";
 
-			pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, employee_no);
-
 			if (employee_name != "") {
 				sql = sql +  " AND E.EmployeeName LIKE ?";		//SQLの％記号はpreparestatementだと変換されるため
 				employee_name = "%" + employee_name + "%";		//% + + %をsetしてあげる
-				pStmt.setString(1, employee_name);
 			}
-			sql = sql + " AND E.DivisionNo = ?";
-			if(employee_name != ""){
-				pStmt.setString(1, dep_no);
+			sql = sql + " AND E.employeedivisionNo = ?";
+
+			pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, employee_no);
+			if (employee_name != "") {
+				pStmt.setString(2, employee_name);
+				pStmt.setString(3, dep_no);
 			}else{
-				pStmt.setString(1, dep_no);
+				pStmt.setString(2, dep_no);
 			}
 
 			// 結果の取得と出力
