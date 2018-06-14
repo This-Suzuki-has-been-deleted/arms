@@ -72,6 +72,7 @@ public class DateMath {
 		Calendar cal = Calendar.getInstance();
 		long fix;
 
+		cal.clear(Calendar.MILLISECOND);
 		cal.set(year, month-1, date, 18, 0, 0);
 		java.util.Date dates = cal.getTime();
 		fix = dates.getTime();
@@ -90,6 +91,7 @@ public class DateMath {
 		Calendar cal = Calendar.getInstance();
 		long over;
 
+		cal.clear(Calendar.MILLISECOND);
 		cal.set(year, month-1, date, 22, 0, 0);
 		java.util.Date dates = cal.getTime();
 		over = dates.getTime();
