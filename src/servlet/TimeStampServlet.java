@@ -60,13 +60,14 @@ public class TimeStampServlet extends HttpServlet {
 			wt.setAttendance(now);
 			wdao.updateWorkTime(wt);
 			session.setAttribute("buttonvalue", "退勤");
+			session.setAttribute("index_date",date);
 		} else {
 			java.util.Date date = new java.util.Date();
 			long nowTime = date.getTime();
 			Timestamp now = new Timestamp(nowTime);
 
 			wt.setLeaving(now);
-			wt.setWorkFlg(true);
+			wt.setWorkFlg(1);
 			wdao.updateWorkTime(wt); // 日次をアップデート
 			session.setAttribute("buttonvalue", "出勤");
 

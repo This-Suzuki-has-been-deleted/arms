@@ -84,7 +84,7 @@ public class WorkServlet extends HttpServlet {
 		first.set( Calendar.DATE,1);
 		int firstWeek = (first.get( Calendar.DAY_OF_WEEK )-1);
 		int maxDayCnt = now.getActualMaximum(Calendar.DAY_OF_MONTH);
-		System.out.println(week[firstWeek]);
+		System.out.println(week[firstWeek-1]);
 
 		//セッションに曜日の情報が入っている配列をセット
 		session.setAttribute("week",week);
@@ -100,7 +100,7 @@ public class WorkServlet extends HttpServlet {
 			year = Integer.parseInt(yearBuf);	//セッションに年が入っていた場合はその年を取得
 		}
 		if(monthBuf == null){
-			month = now.get(Calendar.MONTH);	//セッションに月が入っていなかった場合は今日の月を取得
+			month = now.get(Calendar.MONTH)+1;	//セッションに月が入っていなかった場合は今日の月を取得
 		}else{
 			month = Integer.parseInt(monthBuf);	//セッションに月が入っていた場合はその月を取得
 		}
@@ -122,11 +122,11 @@ public class WorkServlet extends HttpServlet {
 			int nightTime = dateMath.diff(leave, over);		//深夜時間を算出
 
 			wtm.setWorkTimeH((int)workTime / 60);
-			wtm.setWorkTimeM(workTime % 60);
+			wtm.setWorkTimeM((int)workTime % 60);
 			wtm.setOverTimeH((int)overTime / 60);
-			wtm.setOverTimeM(overTime % 60);
+			wtm.setOverTimeM((int)overTime % 60);
 			wtm.setNightTimeH((int)nightTime / 60);
-			wtm.setNightTimeM(nightTime % 60);
+			wtm.setNightTimeM((int)nightTime % 60);
 		}
 
 		//セッションに表示内容をセット

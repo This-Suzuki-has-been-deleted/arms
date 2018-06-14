@@ -53,15 +53,16 @@
 		<c:forEach var="wtime" items="${Worktime}">
 			<tr>
 				<td>${wtime.day}</td>
-				<td>リストに曜日がはいってる。鈴木悟めも.txt参照</td>
+				<td>${wtime.week}</td>
 				<td>${wtime.attendance}</td>
 				<td>${wtime.leaving}</td>
-				<td>${wtime.}</td>
+				<td></td>
+				<td></td><td></td>
+				<td><form action="WorkServlet" method="POST">
+					<input type="hidden" value="${wtime}" name="wtm" />
+					<input type="image" src="/WEB-INF/images/wtimeedit.png">
+				</form></td>
 			</tr>
-			<form action="WorkServlet" method="POST">
-				<input type="hidden" value="${wtime}" name="wtm" />
-				<input type="image" src="/WEB-INF/images/wtimeedit.png">
-			</form>
 		</c:forEach>
 	</table>
 	<br>
@@ -75,9 +76,9 @@
 		</tr>
 		<tr>
 			<td>${MOUNTHLY.month}</td>
-			<td>${MOUNTHLY.m_workTime}</td>
-			<td>${MOUNTHLY.m_overTime}</td>
-			<td>${MOUNTHLY.m_nightTime}</td>
+			<td>${Worktime.workTimeH}:${Worktime.workTimeM}</td>
+			<td>${Worktime.overTimeH}:${Worktime.overTimeM}</td>
+			<td>${Worktime.nightTimeH}:${Worktime.nightTimeM}</td>
 		</tr>
 	</table>
 </body>
