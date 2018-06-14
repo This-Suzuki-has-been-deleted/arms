@@ -26,19 +26,19 @@
 			<c:out value="${msg}"/>
 				<table>
 					<tr>
-						<td>社員番号：</td>
-						<td><input type="text" name="textCode" value=""></td>
+						<td>社員番号</td>
+						<td>：<input type="text" name="textCode" value=""></td>
 					</tr>
 					<tr>
-						<td>社員名　：</td>
-						<td><input type="text" name="textName" value=""></td>
+						<td>社員名</td>
+						<td>：<input type="text" name="textName" value=""></td>
 					</tr>
 					<%
 						if (myEmp.getAuthNo().equals("003") || myEmp.getAuthNo().equals("999")) {
 					%>
 					<tr>
-						<td>部署　　：</td>
-						<td><select name="selectDivisionNo">
+						<td>部署</td>
+						<td>：<select name="selectDivisionNo">
 								<%
 									for (DepModel dm : depList) {
 								%>
@@ -49,8 +49,8 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td>権限　　：</td>
-						<td><select name="selectAuthorityNo">
+						<td>権限</td>
+						<td>：<select name="selectAuthorityNo">
 								<option value="001">一般</option>
 								<option value="002">上位</option>
 								<option value="003">管理者</option>
