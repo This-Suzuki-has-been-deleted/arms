@@ -64,12 +64,11 @@ public class EmployeeServlet extends HttpServlet {
 		String dep_No = request.getParameter("dep_no");
 		int pageno = 1;
 
-		employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),dep_No,emp_Name,pageno); // 検索結果取得
+		employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),dep_No,emp_Name,pageno); // 検索結果取得 ログイン番号、入力部署、入力社員名、ページ番号
 		pageno = employeeDao.CountEmp(emodel.getEmployeeNo(), dep_No, emp_Name); // ページ数取得
 
-		session.setAttribute("RESULT", employeelist);
-		session.setAttribute("PAGENO", pageno);
-
+		session.setAttribute("RESULT",employeelist);
+		session.setAttribute("PAGENO",pageno);
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");

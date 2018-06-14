@@ -191,6 +191,7 @@ public class EmployeeDAO {
 		pStmt = null;
 
 		String divisionname = "";
+		String divisionno;
 		DepModel dmodel = new DepModel();
 		try {
 			conn = DriverManager
@@ -209,12 +210,14 @@ public class EmployeeDAO {
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-				String divisionno = rs.getString("divisionNo");
-					divisionname = rs.getString("divisionName");
+
+				divisionno = rs.getString("divisionNo");
+				divisionname = rs.getString("divisionName");
 
 				dmodel.setDepName(divisionname);
 				dmodel.setDepNo(divisionno);
 				deplist.add(dmodel);
+				dmodel = new DepModel();
 			}
 
 		} catch (SQLException e) {
@@ -326,8 +329,7 @@ public class EmployeeDAO {
 	/**
 	 * 社員検索メソッド 検索した社員情報を持つリストを返す
 	 **/
-	public ArrayList<EmployeeModel> findByNameDep(String employee_no,
-			String dep_no, String employee_name, int pageno) {
+	public ArrayList<EmployeeModel> findByNameDep(String employee_no,String dep_no, String employee_name,int pageno) {
 		conn = null;
 		pStmt = null;
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
@@ -341,42 +343,46 @@ public class EmployeeDAO {
 							"root", "password");
 
 			// SQLの実行
-			String sql = "select EmployeeNo,EmployeeName,DivisionName,AuthorityName "
-					+ "from Employee AS e LEFT JOIN employeedivision AS ed ON(e.DivisionNo = ed.DivisionNo)"
-					+ "LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority) "
-					+ " WHERE  AutorityNo = '999' AND EmployeeNo = ?)";
+			String sql = "select E.EmployeeNo,E.EmployeeName,E.employeedivisionNo,E.employeeAuthorityNo,ED.DivisionName,EP.AuthorityName "
+					+ "from Employee AS E LEFT JOIN employeedivision AS ED ON(E.employeeDivisionNo = ED.DivisionNo)"
+					+ " LEFT JOIN employeeposition AS EP ON(E.employeeAuthorityNo = EP.employeeAuthorityNo) "
+					+ " WHERE  E.employeeAuthorityNo <> '999' AND E.EmployeeNo <> ?";
 
 			pStmt = conn.prepareStatement(sql);
 
 			pStmt.setString(1, employee_no);
 
 			if (employee_name != "") {
-				sql = sql + " AND EmployeeName LIKE '%' + ? + '%'";
+				sql = sql + " AND E.EmployeeName LIKE '%' + ? + '%'";
 				pStmt.setString(1, employee_name);
 			}
-			sql = sql + " AND DivisionNo = ?";
+			sql = sql + " AND E.DivisionNo = ?";
 			pStmt.setString(1, dep_no);
 
-			sql = sql + "ORDER BY DivisionNo,EmployeeNo LIMIT lim * ?-20,lim";
+			sql = sql + "ORDER BY E.employeeDivisionNo,E.EmployeeNo LIMIT lim * ?-20,lim";
 			pStmt.setInt(1, pageno);
 
 			// 結果の取得と出力
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
+				 empmodel = new EmployeeModel();
 				String employeeno = rs.getString("EmployeeNo");
 				String employeename = rs.getString("EmployeeName");
+				String divisionno = rs.getString("employeeDivisionNo");
 				String divisionname = rs.getString("DivisionName");
+				String authorityno = rs.getString("employeeAuthorityNo");
 				String authorityname = rs.getString("AuthorityName");
 
 				empmodel.setEmployeeNo(employeeno);
 				empmodel.setEmployeeName(employeename);
+				empmodel.setDepNo(divisionno);
 				empmodel.setDepName(divisionname);
+				empmodel.setAuthNo(authorityno);
 				empmodel.setAuthName(authorityname);
 
 				employeelist.add(empmodel);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -408,7 +414,7 @@ public class EmployeeDAO {
 							"root", "password");
 
 			// SQLの実行
-			String cntsql = "select Count(*) AS Counter FROM Employee WHERE Authority <> '999'  AND EmployeeNo <> ?";
+			String cntsql = "select Count(*) AS Counter FROM Employee WHERE AuthorityNo <> '999'  AND EmployeeNo <> ?";
 
 			pStmt = conn.prepareStatement(cntsql);
 
@@ -515,7 +521,7 @@ public class EmployeeDAO {
 			conn.setAutoCommit(false);
 
 			// SQLの実行
-			String sql = "insert into Employee(EmployeeNo,EmployeeDivisionNo,EmployeeAuthorityNo,EmployeeEnteringDate,EmployeeName,EmployeePassword)"
+			String sql = "insert into Employee(EmployeeNo,EmployeeDivisionNo,employeeAuthorityNo,EmployeeEnteringDate,EmployeeName,EmployeePassword)"
 					+ "values(?,?,?,?,?,?);";
 
 			pStmt = conn.prepareStatement(sql);
