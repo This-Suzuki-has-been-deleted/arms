@@ -25,6 +25,7 @@
 <!DOCTYPE html>
 <head>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/registration.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>社員登録</title>
 </head>
@@ -34,20 +35,21 @@
 		<form method="post" action="RegistrationServlet">
 			<%=eMsg %>
 			<%=msg %>
+				<div class="regi_table">
 				<table>
 					<tr>
-						<td>社員番号</td>
-						<td>：<input type="text" name="textCode" value=""></td>
+						<th class="t_top">社員番号</th>
+						<td class="t_top">：<input type="text" name="textCode" value=""></td>
 					</tr>
 					<tr>
-						<td>社員名</td>
+						<th>社員名</th>
 						<td>：<input type="text" name="textName" value=""></td>
 					</tr>
 					<%
 						if (myEmp.getAuthNo().equals("003") || myEmp.getAuthNo().equals("999")) {
 					%>
 					<tr>
-						<td>部署</td>
+						<th>部署</th>
 						<td>：<select name="selectDivisionNo">
 								<%
 									for (DepModel dm : depList) {
@@ -59,7 +61,7 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td>権限</td>
+						<th>権限</th>
 						<td>：<select name="selectAuthorityNo">
 								<option value="001">一般</option>
 								<option value="002">上位</option>
@@ -71,6 +73,7 @@
 					%>
 
 				</table>
+				</div>
 				<%
 					if (!(myEmp.getAuthNo().equals("003") || myEmp.getAuthNo().equals("999"))) {
 				%>
@@ -80,7 +83,9 @@
 				<%
 					}
 				%>
-			<input type="submit" value="確認">
+			<div class="regist_center">
+				<input type="submit" value="確認" class="regist_button">
+			</div>
 		</form>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/navigation.jsp" />
