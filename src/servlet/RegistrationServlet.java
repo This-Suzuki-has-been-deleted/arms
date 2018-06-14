@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import model.DepModel;
 import model.EmployeeModel;
 import others.LoginLogic;
+import others.SpaceKill;
+import validation.Validation;
 import dao.DepDAO;
 import dao.EmployeeDAO;
 
@@ -45,25 +47,25 @@ public class RegistrationServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-//		// ログイン中のユーザーの情報をセッションから得る
+		// // ログイン中のユーザーの情報をセッションから得る
 		EmployeeModel myEmp = (EmployeeModel) session.getAttribute("Employee");
 		System.out.println(myEmp.getDepNo());
-//
-//		// ログインチェック
-//		if (myEmp == null) {
-//			RequestDispatcher dispatcher = request
-//					.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-//			dispatcher.forward(request, response);
-//		}
+		//
+		// // ログインチェック
+		// if (myEmp == null) {
+		// RequestDispatcher dispatcher = request
+		// .getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+		// dispatcher.forward(request, response);
+		// }
 
 		// 部署のプルダウンメニューのために一覧を持ってくる
 		ArrayList<DepModel> depList = (ArrayList<DepModel>) dd.findDepAll();
 
 		// セッションにセット
 		session.setAttribute("depList", depList);
-		if(depList == null){
+		if (depList == null) {
 			System.out.println("depはnullだよ");
-		}else{
+		} else {
 			System.out.println("depはあるみたい");
 		}
 		RequestDispatcher dispatcher = request
@@ -79,89 +81,85 @@ public class RegistrationServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		//宣言
+		// 宣言
 		EmployeeModel employeeModel = new EmployeeModel();
 		EmployeeModel employee = null;
-//		EmployeeModel myEmp = (EmployeeModel) request.getAttribute("Employee");
+		// EmployeeModel myEmp = (EmployeeModel)
+		// request.getAttribute("Employee");
 
 		LoginLogic ll = new LoginLogic();
 		EmployeeDAO ed = new EmployeeDAO();
 
+		Validation validation = new Validation();
 
-		String textCode = null;	//入力内容を受け取る変数
-		String textName;	//入力内容を受け取る変数
+		SpaceKill spaceKill = new SpaceKill();
+
+		String textCode = null; // 入力内容を受け取る変数
+		String textName; // 入力内容を受け取る変数
 		String selectDivisionNo;
 		String selectAuthorityNo;
-		String pageFlg = null;
-		String msg = null;
-		boolean flg = false;
+		String pageFlg;
+		String msg;
+		boolean flg;
+		flg = false;
+		msg = null;
+		pageFlg = null;
 
 		HttpSession session = request.getSession();
 
-
-//		// ログインチェック
-//		if (myEmp == null) {
-//			RequestDispatcher dispatcher = request
-//					.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-//			dispatcher.forward(request, response);
-//		}
+		// // ログインチェック
+		// if (myEmp == null) {
+		// RequestDispatcher dispatcher = request
+		// .getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+		// dispatcher.forward(request, response);
+		// }
 
 		// 部署 division,dep
 		// 権限 authority
 
-		try {
-			// 入力値受け取り
+		// 入力値受け取り
 
-			textCode = request.getParameter("textCode");
-			textName = request.getParameter("textName");
-			selectDivisionNo = request.getParameter("selectDivisionNo");
-			selectAuthorityNo = request.getParameter("selectAuthorityNo");
+		textCode = request.getParameter("textCode");
+		textName = request.getParameter("textName");
+		selectDivisionNo = request.getParameter("selectDivisionNo");
+		selectAuthorityNo = request.getParameter("selectAuthorityNo");
 
-			// 入力チェック
-			/**
-			 * 入力チェック
-			 */
+		textCode = spaceKill.stringSpaceKill(textCode);
+		textName = spaceKill.stringSpaceKill(textName);
 
-			//入力チェック
-			if (flg) {
+		// モデルに入力された内容と初期値をセット
+		employeeModel.setEmployeeNo(textCode);
+		employeeModel.setEmployeeName(textName);
+		employeeModel.setDepNo(selectDivisionNo);
+		employeeModel.setAuthNo(selectAuthorityNo);
+		employeeModel.setPassword(ll.passHash("pass1234"));
+		employeeModel.setDelFlg(1);
+		// エラーチェック
+		if (validation.nullCheck(textCode)) { // 社員番号は入力されているかチェック
+			if (validation.employeeCodeValidation(textCode)) { // 社員番号が入力されていてかつ入力形式が正しいかチェック
+				employee = ed.findEmployee(textCode);
+				if (employee.getEmployeeNo() != null) { // 社員番号が既に存在しているかチェック
+					System.out.println("重複");
+					msg = "・社員番号が重複しています。";
+					if (!(validation.nullCheck(textName))) { // 社員名が入力されているかチェック
+						msg = msg + "・未入力項目があります。";
+					}
+				} else { // 社員番号が存在していなかった場合
+					if (!(validation.nullCheck(textName))) { // 社員名が入力されているかチェック
+						msg = "・未入力項目があります。";
+					}
+				}
+			} else { // 社員番号の入力形式が正しくなかった場合
 				msg = "・入力形式に誤りがあります。";
+				if (!(validation.nullCheck(textName))) { // 社員名が入力されているかチェック
+					msg = msg + "\n・未入力項目があります。";
+				}
 			}
-
-			//モデルに入力された内容と初期値をセット
-			employeeModel.setEmployeeNo(textCode);
-			employeeModel.setEmployeeName(textName);
-			employeeModel.setDepNo(selectDivisionNo);
-			employeeModel.setAuthNo(selectAuthorityNo);
-			employeeModel.setPassword(ll.passHash("pass1234"));
-			employeeModel.setDelFlg(1);
-		} catch (NullPointerException e) {
-			if(msg == null){
-				msg ="・未入力項目があります。";
-			}else{
-				msg = msg + "\n・未入力項目があります。";
-			}
-		}
-		try{
-		// 重複チェック
-			employee = ed.findEmployee(textCode);
-		}catch(Exception e){
-			if(msg == null){
-				msg ="・入力した値が不正です。";
-			}else{
-				msg = msg + "\n・入力した値が不正です。";
-			}
+		} else { // 社員番号が入力されていなかった場合
+			msg = "・未入力項目があります。";
 		}
 
-		//社員番号の重複チェック
-		if(employee.getEmployeeNo() != null){
-			if(msg == null){
-				msg ="・社員番号が重複しています。";
-			}else{
-				msg = msg + "\n・社員番号が重複しています。";
-			}
-		}
-
-		//入力内容に不正なものがなかったか
+		// 入力内容に不正なものがあった場合エラーメッセージをセッションにセットして登録画面へ遷移
 		if (msg != null) {
 			session.setAttribute("msg", msg);
 			RequestDispatcher dispatcher = request

@@ -1,5 +1,8 @@
 package validation;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Validation {
 	public boolean integerValidation(Integer num){
 		if(num < 0){
@@ -9,7 +12,7 @@ public class Validation {
 	}
 
 	public boolean nullCheck(Integer num){
-		if(num == null){
+		if(num == 0){
 			return false;
 		}
 		return true;
@@ -18,8 +21,24 @@ public class Validation {
 	public boolean nullCheck(String str){
 		if(str == null){
 			return false;
+		}else if(str.equals("")){
+			return false;
 		}
 		return true;
+	}
+
+	public boolean employeeCodeValidation(String str){
+		Pattern pattern = Pattern.compile("^[0-9]*$");
+		Matcher matcher;
+
+		if(str.length() == 10){
+			if((str.substring(0,2)).equals("aa")){
+				if(pattern.matcher(str.substring(2)).matches()){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public boolean passwordValidation(String str){
@@ -40,4 +59,5 @@ public class Validation {
 		}
 		return false;
 	}
+	
 }
