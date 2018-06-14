@@ -56,8 +56,9 @@
 				<td>${wtime.week}</td>
 				<td>${wtime.attendance}</td>
 				<td>${wtime.leaving}</td>
-				<td></td>
-				<td></td><td></td>
+				<td>${wtime.nightTimeH}:${wtime.nightTimeM }</td>
+				<td>${wtime.overTimeH}:${wtime.overTimeM }</td>
+				<td>${wtime.workTimeH}:${wtime.workTimeM }</td>
 				<td><form action="WorkServlet" method="POST">
 					<input type="hidden" value="${wtime}" name="wtm" />
 					<input type="image" src="/WEB-INF/images/wtimeedit.png">
@@ -76,9 +77,9 @@
 		</tr>
 		<tr>
 			<td>${MOUNTHLY.month}</td>
-			<td>${Worktime.workTimeH}:${Worktime.workTimeM}</td>
-			<td>${Worktime.overTimeH}:${Worktime.overTimeM}</td>
-			<td>${Worktime.nightTimeH}:${Worktime.nightTimeM}</td>
+			<td>${MOUNTHLY.mworkTime}</td>
+			<td>${MOUNTHLY.overTime}</td>
+			<td>${MOUNTHLY.nightTime}</td>
 		</tr>
 	</table>
 </body>
