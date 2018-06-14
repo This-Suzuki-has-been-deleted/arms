@@ -118,7 +118,7 @@ public class WorkServlet extends HttpServlet {
 			long attend = wtm.getAttendance().getTime();
 
 			int workTime = dateMath.diff(leave, attend);	//勤務時間を算出
-			int overTime = dateMath.diff(leave, fix);		//残業時間を算出
+			int overTime = dateMath.diff(leave,fix);		//残業時間を算出
 			int nightTime = dateMath.diff(leave, over);		//深夜時間を算出
 
 			wtm.setWorkTimeH((int)workTime / 60);
@@ -148,7 +148,7 @@ public class WorkServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		//入力内容を取得
-		WorkTimeModel workTimeModel = (WorkTimeModel)request.getAttribute("wtm");
+		WorkTimeModel workTimeModel = (WorkTimeModel)session.getAttribute("wtm");
 
 		//入力内容をセッションにセット
 		session.setAttribute("workTimeModel", workTimeModel);
