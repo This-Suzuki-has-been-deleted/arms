@@ -5,10 +5,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>社員検索</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/header.jsp" />
+<div class="main">
 	<form method="post" action="EmployeeServlet">
 		社員名 <input type="text" name="employee_name">
 		部署名<select name="dep_no">
@@ -21,7 +24,7 @@
 		</select>
 		<input type="submit" value="検索">
 	</form>
-	<table>
+	<table border="1">
 		<tr>
 			<th>社員番号</th>
 			<th>社員名</th>
@@ -33,6 +36,7 @@
 		</tr>
 		<tr>
 			<c:forEach var="Emp" items="${RESULT}">
+
 				<td>${Emp.employeeNo}</td>
 				<td>${Emp.employeeName}</td>
 				<td>${Emp.depName}</td>
@@ -43,7 +47,22 @@
 
 		</tr>
 	</table>
-	<div></div>
-
+	<%
+	int i = 1;
+	%>
+	<c:forEach var="pageno" items="${PAGENO}">
+	<input type="employeeServlet" value="i">
+	<form action="WorkServlet" method="POST">
+			<input type="hidden" value="${wtime}" name="wtm" />
+			<input type="image" src="/WEB-INF/images/wtimeedit.png">
+	</form>
+	<%
+	i = i + 1;
+	%>
+	</c:forEach>
+	</div>
+<jsp:include page="/WEB-INF/jsp/navigation.jsp" />
+<div class="clear"></div>
+<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>
