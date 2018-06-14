@@ -13,14 +13,16 @@
 <div class="main">
 <h2>出退勤修正</h2>
 <h3>${workTimeModel.year}/${workTimeModel.month}/${workTimeModel.day} </h3>
-<input type="text" value="${ workTimeModel.attendance}">
-<input type="text" value="${ workTimeModel.leaving}">
+<form action="WorkModifiServlet" method="post">
+<input type="text" value="${ workTimeModel.attendance}" name="attendance">
+<input type="text" value="${ workTimeModel.leaving}" name="leaving">
+<input type="submit" value="更新">
+</form>
 <form action="WorkServlet" method="get">
 <input type="submit" value="戻る">
 </form>
-<form action="WorkModifiServlet" method="post">
-<input type="submit" value="更新">
-</form>
+
+
 </div>
 <jsp:include page="/WEB-INF/jsp/navigation.jsp" />
 <div class="clear"></div>
