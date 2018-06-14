@@ -39,6 +39,11 @@
 		var nowHour = nowTime.getHours();
 		var nowMin = nowTime.getMinutes();
 		var nowSec = nowTime.getSeconds();
+
+	    if (nowHour < 10) nowHour = "0" + nowHour;
+	    if (nowMin < 10) nowMin = "0" + nowMin;
+	    if (nowSec < 10) nowSec = "0" + nowSec;
+
 		var msg = nowHour + ":" + nowMin + ":" + nowSec;
 		document.getElementById("RealtimeClockArea").innerHTML = msg;
 	}
