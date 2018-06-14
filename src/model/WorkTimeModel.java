@@ -11,7 +11,7 @@ public class WorkTimeModel {
 	private boolean workTimeFlg;
 	private Timestamp attendance;
 	private Timestamp leaving;
-	private boolean workFlg;
+	private int workFlg;
 	private String week;
 	private int workTimeH;
 	private int workTimeM;
@@ -142,11 +142,11 @@ public class WorkTimeModel {
 		this.leaving = leaving;
 	}
 
-	public boolean isWorkFlg() {
+	public int isWorkFlg() {
 		return workFlg;
 	}
 
-	public void setWorkFlg(boolean workFlg) {
+	public void setWorkFlg(int workFlg) {
 		this.workFlg = workFlg;
 	}
 

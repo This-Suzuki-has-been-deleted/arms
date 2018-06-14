@@ -67,7 +67,7 @@ public class TimeStampServlet extends HttpServlet {
 			Timestamp now = new Timestamp(nowTime);
 
 			wt.setLeaving(now);
-			wt.setWorkFlg(true);
+			wt.setWorkFlg(1);
 			wdao.updateWorkTime(wt); // 日次をアップデート
 			session.setAttribute("buttonvalue", "出勤");
 

@@ -22,13 +22,15 @@
 <div class="main">
 	<div class="timestamp_box">
 		<p class="timestamp_title">勤怠登録</p>
+		<div class=center_button>
 		<%if(date!=null){ %>
 		<p class="pre_time"><%=timeMsg %></p>
 		<p class="timestamp"><%=date %></p>
 		<%} %>
 		<form action="TimeStampServlet" method="POST">
-			<input type="submit" value=<%=value %>>
+			<input type="submit" value=<%=value %> class="time_button">
 		</form>
+		</div>
 	</div>
 </div>
 <jsp:include page="WEB-INF/jsp/navigation.jsp" />
