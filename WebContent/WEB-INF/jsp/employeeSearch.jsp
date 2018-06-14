@@ -6,6 +6,7 @@
 <html>
 <head>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/search.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>社員検索</title>
 </head>
@@ -21,7 +22,7 @@
 						<option value="${deplist.depNo}">${deplist.depName}</option>
 					</c:if>
 				</c:forEach>
-			</select> <input type="submit" value="検索">
+			</select><input type="submit" value="検索" class="s_button">
 		</form>
 		<table border="1">
 			<tr>
