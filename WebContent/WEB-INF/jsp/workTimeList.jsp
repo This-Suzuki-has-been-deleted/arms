@@ -60,7 +60,10 @@
 				<td>${wtime.overTimeH}:${wtime.overTimeM }</td>
 				<td>${wtime.workTimeH}:${wtime.workTimeM }</td>
 				<td><form action="WorkServlet" method="POST">
-					<input type="hidden" value="${wtime}" name="wtm" />
+					<input type="hidden" value="${wtime.employeeNo}" name="wtm.employeeNo" />
+					<input type="hidden" value="${wtime.year }" name="wtm.year"/>
+					<input type="hidden" value="${wtime.month }" name="wtm.month"/>
+					<input type="hidden" value="${wtime.day }" name="wtm.day"/>
 					<input type="image" src="/WEB-INF/images/wtimeedit.png">
 				</form></td>
 			</tr>
@@ -77,9 +80,9 @@
 		</tr>
 		<tr>
 			<td>${MOUNTHLY.month}</td>
-			<td>${MOUNTHLY.mworkTime}</td>
-			<td>${MOUNTHLY.overTime}</td>
-			<td>${MOUNTHLY.nightTime}</td>
+			<td>${MOUNTHLY.m_workTime}</td>
+			<td>${MOUNTHLY.m_overTime}</td>
+			<td>${MOUNTHLY.m_nightTime}</td>
 		</tr>
 	</table>
 </body>

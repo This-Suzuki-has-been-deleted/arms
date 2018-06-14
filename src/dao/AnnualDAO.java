@@ -137,7 +137,7 @@ public class AnnualDAO {
 			am.setYear(rs.getInt("year"));
 			am.setY_workTime(rs.getTimestamp("yearworkingtime"));
 			am.setY_overTime(rs.getTimestamp("yearoverworkingtime"));
-			am.setY_nightTime(rs.getTimestamp("year_nightworkingtime"));
+			am.setY_nightTime(rs.getTimestamp("yearnightworkingtime"));
 		}
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
