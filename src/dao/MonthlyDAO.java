@@ -67,12 +67,14 @@ public class MonthlyDAO {
 			// 自動コミットをオフ
 			conn.setAutoCommit(false);
 
-			String sql = "update employeemonthly set monthworkingtime=?,monthoverworkingtime=?,monthnightworkingtime=? where employeeno=?";
+			String sql = "update employeemonthly set monthworkingtime=?,monthoverworkingtime=?,monthnightworkingtime=? where employeeno=? AND year =? AND month = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setTimestamp(1, mm.getM_workTime());
 			pstmt.setTimestamp(2, mm.getM_overTime());
 			pstmt.setTimestamp(3, mm.getM_nightTime());
 			pstmt.setString(4, mm.getEmployeeNo());
+			pstmt.setInt(5, mm.getYear());
+			pstmt.setInt(6, mm.getMonth());
 
 			pstmt.executeUpdate();
 

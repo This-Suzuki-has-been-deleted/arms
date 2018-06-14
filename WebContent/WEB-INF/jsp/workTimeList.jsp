@@ -16,9 +16,12 @@
 <title>出退勤確認</title>
 </head>
 <body>
+	<h2>${Msg }</h2>
 	<form action="workServlet" method="GET">
+	<%  %>
 		<button type="submit" name="y_btn" value="${ANNUAL.year - 1}">前年</button>
 		<button type="submit" name="y_btn" value="${ANNUAL.year + 1}">次年</button>
+	<% %>
 	</form>
 	<table>
 		<tr>

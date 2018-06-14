@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -139,8 +138,8 @@ public class WorkModifiServlet extends HttpServlet {
 		annualDao.updateMonthlyTime(annual);
 		monthlyDao.updateMonthlyTime(monthly);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/workTimeList.jsp");
-		dispatcher.forward(request, response);
+		session.setAttribute("Msg", "変更完了です。");
+		response.sendRedirect("WorkServlet");
 
 	}
 

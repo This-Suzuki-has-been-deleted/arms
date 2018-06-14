@@ -78,12 +78,15 @@ public class WorkDAO {
 		// 自動コミットをオフ
 		conn.setAutoCommit(false);
 
-		String sql = "update employeeworktime set worktimeflg=?,attendance=?,leaving=? where employeeno=?";
+		String sql = "update employeeworktime set worktimeflg=?,attendance=?,leaving=? where employeeno=? AND year=? AND month = ? AND day = ?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setBoolean(1, wt.isWorkTimeFlg());
 		pstmt.setTimestamp(2, wt.getAttendance());
 		pstmt.setTimestamp(3, wt.getLeaving());
 		pstmt.setString(4, wt.getEmployeeNo());
+		pstmt.setInt(5, wt.getYear());
+		pstmt.setInt(6, wt.getMonth());
+		pstmt.setInt(7, wt.getDay());
 
 		if (pstmt.executeUpdate() > 0) {
 			conn.commit();

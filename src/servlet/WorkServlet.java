@@ -106,8 +106,13 @@ public class WorkServlet extends HttpServlet {
 		}
 
 		//データベースからモデルに追加
-		annualModel = annualDao.findAnnualTime(myEmp.getEmployeeNo(),year);
-		monthlyModel = monthlyDao.findMonthlyTime(myEmp.getEmployeeNo(),year,month);
+		while(!(annualModel.getEmployeeNo().isEmpty())){
+			annualModel = annualDao.findAnnualTime(myEmp.getEmployeeNo(),year);
+			year-=1;
+		}
+		if(!(monthlyModel.getEmployeeNo().isEmpty())){
+			monthlyModel = monthlyDao.findMonthlyTime(myEmp.getEmployeeNo(),year,month);
+		}
 		workTimeList = (ArrayList<WorkTimeModel>)workDao.d_findByEmployeeNoAndMonth(myEmp.getEmployeeNo(),year,month);
 
 		//モデルに必要な情報を他メソッドを使い追加
