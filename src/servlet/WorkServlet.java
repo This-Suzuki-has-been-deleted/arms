@@ -148,8 +148,14 @@ public class WorkServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		//入力内容を取得
-		WorkTimeModel workTimeModel = (WorkTimeModel)session.getAttribute("wtm");
-
+		WorkTimeModel workTimeModel = new WorkTimeModel();
+		workTimeModel.setEmployeeNo(request.getParameter("wtm.employeeNo"));
+		workTimeModel.setYear(Integer.parseInt(request.getParameter("wtm.year")));
+		workTimeModel.setMonth(Integer.parseInt(request.getParameter("wtm.month")));
+		workTimeModel.setDay(Integer.parseInt(request.getParameter("wtm.day")));
+		WorkDAO workDao = new WorkDAO();
+		workTimeModel = workDao.findWorkTime(workTimeModel.getEmployeeNo(), workTimeModel.getYear(),
+				workTimeModel.getMonth(), workTimeModel.getDay());
 		//入力内容をセッションにセット
 		session.setAttribute("workTimeModel", workTimeModel);
 

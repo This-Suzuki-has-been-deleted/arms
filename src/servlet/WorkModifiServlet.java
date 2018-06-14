@@ -1,6 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,6 +52,24 @@ public class WorkModifiServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		WorkTimeModel workTimeModel = (WorkTimeModel) session.getAttribute("WorkTimeModel");
+		Timestamp attendanceTime = null;
+		Timestamp leavingTime = null;
+		Date dates;
+		String attendance = request.getParameter("attendance");
+		String leaving = request.getParameter("leaving");
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+			dates = sdf.parse(attendance);
+			attendanceTime = new Timestamp(dates.getTime());
+			dates = sdf.parse(leaving);
+			leavingTime = new Timestamp(dates.getTime());
+		} catch (ParseException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		System.out.println(attendanceTime+"  "+leavingTime);
+		workTimeModel.setAttendance(attendanceTime);
+		workTimeModel.setLeaving(leavingTime);
 		Validation validation = new Validation();
 		DateMath dateMath = new DateMath();
 	/**
