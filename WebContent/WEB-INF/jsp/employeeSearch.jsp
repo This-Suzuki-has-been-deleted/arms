@@ -28,7 +28,7 @@
 				<th>社員番号</th>
 				<th>社員名</th>
 				<th>部署</th>
-				<c:if test="${Employee.depNo == '003'}">
+				<c:if test="${Employee.authNo == '003' || Employee.authNo == 999}">
 					<!-- EmployeeModelのセッション名Employee -->
 					<th>権限</th>
 				</c:if>
@@ -39,17 +39,15 @@
 						<td>${Emp.employeeNo}</td>
 						<td>${Emp.employeeName}</td>
 						<td>${Emp.depName}</td>
-						<c:if test="${Employee.depNo == '003'}">
+						<c:if test="${Employee.authNo == '003' || Employee.authNo == 999}">
 							<td>${Emp.authName}</td>
 						</c:if>
 					</tr>
 				</c:forEach>
-
-
 		</table>
 		<%
 		int pageno = (Integer) session.getAttribute("PAGENO");
-			for(int i = 1;i < pageno;i++) {
+			for(int i = 1;i < pageno + 1;i++) {
 		%>
 			<form action="EmployeeServlet" method="POST">
 				<input type="submit" value="<%=i %>" name="pgno" />
