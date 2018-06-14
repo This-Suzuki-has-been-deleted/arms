@@ -36,7 +36,6 @@ public class TimeStampServlet extends HttpServlet {
 	 */
 	public TimeStampServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -120,7 +119,6 @@ public class TimeStampServlet extends HttpServlet {
 
 					adao.insertMonthlyTime(am);
 				} catch (ParseException e) {
-					// TODO 自動生成された catch ブロック
 					e.printStackTrace();
 				}
 			}
