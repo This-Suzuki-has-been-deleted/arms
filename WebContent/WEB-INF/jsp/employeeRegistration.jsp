@@ -30,14 +30,14 @@
 						<td><input type="text" name="textCode" value=""></td>
 					</tr>
 					<tr>
-						<td>社員名 ：</td>
+						<td>社員名　：</td>
 						<td><input type="text" name="textName" value=""></td>
 					</tr>
 					<%
 						if (myEmp.getAuthNo().equals("003") || myEmp.getAuthNo().equals("999")) {
 					%>
 					<tr>
-						<td>部署 ：</td>
+						<td>部署　　：</td>
 						<td><select name="selectDivisionNo">
 								<%
 									for (DepModel dm : depList) {
@@ -49,7 +49,7 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td>権限 ：</td>
+						<td>権限　　：</td>
 						<td><select name="selectAuthorityNo">
 								<option value="001">一般</option>
 								<option value="002">上位</option>
