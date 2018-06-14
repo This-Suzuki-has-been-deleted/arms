@@ -47,27 +47,11 @@ public class RegistrationServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		// // ログイン中のユーザーの情報をセッションから得る
-		EmployeeModel myEmp = (EmployeeModel) session.getAttribute("Employee");
-		System.out.println(myEmp.getDepNo());
-		//
-		// // ログインチェック
-		// if (myEmp == null) {
-		// RequestDispatcher dispatcher = request
-		// .getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-		// dispatcher.forward(request, response);
-		// }
-
 		// 部署のプルダウンメニューのために一覧を持ってくる
 		ArrayList<DepModel> depList = (ArrayList<DepModel>) dd.findDepAll();
 
 		// セッションにセット
 		session.setAttribute("depList", depList);
-		if (depList == null) {
-			System.out.println("depはnullだよ");
-		} else {
-			System.out.println("depはあるみたい");
-		}
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");
 		dispatcher.forward(request, response);
@@ -94,16 +78,15 @@ public class RegistrationServlet extends HttpServlet {
 
 		SpaceKill spaceKill = new SpaceKill();
 
-		String textCode = null; // 入力内容を受け取る変数
+		String textCode; // 入力内容を受け取る変数
 		String textName; // 入力内容を受け取る変数
 		String selectDivisionNo;
 		String selectAuthorityNo;
 		String pageFlg;
 		String msg;
-		boolean flg;
-		flg = false;
-		msg = null;
+
 		pageFlg = null;
+		msg = null;
 
 		HttpSession session = request.getSession();
 
