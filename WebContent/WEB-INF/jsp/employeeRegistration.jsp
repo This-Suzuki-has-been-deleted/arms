@@ -70,6 +70,7 @@
 				<%
 					}
 				%>
+				${msg = null}
 			<input type="submit" value="確認">
 		</form>
 	</div>

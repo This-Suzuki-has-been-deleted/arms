@@ -10,7 +10,9 @@
 }
 .pagetitle{
 	margin:auto;
-	 float:left;
+	float:left;
+	font-size:25px;
+	vertical-align:middle;
 }
 .clock{
 	margin-right:15px;

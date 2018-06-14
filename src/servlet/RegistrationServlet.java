@@ -52,6 +52,8 @@ public class RegistrationServlet extends HttpServlet {
 
 		// セッションにセット
 		session.setAttribute("depList", depList);
+		session.setAttribute("pageTitle", "社員登録");
+
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");
 		dispatcher.forward(request, response);
