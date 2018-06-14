@@ -78,12 +78,13 @@ public class AnnualDAO {
 		// 自動コミットをオフ
 		conn.setAutoCommit(false);
 
-		String sql = "update employeeannual set yearworkingtime=?,yearoverworkingtime=?,yearnightworkingtime=? where employeeno=?";
+		String sql = "update employeeannual set yearworkingtime=?,yearoverworkingtime=?,yearnightworkingtime=? where employeeno=? AND year=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setTimestamp(1, am.getY_workTime());
 		pstmt.setTimestamp(2, am.getY_overTime());
 		pstmt.setTimestamp(3, am.getY_nightTime());
 		pstmt.setString(4, am.getEmployeeNo());
+		pstmt.setInt(5, am.getYear());
 
 		pstmt.executeUpdate();
 
