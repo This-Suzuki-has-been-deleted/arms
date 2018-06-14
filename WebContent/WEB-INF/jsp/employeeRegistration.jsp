@@ -11,7 +11,16 @@
 			.getAttribute("Employee");
 	ArrayList<DepModel> depList = (ArrayList<DepModel>) session
 			.getAttribute("depList");
-	String msg = (String) request.getAttribute("msg");
+	String eMsg = (String) session.getAttribute("eMsg");
+	String msg = (String) session.getAttribute("Msg");
+	session.removeAttribute("eMsg");
+	session.removeAttribute("Msg");
+	if(eMsg == null){
+		eMsg = "";
+	}
+	if(msg == null){
+		msg = "";
+	}
 %>
 <!DOCTYPE html>
 <head>
@@ -23,7 +32,8 @@
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="main">
 		<form method="post" action="RegistrationServlet">
-			<c:out value="${msg}"/>
+			<%=eMsg %>
+			<%=msg %>
 				<table>
 					<tr>
 						<td>社員番号</td>
@@ -70,7 +80,6 @@
 				<%
 					}
 				%>
-				${msg = null}
 			<input type="submit" value="確認">
 		</form>
 	</div>

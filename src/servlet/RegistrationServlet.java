@@ -43,6 +43,7 @@ public class RegistrationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 		DepDAO dd = new DepDAO();
 
 		HttpSession session = request.getSession();
@@ -146,7 +147,7 @@ public class RegistrationServlet extends HttpServlet {
 
 		// 入力内容に不正なものがあった場合エラーメッセージをセッションにセットして登録画面へ遷移
 		if (msg != null) {
-			session.setAttribute("msg", msg);
+			session.setAttribute("eMsg", msg);
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");
 			dispatcher.forward(request, response);

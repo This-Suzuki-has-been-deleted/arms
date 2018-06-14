@@ -59,7 +59,7 @@ public class ConfServlet extends HttpServlet {
 		}
 		String Msg = null;
 		session.setAttribute("Msg", "完了です！");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");
 		dispatcher.forward(request, response);
 
 	}
