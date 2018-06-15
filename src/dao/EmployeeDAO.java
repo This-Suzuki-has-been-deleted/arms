@@ -596,15 +596,16 @@ public class EmployeeDAO {
 			conn.setAutoCommit(false);
 
 			// SQLの実行
-			String sql = "update employee set EmployeeDivisionNo = ?,EmployeeAuthrityNo = ?,EmployeeName = ?"
+			String sql = "update employee set EmployeeDivisionNo = ?,EmployeeAuthorityNo = ?,EmployeeName = ?"
 					+ " where EmployeeNo = ?";
 
 			pStmt = conn.prepareStatement(sql);
 
 			// パラメータの設定
-			pStmt.setString(1, empmodel.getEmployeeName()); // (1,xxx)１個目のハテナ
-			pStmt.setString(2, empmodel.getDepNo());
-			pStmt.setString(3, empmodel.getAuthNo());
+			 // (1,xxx)１個目のハテナ
+			pStmt.setString(1, empmodel.getDepNo());
+			pStmt.setString(2, empmodel.getAuthNo());
+			pStmt.setString(3, empmodel.getEmployeeName());
 			pStmt.setString(4, empmodel.getEmployeeNo());
 
 			// 結果の取得と出力
