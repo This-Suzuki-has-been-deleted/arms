@@ -427,13 +427,14 @@ public class EmployeeDAO {
 			String cntsql = "select Count(*) AS Counter FROM Employee WHERE employeeAuthorityNo <> '999'  AND EmployeeNo <> ?";
 
 			if (employee_name != "") {
-				cntsql = cntsql +  " AND E.EmployeeName LIKE ?";		//SQLの％記号はpreparestatementだと変換されるため
+				cntsql = cntsql +  " AND EmployeeName LIKE ?";		//SQLの％記号はpreparestatementだと変換されるため
 				employee_name = "%" + employee_name + "%";		//% + + %をsetしてあげる
 			}
-			cntsql = cntsql + " AND E.employeedivisionNo = ?";
+			cntsql = cntsql + " AND employeedivisionNo = ?";
 
 			pStmt = conn.prepareStatement(cntsql);
 			pStmt.setString(1, employee_no);
+
 			if (employee_name != "") {
 				pStmt.setString(2, employee_name);
 				pStmt.setString(3, dep_no);
@@ -446,7 +447,11 @@ public class EmployeeDAO {
 			rs.next();
 
 			counter = rs.getInt("Counter");
+			if(counter % 20 != 0) {
 			counter = counter / 20 + 1;
+			}else {
+				counter = 1;
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
