@@ -40,7 +40,6 @@
 
 .side li a {
 	display: block;
-	background: ../images/side1.png no-repeat left center;
 	padding: 2px 0px 3px 18px;
 	color: #555;
 	width: 150px;
@@ -51,7 +50,7 @@
 }
 
 .side li a:hover {
-	background: ../images/side2.png no-repeat left center;
+	background-image: ../images/side2.png no-repeat left center;
 }
 .y_next_btn.m_next_btn {
     position: relative;
@@ -149,4 +148,12 @@
 .clocks{
 	margin-top:0px;
 	margin-bottom:0px;
+}
+.icon{
+	width:16px;
+	height:16px;
+	background-image:images/side1.png;
+}
+.icon:hover{
+	background-image:images/side2.png;
 }
