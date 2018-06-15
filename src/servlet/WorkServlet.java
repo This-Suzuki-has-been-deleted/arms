@@ -86,7 +86,6 @@ public class WorkServlet extends HttpServlet {
 		first.set( Calendar.DATE,1);
 		int firstWeek = (first.get( Calendar.DAY_OF_WEEK )-1);
 		int maxDayCnt = now.getActualMaximum(Calendar.DAY_OF_MONTH);
-		System.out.println(week[firstWeek-1]);
 
 		//セッションに曜日の情報が入っている配列をセット
 		session.setAttribute("week",week);
@@ -168,26 +167,15 @@ public class WorkServlet extends HttpServlet {
 		}
 		//年間と月間の勤務時間を変換
 		long epic = 946652400000L;
-		System.out.println(monthlyModel.getM_workTime().getTime());
 		WorkTimeDateModel workTimeDateModel = new WorkTimeDateModel();
 		workTimeDateModel.setM_workTime(new Date(monthlyModel.getM_workTime().getTime()-epic).getTime()/60000);
 		workTimeDateModel.setM_overTime(new Date(monthlyModel.getM_overTime().getTime()-epic).getTime()/60000);
 		workTimeDateModel.setM_nightTime(new Date(monthlyModel.getM_nightTime().getTime()-epic).getTime()/60000);
 
-//		workTimeDateModel.setM_workTime(Math.round(workTimeDateModel.getM_workTime()));
-//		workTimeDateModel.setM_overTime(Math.round(workTimeDateModel.getM_overTime()));
-//		workTimeDateModel.setM_nightTime(Math.round(workTimeDateModel.getM_nightTime()));
-		System.out.println(workTimeDateModel.getM_workTime()+"  "+workTimeDateModel.getM_overTime()+"  "+workTimeDateModel.getM_nightTime() );
 
 		workTimeDateModel.setY_workTime(new Date(annualModel.getY_workTime().getTime()-epic).getTime()/60000);
 		workTimeDateModel.setY_overTime(new Date(annualModel.getY_overTime().getTime()-epic).getTime()/60000);
 		workTimeDateModel.setY_nightTime(new Date(annualModel.getY_nightTime().getTime()-epic).getTime()/60000);
-
-//		workTimeDateModel.setY_workTime(Math.round(workTimeDateModel.getY_workTime()));
-//		workTimeDateModel.setY_overTime(Math.round(workTimeDateModel.getY_overTime()));
-//		workTimeDateModel.setY_nightTime(Math.round(workTimeDateModel.getY_nightTime()));
-
-		System.out.println(workTimeDateModel.getY_workTime()+"   "+workTimeDateModel.getY_overTime()+"  "+workTimeDateModel.getY_nightTime());
 
 		//セッションに表示内容をセット
 		session.setAttribute("ANNUAL", annualModel);
