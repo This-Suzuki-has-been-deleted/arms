@@ -82,11 +82,15 @@ public class LoginServlet extends HttpServlet {
 			int month = date.getMonthValue();
 			int day = date.getDayOfMonth() - 1;
 
+			System.out.println(employeeNo);
+			System.out.println(day);
+
 			EmployeeModel em = employee;
 			WorkDAO wdao = new WorkDAO();
 			WorkTimeModel wm = wdao.findWorkTime(em.getEmployeeNo(), year,
 					month, day);
 			String no =wm.getEmployeeNo();
+			System.out.println(em.getEmployeeNo());
 
 			if (no != null) { // 前日のレコードの有無を確認
 				if (wm.isWorkFlg() == 1) { // 勤怠フラグを確認、本日のレコードの有無を確認
@@ -115,6 +119,7 @@ public class LoginServlet extends HttpServlet {
 				no =wm.getEmployeeNo();
 
 				if (no == null) { // 本日のレコードの有無を確認
+					System.out.println("a");
 					wm.setEmployeeNo(em.getEmployeeNo());
 					wm.setYear(year);
 					wm.setMonth(month);
