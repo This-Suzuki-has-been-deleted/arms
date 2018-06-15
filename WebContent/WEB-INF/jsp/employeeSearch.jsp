@@ -14,8 +14,8 @@
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="main">
 		<form method="post" action="EmployeeServlet">
-			社員名 <input type="text" name="employee_name">
-			部署名<select name="dep_no">
+			社員名 <input type="text" name="employee_name"> 部署名<select
+				name="dep_no">
 				<option value="${Employee.depNo}">${Employee.depName}</option>
 				<c:forEach var="deplist" items="${DepList}">
 					<c:if test="${Employee.authNo == '003' || Employee.authNo =='999'}">
@@ -35,27 +35,31 @@
 				</c:if>
 			</tr>
 
-				<c:forEach var="Emp" items="${RESULT}">
-					<tr>
-						<td>${Emp.employeeNo}</td>
-						<td>${Emp.employeeName}</td>
-						<td>${Emp.depName}</td>
-						<c:if test="${Employee.authNo == '003' || Employee.authNo == 999}">
-							<td>${Emp.authName}</td>
-						</c:if>
-					</tr>
-				</c:forEach>
+			<c:forEach var="Emp" items="${RESULT}">
+				<tr>
+					<td>${Emp.employeeNo}</td>
+					<td>${Emp.employeeName}</td>
+					<td>${Emp.depName}</td>
+					<c:if test="${Employee.authNo == '003' || Employee.authNo == 999}">
+						<td>${Emp.authName}</td>
+					</c:if>
+					<form action="ChangeServlet" method="POST">
+						<input type="button" value="${Emp.employeeNo}" name="employeeno" />
+					</form>
+				</tr>
+			</c:forEach>
 		</table>
 		<%
-		int pageno = (Integer) session.getAttribute("PAGENO");
-			for(int i = 1;i < pageno + 1;i++) {
+			int pageno = (Integer)session.getAttribute("PAGENO");
+		if(pageno != 0) {		//検索結果件数を持っているのか
+			for (int i = 1; i <= pageno + 1; i++) {
 		%>
-			<form action="EmployeeServlet" method="POST">
-				<input type="submit" value="<%=i %>" name="pgno" />
-			</form>
+		<form action="EmployeeServlet" method="POST">
+			<input type="submit" value="<%=i%>" name="pgno" />
+		</form>
 		<%
 			}
-
+		}
 		%>
 
 	</div>

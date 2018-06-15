@@ -16,7 +16,6 @@ public class EmployeeDAO {
 	Connection conn;
 	PreparedStatement pStmt;
 
-	int lim = 20;
 
 	public EmployeeModel findEmployee(String empno) {
 
@@ -332,6 +331,7 @@ public class EmployeeDAO {
 	public ArrayList<EmployeeModel> findByNameDep(String employee_no,String dep_no, String employee_name,int pageno) {
 		conn = null;
 		pStmt = null;
+		int lim = 20;
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
 		EmployeeModel empmodel = new EmployeeModel();
 
@@ -353,14 +353,23 @@ public class EmployeeDAO {
 				employee_name = "%" + employee_name + "%";		//% + + %をsetしてあげる
 			}
 			sql = sql + " AND E.employeedivisionNo = ?";
+			sql = sql + " ORDER BY E.employeeDivisionNo,E.EmployeeNo LIMIT ?,?";
+
+			int mathpageno = (lim * pageno) -20;
+
 
 			pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, employee_no);
 			if (employee_name != "") {
 				pStmt.setString(2, employee_name);
 				pStmt.setString(3, dep_no);
+				pStmt.setInt(4,mathpageno);
+				pStmt.setInt(5,lim);
+
 			}else{
 				pStmt.setString(2, dep_no);
+				pStmt.setInt(3,mathpageno);
+				pStmt.setInt(4,lim);
 			}
 
 			// 結果の取得と出力
@@ -417,27 +426,26 @@ public class EmployeeDAO {
 			// SQLの実行
 			String cntsql = "select Count(*) AS Counter FROM Employee WHERE employeeAuthorityNo <> '999'  AND EmployeeNo <> ?";
 
-			pStmt = conn.prepareStatement(cntsql);
-
-			pStmt.setString(1, employee_no);
-
 			if (employee_name != "") {
-				cntsql = cntsql +  " AND E.EmployeeName LIKE ?";
-				employee_name = "%" + employee_name + "%";
-				pStmt.setString(1, employee_name);
+				cntsql = cntsql +  " AND E.EmployeeName LIKE ?";		//SQLの％記号はpreparestatementだと変換されるため
+				employee_name = "%" + employee_name + "%";		//% + + %をsetしてあげる
 			}
-			cntsql = cntsql + " AND E.DivisionNo = ?";
-			if(employee_name != ""){
-				pStmt.setString(1, dep_no);
+			cntsql = cntsql + " AND E.employeedivisionNo = ?";
+
+			pStmt = conn.prepareStatement(cntsql);
+			pStmt.setString(1, employee_no);
+			if (employee_name != "") {
+				pStmt.setString(2, employee_name);
+				pStmt.setString(3, dep_no);
 			}else{
-				pStmt.setString(1, dep_no);
+				pStmt.setString(2, dep_no);
 			}
+
 			// 結果の取得と出力
 			ResultSet rs = pStmt.executeQuery();
 			rs.next();
 
 			counter = rs.getInt("Counter");
-
 			counter = counter / 20 + 1;
 
 		} catch (SQLException e) {
