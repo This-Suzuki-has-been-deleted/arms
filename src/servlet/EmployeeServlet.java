@@ -65,6 +65,7 @@ public class EmployeeServlet extends HttpServlet {
 		String dep_No = request.getParameter("dep_no");
 		session.setAttribute("SELECTDEP",dep_No);
 		selectno = request.getParameter("pgno");		//ページ選択value
+		System.out.println(selectno);
 
 		if(selectno == null) {
 			pageno = 1;
