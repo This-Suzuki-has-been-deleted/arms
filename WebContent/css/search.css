@@ -5,6 +5,9 @@ table {
 th.t_top {
     border-top: #be1309 4px solid;
 }
+th.t_top2 {
+    border-top: #b3b3b3 4px solid;
+}
 th {
 	border-bottom: #888888 1px dotted;
 	text-align: left;

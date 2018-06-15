@@ -26,12 +26,12 @@
 		</form>
 		<table border="1">
 			<tr>
-				<th>社員番号</th>
-				<th>社員名</th>
-				<th>部署</th>
+				<th class="t_top">社員番号</th>
+				<th class="t_top">社員名</th>
+				<th class="t_top2">部署</th>
 				<c:if test="${Employee.authNo == '003' || Employee.authNo == 999}">
 					<!-- EmployeeModelのセッション名Employee -->
-					<th>権限</th>
+					<th class="t_top2">権限</th>
 				</c:if>
 			</tr>
 
