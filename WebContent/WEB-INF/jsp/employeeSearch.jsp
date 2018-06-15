@@ -46,7 +46,7 @@
 					<td>
 					<form action="ChangeServlet" method="POST">
 						<input type="hidden" value="${Emp.employeeNo}" name="employeeNo" />
-						
+
 							<input type="image" src="../WEB-INF/images/wtimeedit.png">
 					</form>
 					</td>
@@ -54,9 +54,7 @@
 
 			</c:forEach>
 		</table>
-		<form action="EmployeeServlet" method="POST">
-			<input type="submit" value="<%=i%>" name="pgno" >
-		</form>
+
 		<%
 			int pageno = (Integer)session.getAttribute("PAGENO");
 		if(pageno != 1) {		//検索結果件数を持っているのか
@@ -69,9 +67,7 @@
 			}
 		}
 		%>
-		<form action="EmployeeServlet" method="POST">
-			<input type="submit" value="<%=i%>" name="pgno" />
-		</form>
+
 
 	</div>
 	<jsp:include page="/WEB-INF/jsp/navigation.jsp" />
