@@ -61,16 +61,30 @@ public class EmployeeServlet extends HttpServlet {
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
 
 		String emp_Name = request.getParameter("employee_name");
-		String dep_No = request.getParameter("dep_no");
-		selectno = request.getParameter("pgno");		//ページ選択value
-
-
-		if(pageno == 0) {
-			pageno = 1;
-		}else {
-			pageno = Integer.parseInt(selectno);
+		if(emp_Name != null){
+			session.setAttribute("SELECTNAME",emp_Name);
 		}
 
+		String dep_No = request.getParameter("dep_no");
+		if(dep_No != null){
+			session.setAttribute("SELECTDEP",dep_No);
+		}
+		selectno = request.getParameter("pgno");		//ページ選択value
+
+		if(selectno == null) {
+			pageno = 1;
+			selectno = "1";
+		}
+		pageno = Integer.parseInt(selectno);
+
+		if(dep_No == null  && emp_Name == null) {
+			emp_Name = (String) session.getAttribute("SELECTNAME");
+			dep_No = (String) session.getAttribute("SELECTDEP");
+		}else if(emp_Name == null) {
+			emp_Name = (String) session.getAttribute("SELECTNAME");
+		}else if(dep_No == null) {
+			dep_No = (String) session.getAttribute("SELECTDEP");
+		}
 
 		employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),dep_No,emp_Name,pageno); // 検索結果取得 ログイン番号、入力部署、入力社員名、ページ番号
 		pageno = employeeDao.CountEmp(emodel.getEmployeeNo(),dep_No,emp_Name); //ページ数取得

@@ -45,7 +45,7 @@
 					</c:if>
 					<td>
 					<form action="ChangeServlet" method="POST">
-						<input type="hidden" value="${Emp.employeeNo}" name="employeeno" />
+						<input type="hidden" value="${Emp.employeeNo}" name="employeeNo" />
 							<input type="image" src="../WEB-INF/images/wtimeedit.png">
 					</form>
 					</td>
@@ -56,7 +56,7 @@
 		<%
 			int pageno = (Integer)session.getAttribute("PAGENO");
 		if(pageno != 1) {		//検索結果件数を持っているのか
-			for (int i = 1; i <= pageno + 1; i++) {
+			for (int i = 1; i < pageno + 1; i++) {
 		%>
 		<form action="EmployeeServlet" method="POST">
 			<input type="submit" value="<%=i%>" name="pgno" />
