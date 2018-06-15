@@ -27,6 +27,7 @@ public class EmployeeServlet extends HttpServlet {
 
 	int pageno = 1;
 	String selectno = "1";
+	int nowpage = 1;
 
 
 	public EmployeeServlet() {
@@ -75,7 +76,9 @@ public class EmployeeServlet extends HttpServlet {
 			pageno = 1;
 			selectno = "1";
 		}
-		pageno = Integer.parseInt(selectno);
+		pageno = Integer.parseInt(selectno);		//検索件数分のページ
+
+		nowpage = Integer.parseInt(selectno);		//現在表示しているページ
 
 		if(dep_No == null  && emp_Name == null) {
 			emp_Name = (String) session.getAttribute("SELECTNAME");
@@ -91,11 +94,11 @@ public class EmployeeServlet extends HttpServlet {
 
 		session.setAttribute("RESULT",employeelist);
 		session.setAttribute("PAGENO",pageno);
+		session.setAttribute("SELECTPG",nowpage);
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");
 		dispatcher.forward(request, response);
-
 	}
 
 }

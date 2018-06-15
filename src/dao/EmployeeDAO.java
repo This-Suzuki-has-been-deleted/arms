@@ -446,10 +446,7 @@ public class EmployeeDAO {
 			// 結果の取得と出力
 			ResultSet rs = pStmt.executeQuery();
 			rs.next();
-
 			counter = rs.getInt("Counter");
-
-
 
 			if(counter <= 20){
 				cnt = 1;
