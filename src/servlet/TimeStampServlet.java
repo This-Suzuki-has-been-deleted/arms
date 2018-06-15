@@ -56,6 +56,8 @@ public class TimeStampServlet extends HttpServlet {
 			java.util.Date date = new java.util.Date();
 			long nowTime = date.getTime();
 			Timestamp now = new Timestamp(nowTime);
+			System.out.println(wt.getEmployeeNo());
+			System.out.println(now);
 			wt.setAttendance(now);
 			wdao.updateWorkTime(wt);
 			session.setAttribute("buttonvalue", "退勤");

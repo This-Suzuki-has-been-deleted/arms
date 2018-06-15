@@ -76,7 +76,7 @@
 					<input type="hidden" value="${wtime.year }" name="wtm.year"/>
 					<input type="hidden" value="${wtime.month }" name="wtm.month"/>
 					<input type="hidden" value="${wtime.day }" name="wtm.day"/>
-					<img src="images/icon.png">
+					<input type="image" src="images/icon.png" alt="送信する" align="middle">
 				</form></td>
 			</tr>
 		</c:forEach>

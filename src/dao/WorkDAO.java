@@ -147,6 +147,7 @@ public class WorkDAO {
 			wt.setLeaving(rs.getTimestamp("leaving"));
 			wt.weekDate(wt);
 		}
+		conn.close();
 
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
@@ -197,6 +198,7 @@ public class WorkDAO {
 			wt.weekDate(wt);
 			list.add(wt);
 		}
+		conn.close();
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
@@ -247,6 +249,7 @@ public class WorkDAO {
 			wt.weekDate(wt);
 			list.add(wt);
 		}
+		conn.close();
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

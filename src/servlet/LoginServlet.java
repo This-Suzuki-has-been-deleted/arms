@@ -82,6 +82,9 @@ public class LoginServlet extends HttpServlet {
 			int month = date.getMonthValue();
 			int day = date.getDayOfMonth() - 1;
 
+			System.out.println(employeeNo);
+			System.out.println(day);
+
 			EmployeeModel em = employee;
 			WorkDAO wdao = new WorkDAO();
 			WorkTimeModel wm = wdao.findWorkTime(em.getEmployeeNo(), year,
@@ -115,6 +118,7 @@ public class LoginServlet extends HttpServlet {
 				no =wm.getEmployeeNo();
 
 				if (no == null) { // 本日のレコードの有無を確認
+					System.out.println("a");
 					wm.setEmployeeNo(em.getEmployeeNo());
 					wm.setYear(year);
 					wm.setMonth(month);
@@ -123,8 +127,12 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("work", wm); // 当日を参照する
 					session.setAttribute("buttonvalue", "出勤"); // ボタンのバリューを出勤に
 				} else {
-					session.setAttribute("work", wm); // 当日を参照する
-					session.setAttribute("buttonvalue", "退勤"); // ボタンのバリューを退勤に
+					if(wm.isWorkFlg()==1){
+						session.setAttribute("buttonvalue", "本日打刻済"); // ボタンのバリューを打刻済に
+					}else{
+						session.setAttribute("work", wm); // 当日を参照する
+						session.setAttribute("buttonvalue", "退勤"); // ボタンのバリューを退勤に
+					}
 				}
 			}
 			//ここまで

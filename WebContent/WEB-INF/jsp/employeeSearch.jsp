@@ -57,37 +57,47 @@
 
 			</c:forEach>
 		</table>
-
 		<%
 			int pageno = (Integer) session.getAttribute("PAGENO");
+			int nowpage = (Integer) session.getAttribute("SELECTPG");
 		%>
-
-		<form name="backpage" action="EmployeeServlet" method="post">
-			<input type="hidden" name="sample" value="<%=pageno - 1%>>">
+		<%
+		if(1 != nowpage) {
+		%>
+		<form name="backpage" action="EmployeeServlet" method="POST">
+			<input type="hidden" name="pgno" value="<%=nowpage - 1%>">
 		</form>
 		<a href="EmployeeServlet"
 			onclick="document.backpage.submit();return false;">前</a>
-
 		<%
+		}
 			if (pageno != 1) { //検索結果件数を持っているのか
 				for (int i = 1; i < pageno + 1; i++) {
 		%>
-		<form action="EmployeeServlet" method="POST">
+		<!-- <form action="EmployeeServlet" method="POST">
 			<input type="submit" value="<%=i%>" name="pgno" />
+		</form>-->
+
+		<form name="selectpage<%= i %>" action="EmployeeServlet" method="POST">
+			<input type="hidden" name="pgno" value="<%= i %>">
 		</form>
+		<a href="EmployeeServlet" onclick="document.selectpage<%= i %>.submit();return false;"><%=i%></a>
+
 		<%
-			}
+				}
 			}
 		%>
-
-		<form name="nextpage" action="EmployeeServlet" method="post">
-			<input type="hidden" name="sample" value="<%=pageno + 1%>>">
+		<%
+		if(pageno != nowpage) {
+		%>
+		<form name="nextpage" action="EmployeeServlet" method="POST">
+			<input type="hidden" name="pgno" value="<%=nowpage + 1%>">
 		</form>
 		<a href="EmployeeServlet"
 			onclick="document.nextpage.submit();return false;">次</a>
-
-
-
+			<%
+		}
+			%>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/navigation.jsp" />
 	<div class="clear"></div>
