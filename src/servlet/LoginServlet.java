@@ -90,7 +90,6 @@ public class LoginServlet extends HttpServlet {
 			WorkTimeModel wm = wdao.findWorkTime(em.getEmployeeNo(), year,
 					month, day);
 			String no =wm.getEmployeeNo();
-			System.out.println(em.getEmployeeNo());
 
 			if (no != null) { // 前日のレコードの有無を確認
 				if (wm.isWorkFlg() == 1) { // 勤怠フラグを確認、本日のレコードの有無を確認
@@ -128,8 +127,12 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("work", wm); // 当日を参照する
 					session.setAttribute("buttonvalue", "出勤"); // ボタンのバリューを出勤に
 				} else {
-					session.setAttribute("work", wm); // 当日を参照する
-					session.setAttribute("buttonvalue", "退勤"); // ボタンのバリューを退勤に
+					if(wm.isWorkFlg()==1){
+						session.setAttribute("buttonvalue", "本日打刻済"); // ボタンのバリューを打刻済に
+					}else{
+						session.setAttribute("work", wm); // 当日を参照する
+						session.setAttribute("buttonvalue", "退勤"); // ボタンのバリューを退勤に
+					}
 				}
 			}
 			//ここまで
