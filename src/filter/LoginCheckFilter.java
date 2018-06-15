@@ -18,7 +18,7 @@ import model.EmployeeModel;
 /**
  * Servlet Filter implementation class LoginCheckFilter
  */
-@WebFilter(urlPatterns={"/TimeStampServlet","/ConfServlet","/EmployeeServlet","/RegistrationServlet","/WorkServlet","/ChangeServlet"})
+@WebFilter(urlPatterns={"/TimeStampServlet","/ConfServlet","/EmployeeServlet","/RegistrationServlet","/WorkServlet","/ChangeServlet","/InfoChangeServlet"})
 public class LoginCheckFilter implements Filter {
 
     /**
