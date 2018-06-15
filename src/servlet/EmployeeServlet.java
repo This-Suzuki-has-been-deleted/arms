@@ -25,8 +25,8 @@ public class EmployeeServlet extends HttpServlet {
 	EmployeeDAO employeeDao = new EmployeeDAO();
 	ArrayList<DepModel> deplist = new ArrayList<DepModel>();
 
-//	String page_no = "1";
 	int pageno = 1;
+	String selectno = "1";
 
 
 	public EmployeeServlet() {
@@ -43,7 +43,7 @@ public class EmployeeServlet extends HttpServlet {
 
 		session.setAttribute("Employee",emodel);
 		session.setAttribute("DepList",deplist);
-		session.setAttribute("PAGENO",1);
+		session.setAttribute("PAGENO",pageno);
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");
@@ -62,19 +62,21 @@ public class EmployeeServlet extends HttpServlet {
 
 		String emp_Name = request.getParameter("employee_name");
 		String dep_No = request.getParameter("dep_no");
-//		page_no = request.getParameter("pgno");		//ページ選択value
-//		pageno = Integer.parseInt(page_no);
+		selectno = request.getParameter("pgno");		//ページ選択value
 
-//		if(page_no == null) {
-//			pageno = 1;
-//		}
+
+		if(pageno == 0) {
+			pageno = 1;
+		}else {
+			pageno = Integer.parseInt(selectno);
+		}
 
 
 		employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),dep_No,emp_Name,pageno); // 検索結果取得 ログイン番号、入力部署、入力社員名、ページ番号
 		pageno = employeeDao.CountEmp(emodel.getEmployeeNo(),dep_No,emp_Name); //ページ数取得
 
 		session.setAttribute("RESULT",employeelist);
-//		session.setAttribute("PAGENO",pageno);
+		session.setAttribute("PAGENO",pageno);
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");

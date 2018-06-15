@@ -55,7 +55,7 @@
 		</table>
 		<%
 			int pageno = (Integer)session.getAttribute("PAGENO");
-		if(pageno != 0) {		//検索結果件数を持っているのか
+		if(pageno != 1) {		//検索結果件数を持っているのか
 			for (int i = 1; i <= pageno + 1; i++) {
 		%>
 		<form action="EmployeeServlet" method="POST">
