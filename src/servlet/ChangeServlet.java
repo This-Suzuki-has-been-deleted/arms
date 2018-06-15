@@ -56,13 +56,13 @@ public class ChangeServlet extends HttpServlet {
 		depModel = depDao.findDepAll();
 		authModel = authDao.findAuthAll();
 		session.setAttribute("DepModel", depModel);
-		session.setAttribute("authModel",authModel);
+		session.setAttribute("AuthModel",authModel);
 		if(employee.getAuthNo().equals("01") || employee.getEmployeeNo() == employeeNo ){
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 			dispatcher.forward(request, response);
 		}else{
 			EmployeeModel employeeModel = new EmployeeModel();
-			
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -109,6 +109,7 @@ public class ChangeServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 			}
 		}else{
+			EmployeeModel employeeUser = (EmployeeModel) session.getAttribute("ChangeEmployee");
 			String employeeName = null;
 			String divisionNo = null;
 			String authorityNo = null;
@@ -125,14 +126,17 @@ public class ChangeServlet extends HttpServlet {
 			/**
 			 * バリデーションチェック挿入予定地
 			 */
-
-			employee.setEmployeeNo(employeeNo);
-			employee.setEmployeeName(employeeName);
-			employee.setAuthNo(authorityNo);
-			employee.setDepNo(divisionNo);
+			EmployeeDAO employeeDao = new EmployeeDAO();
+			employeeUser.setEmployeeNo(employeeNo);
+			employeeUser.setEmployeeName(employeeName);
+			employeeUser.setAuthNo(authorityNo);
+			employeeUser.setDepNo(divisionNo);
+			employeeUser.setAuthName(employeeDao.findByAuthName(employeeUser.getAuthNo()));
+			employeeUser.setDepName(employeeDao.findByDepName(employeeUser.getDepNo()));
 
 			session.setAttribute("pageFlg", pageFlg);
-			session.setAttribute("employeeModel", employee);
+			session.setAttribute("employeeModel", employeeUser);
+			session.setAttribute("Employee", employee);
 
 			if(msg == null){
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/conf.jsp");

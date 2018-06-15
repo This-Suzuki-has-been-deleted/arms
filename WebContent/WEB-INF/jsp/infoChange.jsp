@@ -11,23 +11,33 @@
 <jsp:include page="/WEB-INF/jsp/header.jsp" />
 <div class="main">
 	<form action="ChangeServlet" method="post">
-		名前：<input type="text" name="employeeName" value="">
+			<input type="hidden" name="employeeNo" value="${ChangeEmployee.employeeNo }">
+		名前：<input type="text" name="employeeName" value="${ChangeEmployee.employeeName }">
+		<br>
 		部署 ：<select name="selectDivisionNo">
-				<c:forEach var="dep" items="${ChangeEmployee.DepModel}" varStatus="status">
+				<option value="${ChangeEmployee.depNo}">${ChangeEmployee.depName}</option>
+				<c:forEach var="dep" items="${DepModel}">
 					<option value="${dep.depNo}">${dep.depName}</option>
 				</c:forEach>
 				</select>
-		<c:if test="${Employee.authNo = '003'}">
+
+		<c:if test="${Employee.authNo == '003' || Employee.authNo == '999'}">
+			<br>
 			権限  ：<select name="selectAuthorityNo">
-				<c:forEach var="auth" items="${ChangeEmployee.AuthModel}" varStatus="status">
+				<option value="${ChangeEmployee.authNo}">${ChangeEmployee.authName}</option>
+				<c:forEach var="auth" items="${AuthModel}">
 					<option value="${auth.authNo}">${auth.authName}</option>
 				</c:forEach>
 				</select>
 		</c:if>
-
+		<br>
 		<input type="reset" value="戻る">
 		<input type="submit" value="確認">
 	</form>
+	<form action="InfoChangeServlet" method="GET">
+	<Input type="submit" value="パスワードリセット">
+	</form>
+
 </div>
 <jsp:include page="/WEB-INF/jsp/navigation.jsp" />
 <div class="clear"></div>

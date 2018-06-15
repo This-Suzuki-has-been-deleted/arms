@@ -23,7 +23,7 @@
 </c:if>
 
 <c:choose>
-	<c:when test="${pageFlg != 'RegistrationServlet' }">
+	<c:when test="${pageFlg == 'ChangeServlet' }">
 		<p class="conf_top">社員名：${employeeModel.employeeName }</p>
 	</c:when>
 	<c:otherwise>
@@ -32,8 +32,9 @@
 </c:choose>
 
 
-	<c:if test="${Employee.authNo == '003' or Employee.authNo == '999'}">
+
 	<p>部署名:${employeeModel.depName}</p>
+	<c:if test="${Employee.authNo == '003' || Employee.authNo == '999'}">
 	<p>権限名:${employeeModel.authName }</p>
 	</c:if>
 <div class="conf_center">

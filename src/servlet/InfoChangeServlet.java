@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,10 +17,12 @@ import model.DepModel;
 import model.EmployeeModel;
 import dao.AuthDAO;
 import dao.DepDAO;
+import dao.EmployeeDAO;
 
 /**
  * Servlet implementation class InfoChange
  */
+@WebServlet("/InfoChangeServlet")
 public class InfoChangeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -53,17 +56,23 @@ public class InfoChangeServlet extends HttpServlet {
 		}
 		List<DepModel> depModel = new ArrayList<DepModel>();
 		List<AuthModel> authModel = new ArrayList<AuthModel>();
-		DepDAO depDao = new DepDAO();
-		AuthDAO authDao = new AuthDAO();
-		depModel = depDao.findDepAll();
-		authModel = authDao.findAuthAll();
-		session.setAttribute("DepModel", depModel);
-		session.setAttribute("authModel",authModel);
 		EmployeeModel employeeModel = new EmployeeModel();
+		employeeModel.setEmployeeNo(employeeNo);
 		employeeModel.setEmployeeName(request.getParameter("employeeName"));
 		employeeModel.setDepNo(request.getParameter("selectDivisionNo"));
 		employeeModel.setAuthNo(request.getParameter("selectAuthorityNo"));
+		EmployeeDAO employeeDao = new EmployeeDAO();
+		AuthDAO authDao = new AuthDAO();
+		DepDAO depDao = new DepDAO();
+		depModel = employeeDao.findAllByDepNo(employeeModel.getDepNo());
+		authModel = authDao.findAllByAuthNo(employeeModel.getAuthNo());
+		employeeModel.setAuthName(employeeDao.findByAuthName(employeeModel.getAuthNo()));
+		employeeModel.setDepName(employeeDao.findByDepName(employeeModel.getDepNo()));
+		session.setAttribute("DepModel", depModel);
+		session.setAttribute("AuthModel",authModel);
 		session.setAttribute("ChangeEmployee", employeeModel);
+		session.setAttribute("Employee",employee);
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
 		dispatcher.forward(request, response);
 	}

@@ -50,4 +50,56 @@ public class AuthDAO {
 
 		return list;
 	}
+
+	public List<AuthModel> findAllByAuthNo(String authNo) {
+		// TODO 自動生成されたメソッド・スタブ
+		ArrayList<AuthModel> authlist = new ArrayList<AuthModel>();
+		Connection conn = null;
+		PreparedStatement pStmt = null;
+
+		String authname = "";
+		String authno;
+		AuthModel amodel = new AuthModel();
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms"
+									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
+							"root", "password");
+			// SQLの実行
+			String sql = "select employeeauthorityno,authorityName "
+					+ "from employeeposition WHERE employeeauthorityno <> ? AND employeeauthorityno <> 999 "; // 部署
+
+			pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, authNo);
+
+			// 結果の取得と出力
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+
+				authno = rs.getString("employeeAuthorityNo");
+				authname = rs.getString("authorityName");
+
+				amodel.setAuthName(authname);
+				amodel.setAuthNo(authno);
+				authlist.add(amodel);
+				amodel = new AuthModel();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+
+		} finally {
+			try {
+				// 切断
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return authlist;
+	}
 }

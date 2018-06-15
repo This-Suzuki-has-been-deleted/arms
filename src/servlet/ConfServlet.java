@@ -51,16 +51,21 @@ public class ConfServlet extends HttpServlet {
 			System.out.println(empModel.getEmployeeName());
 			employeeDao = new EmployeeDAO();
 			employeeDao.InsertEmployee(empModel);
+			String Msg = null;
+			session.setAttribute("Msg", "完了です！");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");
+			dispatcher.forward(request, response);
 
 		}else if(pageFlg.equals("ChangeServlet")){
-			empModel = (EmployeeModel) session.getAttribute("EmployeeModel");
+			empModel = (EmployeeModel) session.getAttribute("employeeModel");
 			employeeDao = new EmployeeDAO();
 			employeeDao.updateEmployee(empModel);
+			String Msg = null;
+			session.setAttribute("Msg", "完了です！");
+			session.removeAttribute("RESULT");
+			response.sendRedirect("EmployeeServlet");
 		}
-		String Msg = null;
-		session.setAttribute("Msg", "完了です！");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");
-		dispatcher.forward(request, response);
+
 
 	}
 
