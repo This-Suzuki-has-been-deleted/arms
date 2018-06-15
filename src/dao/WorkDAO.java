@@ -80,7 +80,7 @@ public class WorkDAO {
 
 		String sql = "update employeeworktime set worktimeflg=?,attendance=?,leaving=? where employeeno=? AND year=? AND month = ? AND day = ?";
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setBoolean(1, wt.isWorkTimeFlg());
+		pstmt.setInt(1, wt.isWorkTimeFlg());
 		pstmt.setTimestamp(2, wt.getAttendance());
 		pstmt.setTimestamp(3, wt.getLeaving());
 		pstmt.setString(4, wt.getEmployeeNo());
@@ -142,7 +142,7 @@ public class WorkDAO {
 			wt.setYear(rs.getInt("year"));
 			wt.setMonth(rs.getInt("month"));
 			wt.setDay(rs.getInt("day"));
-			wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
+			wt.setWorkTimeFlg(rs.getInt("worktimeflg"));
 			wt.setAttendance(rs.getTimestamp("attendance"));
 			wt.setLeaving(rs.getTimestamp("leaving"));
 			wt.weekDate(wt);
@@ -191,7 +191,7 @@ public class WorkDAO {
 			wt.setYear(rs.getInt("year"));
 			wt.setMonth(rs.getInt("month"));
 			wt.setDay(rs.getInt("day"));
-			wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
+			wt.setWorkTimeFlg(rs.getInt("worktimeflg"));
 			wt.setAttendance(rs.getTimestamp("attendance"));
 			wt.setLeaving(rs.getTimestamp("leaving"));
 			wt.weekDate(wt);
@@ -241,7 +241,7 @@ public class WorkDAO {
 			wt.setYear(rs.getInt("year"));
 			wt.setMonth(rs.getInt("month"));
 			wt.setDay(rs.getInt("day"));
-			wt.setWorkTimeFlg(rs.getBoolean("worktimeflg"));
+			wt.setWorkTimeFlg(rs.getInt("worktimeflg"));
 			wt.setAttendance(rs.getTimestamp("attendance"));
 			wt.setLeaving(rs.getTimestamp("leaving"));
 			wt.weekDate(wt);

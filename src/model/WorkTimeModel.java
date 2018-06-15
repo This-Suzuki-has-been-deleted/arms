@@ -8,7 +8,7 @@ public class WorkTimeModel {
 	private int year;
 	private int month;
 	private int day;
-	private boolean workTimeFlg;
+	private int workTimeFlg;
 	private Timestamp attendance;
 	private Timestamp leaving;
 	private int workFlg;
@@ -96,11 +96,11 @@ public class WorkTimeModel {
 		this.day = day;
 	}
 
-	public boolean isWorkTimeFlg() {
+	public int isWorkTimeFlg() {
 		return workTimeFlg;
 	}
 
-	public void setWorkTimeFlg(boolean workTimeFlg) {
+	public void setWorkTimeFlg(int workTimeFlg) {
 		this.workTimeFlg = workTimeFlg;
 	}
 
