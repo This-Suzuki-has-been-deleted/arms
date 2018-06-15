@@ -61,9 +61,15 @@ public class EmployeeServlet extends HttpServlet {
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
 
 		String emp_Name = request.getParameter("employee_name");
+		session.setAttribute("SELECTNAME",emp_Name);
 		String dep_No = request.getParameter("dep_no");
+		session.setAttribute("SELECTDEP",dep_No);
 		selectno = request.getParameter("pgno");		//ページ選択value
 
+		if(selectno == null) {
+			pageno = 1;
+			selectno = "1";
+		}
 
 		if(pageno == 0) {
 			pageno = 1;
@@ -71,6 +77,14 @@ public class EmployeeServlet extends HttpServlet {
 			pageno = Integer.parseInt(selectno);
 		}
 
+		if(dep_No == null  && emp_Name == null) {
+			emp_Name = (String) session.getAttribute("SELECTNAME");
+			dep_No = (String) session.getAttribute("SELECTDEP");
+		}else if(emp_Name == null) {
+			emp_Name = (String) session.getAttribute("SELECTNAME");
+		}else if(dep_No == null) {
+			dep_No = (String) session.getAttribute("SELECTDEP");
+		}
 
 		employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),dep_No,emp_Name,pageno); // 検索結果取得 ログイン番号、入力部署、入力社員名、ページ番号
 		pageno = employeeDao.CountEmp(emodel.getEmployeeNo(),dep_No,emp_Name); //ページ数取得

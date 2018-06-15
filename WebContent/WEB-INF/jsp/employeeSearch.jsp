@@ -56,7 +56,7 @@
 		<%
 			int pageno = (Integer)session.getAttribute("PAGENO");
 		if(pageno != 1) {		//検索結果件数を持っているのか
-			for (int i = 1; i <= pageno + 1; i++) {
+			for (int i = 1; i < pageno + 1; i++) {
 		%>
 		<form action="EmployeeServlet" method="POST">
 			<input type="submit" value="<%=i%>" name="pgno" />
