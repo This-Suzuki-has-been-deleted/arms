@@ -45,7 +45,7 @@ public class ChangeServlet extends HttpServlet {
 		session = request.getSession();
 		session.removeAttribute("eMsg");
 		EmployeeModel employee = (EmployeeModel) session.getAttribute("Employee");
-		String employeeNo = employee.getEmployeeNo();
+		String employeeNo = request.getParameter("employeeNo");
 		if(employeeNo == null){
 			employeeNo = employee.getEmployeeNo();
 		}
@@ -60,9 +60,10 @@ public class ChangeServlet extends HttpServlet {
 		if(employee.getAuthNo().equals("01") || employee.getEmployeeNo() == employeeNo ){
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 			dispatcher.forward(request, response);
+		}else{
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
+			dispatcher.forward(request, response);
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
-		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -72,7 +73,7 @@ public class ChangeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		session = request.getSession();
 		EmployeeModel employee = (EmployeeModel) session.getAttribute("Employee");
-		String employeeNo = employee.getEmployeeNo();
+		String employeeNo = request.getParameter("employeeNo");
 		if(employeeNo == null){
 			employeeNo = employee.getEmployeeNo();
 		}

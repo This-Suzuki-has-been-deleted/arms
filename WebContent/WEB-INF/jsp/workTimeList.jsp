@@ -17,10 +17,10 @@
 </head>
 <body>
 	<h2>${Msg }</h2>
-	<form action="workServlet" method="GET">
+	<form action="WorkServlet" method="GET">
 	<%  %>
-		<button type="submit" name="y_btn" value="${ANNUAL.year - 1}">前年</button>
-		<button type="submit" name="y_btn" value="${ANNUAL.year + 1}">次年</button>
+		<button type="submit" name="y_btn" value="-1">前年</button>
+		<button type="submit" name="y_btn" value="1">次年</button>
 	<% %>
 	</form>
 	<table>
@@ -32,16 +32,19 @@
 		</tr>
 		<tr>
 			<td>${ANNUAL.year}</td>
-			<td>${ANNUAL.y_workTime}</td>
-			<td>${ANNUAL.y_overTime}</td>
-			<td>${ANNUAL.y_nightTime}</td>
+			<td><fmt:formatNumber value="${WorkTimeDate.y_nightTime/60}" pattern="###" maxFractionDigits="0" />
+				<fmt:formatNumber value="${WorkTimeDate.y_nightTime%60}" pattern=":##" /></td>
+			<td><fmt:formatNumber value="${WorkTimeDate.y_overTime/60}" pattern="###" maxFractionDigits="0" />
+				<fmt:formatNumber value="${WorkTimeDate.y_overTime%60}" pattern=":##" /></td>
+			<td><fmt:formatNumber value="${WorkTimeDate.y_workTime/60}" pattern="###" maxFractionDigits="0" />
+				<fmt:formatNumber value="${WorkTimeDate.y_workTime%60}" pattern=":##" /></td>
 		</tr>
 	</table>
 	<br>
 	<h3></h3>
-	<form action="workServlet" method="GET">
-		<button type="submit" name="m_btn" value="${MOUNTHLY.year - 1}">前月</button>
-		<button type="submit" name="m_btn" value="${MOUNTHLY.year + 1}">次月</button>
+	<form action="WorkServlet" method="GET">
+		<button type="submit" name="m_btn" value="-1">前月</button>
+		<button type="submit" name="m_btn" value="1">次月</button>
 	</form>
 	<table>
 		<tr>
@@ -83,9 +86,12 @@
 		</tr>
 		<tr>
 			<td>${MOUNTHLY.month}</td>
-			<td>${MOUNTHLY.m_workTime}</td>
-			<td>${MOUNTHLY.m_overTime}</td>
-			<td>${MOUNTHLY.m_nightTime}</td>
+			<td><fmt:formatNumber value="${WorkTimeDate.m_nightTime/60}" pattern="###" maxFractionDigits="0" />
+				<fmt:formatNumber value="${WorkTimeDate.m_nightTime%60}" pattern=":##" /></td>
+			<td><fmt:formatNumber value="${WorkTimeDate.m_overTime/60}" pattern="###" maxFractionDigits="0" />
+				<fmt:formatNumber value="${WorkTimeDate.m_overTime%60}" pattern=":##" /></td>
+			<td><fmt:formatNumber value="${WorkTimeDate.m_workTime/60}" pattern="###" maxFractionDigits="0" />
+				<fmt:formatNumber value="${WorkTimeDate.m_workTime%60}" pattern=":##" /></td>
 		</tr>
 	</table>
 </body>

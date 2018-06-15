@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import model.AnnualModel;
 import model.EmployeeModel;
 import model.MonthlyModel;
+import model.WorkTimeDateModel;
 import model.WorkTimeModel;
 import others.DateMath;
 import dao.AnnualDAO;
@@ -93,26 +95,57 @@ public class WorkServlet extends HttpServlet {
 		//セッションに月末の日にちをセット
 		session.setAttribute("maxDayCnt",maxDayCnt);
 
+
 		//yearとmonthの初期値を設定
 		if(yearBuf == null){
-			year = now.get(Calendar.YEAR);		//セッションに年が入っていなかった場合は今日の年を取得
+			year = now.get(Calendar.YEAR);//セッションに年が入っていなかった場合は今日の年を取得
+			session.setAttribute("now_year", year);
+		}else if(Integer.parseInt(yearBuf) == 1){
+			year = (int) session.getAttribute("now_year")+1;	//セッションに年が入っていた場合はその年を取得
 		}else{
-			year = Integer.parseInt(yearBuf);	//セッションに年が入っていた場合はその年を取得
-		}
-		if(monthBuf == null){
-			month = now.get(Calendar.MONTH)+1;	//セッションに月が入っていなかった場合は今日の月を取得
-		}else{
-			month = Integer.parseInt(monthBuf);	//セッションに月が入っていた場合はその月を取得
+			year = (int) session.getAttribute("now_year")-1;
 		}
 
+
+		if(monthBuf == null){
+			month = now.get(Calendar.MONTH)+1;	//セッションに月が入っていなかった場合は今日の月を取得
+			session.setAttribute("now_month", month);
+		}else if(Integer.parseInt(monthBuf) == 1){
+			month =(int) session.getAttribute("now_month")+1;	//セッションに月が入っていた場合はその月を取得
+		}else{
+			month =(int) session.getAttribute("now_month")-1;
+		}
+
+
+		int now_year = (int) session.getAttribute("now_year");
+		int now_month = (int) session.getAttribute("now_month");
+		session.setAttribute("now_year", year);
+		session.setAttribute("now_month", month);
+		int i=0;
+
+		annualModel = annualDao.findAnnualTime(myEmp.getEmployeeNo(),year);
 		//データベースからモデルに追加
-		while(!(annualModel.getEmployeeNo().isEmpty())){
-			annualModel = annualDao.findAnnualTime(myEmp.getEmployeeNo(),year);
-			year-=1;
+
+		while(annualModel.getEmployeeNo() == null){
+			if(year > now_year ){
+			i-=1;
+			}else{
+			i+=1;
+			}
+			annualModel = annualDao.findAnnualTime(myEmp.getEmployeeNo(),year+i);
 		}
-		if(!(monthlyModel.getEmployeeNo().isEmpty())){
-			monthlyModel = monthlyDao.findMonthlyTime(myEmp.getEmployeeNo(),year,month);
+		year+=i;
+		i=0;
+		monthlyModel = monthlyDao.findMonthlyTime(myEmp.getEmployeeNo(),year,month);
+		while(monthlyModel.getEmployeeNo() == null){
+			if(month >= now_month ){
+				i-=1;
+				}else{
+				i+=1;
+				}
+			monthlyModel = monthlyDao.findMonthlyTime(myEmp.getEmployeeNo(),year,month+i);
 		}
+		month+=i;
 		workTimeList = (ArrayList<WorkTimeModel>)workDao.d_findByEmployeeNoAndMonth(myEmp.getEmployeeNo(),year,month);
 
 		//モデルに必要な情報を他メソッドを使い追加
@@ -133,10 +166,33 @@ public class WorkServlet extends HttpServlet {
 			wtm.setNightTimeH((int)nightTime / 60);
 			wtm.setNightTimeM((int)nightTime % 60);
 		}
+		//年間と月間の勤務時間を変換
+		long epic = 946652400000L;
+		System.out.println(monthlyModel.getM_workTime().getTime());
+		WorkTimeDateModel workTimeDateModel = new WorkTimeDateModel();
+		workTimeDateModel.setM_workTime(new Date(monthlyModel.getM_workTime().getTime()-epic).getTime()/60000);
+		workTimeDateModel.setM_overTime(new Date(monthlyModel.getM_overTime().getTime()-epic).getTime()/60000);
+		workTimeDateModel.setM_nightTime(new Date(monthlyModel.getM_nightTime().getTime()-epic).getTime()/60000);
+
+//		workTimeDateModel.setM_workTime(Math.round(workTimeDateModel.getM_workTime()));
+//		workTimeDateModel.setM_overTime(Math.round(workTimeDateModel.getM_overTime()));
+//		workTimeDateModel.setM_nightTime(Math.round(workTimeDateModel.getM_nightTime()));
+		System.out.println(workTimeDateModel.getM_workTime()+"  "+workTimeDateModel.getM_overTime()+"  "+workTimeDateModel.getM_nightTime() );
+
+		workTimeDateModel.setY_workTime(new Date(annualModel.getY_workTime().getTime()-epic).getTime()/60000);
+		workTimeDateModel.setY_overTime(new Date(annualModel.getY_overTime().getTime()-epic).getTime()/60000);
+		workTimeDateModel.setY_nightTime(new Date(annualModel.getY_nightTime().getTime()-epic).getTime()/60000);
+
+//		workTimeDateModel.setY_workTime(Math.round(workTimeDateModel.getY_workTime()));
+//		workTimeDateModel.setY_overTime(Math.round(workTimeDateModel.getY_overTime()));
+//		workTimeDateModel.setY_nightTime(Math.round(workTimeDateModel.getY_nightTime()));
+
+		System.out.println(workTimeDateModel.getY_workTime()+"   "+workTimeDateModel.getY_overTime()+"  "+workTimeDateModel.getY_nightTime());
 
 		//セッションに表示内容をセット
 		session.setAttribute("ANNUAL", annualModel);
 		session.setAttribute("MOUNTHLY", monthlyModel);
+		session.setAttribute("WorkTimeDate", workTimeDateModel);
 		session.setAttribute("Worktime", workTimeList);
 
 
