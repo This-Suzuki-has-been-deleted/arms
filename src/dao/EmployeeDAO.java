@@ -415,6 +415,7 @@ public class EmployeeDAO {
 		conn = null;
 		pStmt = null;
 		int counter = 0;
+		int cnt = 1;
 
 		try {
 			conn = DriverManager
@@ -447,25 +448,29 @@ public class EmployeeDAO {
 			rs.next();
 
 			counter = rs.getInt("Counter");
-			if(counter % 20 != 0) {
-			counter = counter / 20 + 1;
-			}else {
-				counter = 1;
+
+
+
+			if(counter <= 20){
+				cnt = 1;
+			}else{
+				cnt = (int)counter / 20;
+				if((counter % 20) != 0){
+					cnt++;
+				}
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return counter;
 		} finally {
 			try {
 				// 切断
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return counter;
 			}
 		}
-		return counter;
+		return cnt;
 	}
 
 	// 社員情報全件表示（現在は使用しない）

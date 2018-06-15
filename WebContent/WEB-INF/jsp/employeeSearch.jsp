@@ -43,10 +43,14 @@
 					<c:if test="${Employee.authNo == '003' || Employee.authNo == 999}">
 						<td>${Emp.authName}</td>
 					</c:if>
+					<td>
 					<form action="ChangeServlet" method="POST">
-						<input type="button" value="${Emp.employeeNo}" name="employeeno" />
+						<input type="hidden" value="${Emp.employeeNo}" name="employeeno" />
+							<input type="image" src="../WEB-INF/images/wtimeedit.png">
 					</form>
+					</td>
 				</tr>
+
 			</c:forEach>
 		</table>
 		<%

@@ -41,8 +41,6 @@ public class EmployeeServlet extends HttpServlet {
 
 		deplist = employeeDao.findAllByDepNo(emodel.getDepNo());
 
-		//deplist = employeeDao.findByDepNo(emodel);		//ログイン中ユーザの所属部署以外をリストに挿入
-
 		session.setAttribute("Employee",emodel);
 		session.setAttribute("DepList",deplist);
 		session.setAttribute("PAGENO",1);
