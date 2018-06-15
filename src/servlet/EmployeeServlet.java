@@ -29,7 +29,6 @@ public class EmployeeServlet extends HttpServlet {
 	String selectno = "1";
 	int nowpage = 1;
 
-
 	public EmployeeServlet() {
 		super();
 	}
