@@ -45,7 +45,7 @@
 					</c:if>
 					<td>
 					<form action="ChangeServlet" method="POST">
-						<input type="hidden" value="${Emp.employeeNo}" name="employeeno" />
+						<input type="hidden" value="${Emp.employeeNo}" name="employeeNo" />
 							<input type="image" src="../WEB-INF/images/wtimeedit.png">
 					</form>
 					</td>
