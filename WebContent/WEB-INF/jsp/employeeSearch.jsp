@@ -64,8 +64,8 @@
 		<%
 		if(1 != nowpage) {
 		%>
-		<form name="backpage" action="EmployeeServlet" method="post">
-			<input type="hidden" name="pgno" value="<%=pageno - 1%>>">
+		<form name="backpage" action="EmployeeServlet" method="POST">
+			<input type="hidden" name="pgno" value="<%=nowpage - 1%>">
 		</form>
 		<a href="EmployeeServlet"
 			onclick="document.backpage.submit();return false;">前</a>
@@ -84,8 +84,8 @@
 		<%
 		if(pageno != nowpage) {
 		%>
-		<form name="pgno" action="EmployeeServlet" method="POST">
-			<input type="hidden" name="sample" value="<%=pageno + 1%>>">
+		<form name="nextpage" action="EmployeeServlet" method="POST">
+			<input type="hidden" name="pgno" value="<%=nowpage + 1%>">
 		</form>
 		<a href="EmployeeServlet"
 			onclick="document.nextpage.submit();return false;">次</a>
