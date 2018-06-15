@@ -61,17 +61,21 @@ public class EmployeeServlet extends HttpServlet {
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
 
 		String emp_Name = request.getParameter("employee_name");
-		session.setAttribute("SELECTNAME",emp_Name);
+		if(emp_Name != null){
+			session.setAttribute("SELECTNAME",emp_Name);
+		}
+
 		String dep_No = request.getParameter("dep_no");
-		session.setAttribute("SELECTDEP",dep_No);
+		if(dep_No != null){
+			session.setAttribute("SELECTDEP",dep_No);
+		}
 		selectno = request.getParameter("pgno");		//ページ選択value
 
 		if(selectno == null) {
 			pageno = 1;
 			selectno = "1";
-		}else{
-			pageno = Integer.parseInt(selectno);
 		}
+		pageno = Integer.parseInt(selectno);
 
 		if(dep_No == null  && emp_Name == null) {
 			emp_Name = (String) session.getAttribute("SELECTNAME");
