@@ -1,0 +1,65 @@
+.login{
+	margin:0 auto;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin-top:10%;
+	width:60%;
+	height:35%;
+	border: 3px solid #364e96;
+}
+.login .login-header{
+	text-align:center;
+	font-size:x-large;
+	color: white;/*文字色*/
+	background-color:#364e96;
+	padding: 0.5em 0;/*上下の余白*/
+	margin-top:0px;
+	border-top: solid 3px #364e96;/*上線*/
+	border-bottom: solid 3px #364e96;/*下線*/
+}
+.login p{
+	color: #6594e0;/*文字色*/
+	border-bottom: dashed 2px #6594e0;
+	text-align:center;
+}
+
+.login_button{
+	width:30%;
+	padding: 0.5em 1em;
+	text-decoration: none;
+	background: #668ad8;/*ボタン色*/
+	color: #FFF;
+	border-bottom: solid 4px #627295;
+	border-radius: 3px;
+}
+
+.login_button:active{
+	-ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+}
+
+.login_center{
+	margin-top:20px;
+	margin-bottom:20px;
+	text-align:center;
+}
+.clock{
+	margin-right:15px;
+	 float:right;
+}
+.gray {
+ 	background-color:#ccc;
+	width:100%;
+	height:72px;
+}
+.clear{
+	clear:both;
+}
+.title{
+	mergin-right:0;
+	 float:left;
+}
