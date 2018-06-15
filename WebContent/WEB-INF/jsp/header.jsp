@@ -26,8 +26,11 @@
 	</div>
 	<h1>${Msg}</h1>
 	<div class="clock">
-		<%=name %>
-		<p id="RealtimeClockArea">
+		<p class="emp_name"><%=name %></p>
+		<p id="RealtimeClockArea" class="clocks">
+		<form action="Logout" method="POST">
+			<input type="submit" value="ログアウト" class="logout">
+		</form>
 	</div>
 </div>
 <div class="clear"></div>
