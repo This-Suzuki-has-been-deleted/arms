@@ -20,4 +20,14 @@
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/LogoutServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InfoChange</display-name>
+    <servlet-name>InfoChange</servlet-name>
+    <servlet-class>servlet.InfoChange</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InfoChange</servlet-name>
+    <url-pattern>/InfoChange</url-pattern>
+  </servlet-mapping>
 </web-app>
