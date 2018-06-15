@@ -61,6 +61,8 @@ public class ChangeServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 			dispatcher.forward(request, response);
 		}else{
+			EmployeeModel employeeModel = new EmployeeModel();
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -132,13 +134,13 @@ public class ChangeServlet extends HttpServlet {
 			session.setAttribute("pageFlg", pageFlg);
 			session.setAttribute("employeeModel", employee);
 
-			if(msg != null){
-				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/employeeChange.jsp");
+			if(msg == null){
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/conf.jsp");
+				dispatcher.forward(request, response);
+			}else{
+				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
 				dispatcher.forward(request, response);
 			}
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/conf.jsp");
-			dispatcher.forward(request , response);
 		}
 	}
 }

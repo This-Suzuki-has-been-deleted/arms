@@ -10,9 +10,8 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp" />
 <div class="main">
-	<form action="" method="post">
-		<input type="text" name="employeeName">
-
+	<form action="ChangeServlet" method="post">
+		名前：<input type="text" name="employeeName" value="">
 		部署 ：<select name="selectDivisionNo">
 				<c:forEach var="dep" items="${ChangeEmployee.DepModel}" varStatus="status">
 					<option value="${dep.depNo}">${dep.depName}</option>
