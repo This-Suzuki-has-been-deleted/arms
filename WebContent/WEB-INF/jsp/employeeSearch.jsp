@@ -33,6 +33,7 @@
 					<!-- EmployeeModelのセッション名Employee -->
 					<th class="t_top2">権限</th>
 				</c:if>
+				<th class="t_top2">編集</th>
 			</tr>
 
 			<c:forEach var="Emp" items="${RESULT}">
@@ -50,7 +51,7 @@
 								name="employeeName" /> <input type="hidden"
 								value="${Emp.depNo}" name="selectDivisionNo" /> <input
 								type="hidden" value="${Emp.authNo}" name="selectAuthorityNo" />
-							<input type="image" src="../WEB-INF/images/wtimeedit.png">
+							<input type="image" src="images/icon.png">
 						</form>
 					</td>
 				</tr>
@@ -61,6 +62,7 @@
 			int pageno = (Integer) session.getAttribute("PAGENO");
 			int nowpage = (Integer) session.getAttribute("SELECTPG");
 		%>
+		<div class="s_box">
 		<%
 		if(1 != nowpage) {
 		%>
@@ -68,7 +70,7 @@
 			<input type="hidden" name="pgno" value="<%=nowpage - 1%>">
 		</form>
 		<a href="EmployeeServlet"
-			onclick="document.backpage.submit();return false;">前</a>
+			onclick="document.backpage.submit();return false;" class="pre">前</a>
 		<%
 		}
 			if (pageno != 1) { //検索結果件数を持っているのか
@@ -81,8 +83,7 @@
 		<form name="selectpage<%= i %>" action="EmployeeServlet" method="POST">
 			<input type="hidden" name="pgno" value="<%= i %>">
 		</form>
-		<a href="EmployeeServlet" onclick="document.selectpage<%= i %>.submit();return false;"><%=i%></a>
-
+		<a href="EmployeeServlet" onclick="document.selectpage<%= i %>.submit();return false;" class="next_button"><%=i%></a>
 		<%
 				}
 			}
@@ -94,10 +95,12 @@
 			<input type="hidden" name="pgno" value="<%=nowpage + 1%>">
 		</form>
 		<a href="EmployeeServlet"
-			onclick="document.nextpage.submit();return false;">次</a>
+			onclick="document.nextpage.submit();return false;" class="next">次</a>
 			<%
 		}
 			%>
+		</div>
+		<div class="clear"></div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/navigation.jsp" />
 	<div class="clear"></div>

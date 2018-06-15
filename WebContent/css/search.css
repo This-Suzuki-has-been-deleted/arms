@@ -43,3 +43,51 @@ tr:hover {
 .s_center{
 	text-align:center;
 }
+
+.next_button{
+	 position: relative;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #808080;
+    background: #ffffff;/*色*/
+    border: solid 1px #0282b9;/*線色*/
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+    float:left;
+    left:50%;
+}
+.next{
+	 position: relative;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #FFF;
+    background: #0282b9;/*色*/
+    border: solid 1px #0282b9;/*線色*/
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+    float:left;
+    left:50%;
+}
+.pre{
+	 position: relative;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    color: #FFF;
+    background: #0282b9;/*色*/
+    border: solid 1px #0282b9;/*線色*/
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.2);
+    float:left;
+    left:50%;
+}
+.s_box{
+	margin-top:20px;
+	position: relative;
+	overflow: hidden;
+}
