@@ -82,9 +82,6 @@ public class LoginServlet extends HttpServlet {
 			int month = date.getMonthValue();
 			int day = date.getDayOfMonth() - 1;
 
-			System.out.println(employeeNo);
-			System.out.println(day);
-
 			EmployeeModel em = employee;
 			WorkDAO wdao = new WorkDAO();
 			WorkTimeModel wm = wdao.findWorkTime(em.getEmployeeNo(), year,
