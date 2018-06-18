@@ -59,17 +59,13 @@ public class WorkModifiServlet extends HttpServlet {
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			dates = sdf.parse(attendance);
-			System.out.println(dates);
 			attendanceTime = new Timestamp(dates.getTime());
-
 			dates = sdf.parse(leaving);
-			System.out.println(dates);
 			leavingTime = new Timestamp(dates.getTime());
 		} catch (ParseException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		System.out.println(attendanceTime+"  "+leavingTime);
 		workTimeModel.setAttendance(attendanceTime);
 		workTimeModel.setLeaving(leavingTime);
 		Validation validation = new Validation();
