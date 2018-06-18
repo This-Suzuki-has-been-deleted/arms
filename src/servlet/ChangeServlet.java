@@ -122,10 +122,6 @@ public class ChangeServlet extends HttpServlet {
 			}catch(NullPointerException e){
 				msg = "未入力の項目があります。";
 			}
-
-			/**
-			 * バリデーションチェック挿入予定地
-			 */
 			EmployeeDAO employeeDao = new EmployeeDAO();
 			employeeUser.setEmployeeNo(employeeNo);
 			employeeUser.setEmployeeName(employeeName);
@@ -133,6 +129,31 @@ public class ChangeServlet extends HttpServlet {
 			employeeUser.setDepNo(divisionNo);
 			employeeUser.setAuthName(employeeDao.findByAuthName(employeeUser.getAuthNo()));
 			employeeUser.setDepName(employeeDao.findByDepName(employeeUser.getDepNo()));
+
+			Validation validation = new Validation();
+			// エラーチェック
+			if (validation.nullCheck(employeeUser.getEmployeeNo())) { // 社員番号は入力されているかチェック
+				if (validation.employeeCodeValidation(employeeUser.getEmployeeNo())) { // 社員番号が入力されていてかつ入力形式が正しいかチェック
+					employee = employeeDao.findEmployee(employeeUser.getEmployeeNo());
+					if (employee.getEmployeeNo() != null) { // 社員番号が既に存在しているかチェック
+						msg = "・社員番号が重複しています。";
+						if (!(validation.nullCheck(employeeUser.getEmployeeName()))) { // 社員名が入力されているかチェック
+							msg = msg + "・未入力項目があります。";
+						}
+					} else { // 社員番号が存在していなかった場合
+						if (!(validation.nullCheck(employeeUser.getEmployeeName()))) { // 社員名が入力されているかチェック
+							msg = "・未入力項目があります。";
+						}
+					}
+				} else { // 社員番号の入力形式が正しくなかった場合
+					msg = "・入力形式に誤りがあります。";
+					if (!(validation.nullCheck(employeeUser.getEmployeeName()))) { // 社員名が入力されているかチェック
+						msg = msg + "\n・未入力項目があります。";
+					}
+				}
+			} else { // 社員番号が入力されていなかった場合
+				msg = "・未入力項目があります。";
+			}
 
 			session.setAttribute("pageFlg", pageFlg);
 			session.setAttribute("employeeModel", employeeUser);
