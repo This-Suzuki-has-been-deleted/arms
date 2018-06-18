@@ -11,6 +11,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp" />
+<h3>${eMsg}</h3>
 <div class="main">
 	<form action="ChangeServlet" method="post">
 			<input type="hidden" name="employeeNo" value="${ChangeEmployee.employeeNo }">

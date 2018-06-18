@@ -135,6 +135,8 @@ public class LoginServlet extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 				dispatcher.forward(request, response);
 			}else{
+				session.removeAttribute("Msg");
+				session.setAttribute("pageTitle", "メインメニュー");
 				dispatcher = request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
 			}
