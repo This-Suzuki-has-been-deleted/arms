@@ -122,7 +122,7 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("work", wm); // 当日を参照する
 					session.setAttribute("buttonvalue", "出勤"); // ボタンのバリューを出勤に
 				} else {
-					if(wm.isWorkFlg()==1){
+					if(wm.isWorkTimeFlg()==1){
 						session.setAttribute("buttonvalue", "本日打刻済"); // ボタンのバリューを打刻済に
 					}else{
 						session.setAttribute("work", wm); // 当日を参照する

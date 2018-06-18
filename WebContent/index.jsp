@@ -9,6 +9,7 @@
 	if(value==null){
 		value = "入ってないよ";
 	}
+	String values = (String)session.getAttribute("values");
 	Date dates = (Date)session.getAttribute("index_date");
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 hh時mm分");
 	if(dates!=null){
@@ -26,7 +27,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>メインメニュー</title>
 </head>
-
 <body>
 <jsp:include page="WEB-INF/jsp/header.jsp" />
 <h1>${Msg}</h1>
@@ -47,6 +47,7 @@
 <jsp:include page="WEB-INF/jsp/navigation.jsp" />
 <div class="clear"></div>
 <jsp:include page="WEB-INF/jsp/footer.jsp" />
+
 
 </body>
 </html>
