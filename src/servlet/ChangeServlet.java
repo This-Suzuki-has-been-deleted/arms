@@ -135,14 +135,10 @@ public class ChangeServlet extends HttpServlet {
 			// エラーチェック
 			if (validation.nullCheck(employeeUser.getEmployeeNo())) { // 社員番号は入力されているかチェック
 				if (validation.employeeCodeValidation(employeeUser.getEmployeeNo())) { // 社員番号が入力されていてかつ入力形式が正しいかチェック
-						if (!(validation.nullCheck(employeeUser.getEmployeeName()))) { // 社員名が入力されているかチェック
-							msg = msg + "・未入力項目があります。";
-						}
-				} else { // 社員番号の入力形式が正しくなかった場合
 					msg = "・入力形式に誤りがあります。";
-					if (!(validation.nullCheck(employeeUser.getEmployeeName()))) { // 社員名が入力されているかチェック
-						msg = msg + "\n・未入力項目があります。";
-					}
+				}
+				if (!(validation.nullCheck(employeeUser.getEmployeeName()))) { // 社員名が入力されているかチェック
+					msg = msg + "・未入力項目があります。";
 				}
 			} else { // 社員番号が入力されていなかった場合
 				msg = "・未入力項目があります。";
@@ -156,6 +152,7 @@ public class ChangeServlet extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/conf.jsp");
 				dispatcher.forward(request, response);
 			}else{
+				session.setAttribute("eMsg", msg);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
 				dispatcher.forward(request, response);
 			}
