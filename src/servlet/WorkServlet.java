@@ -30,24 +30,25 @@ import dao.WorkDAO;
 public class WorkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public WorkServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public WorkServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-    //ANNUAL
-    //MONTHLY
-
+	// ANNUAL
+	// MONTHLY
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
+		session.removeAttribute("Msg");
 
 		//ログイン中のユーザーの情報をセッションから得る
 		EmployeeModel myEmp = (EmployeeModel)session.getAttribute("Employee");
@@ -82,6 +83,7 @@ public class WorkServlet extends HttpServlet {
 
 		int year;
 		int month;
+		String eMsg = null;
 
 		first.set( Calendar.DATE,1);
 		int firstWeek = (first.get( Calendar.DAY_OF_WEEK )-1);
@@ -125,33 +127,21 @@ public class WorkServlet extends HttpServlet {
 		annualModel = annualDao.findAnnualTime(myEmp.getEmployeeNo(),year);
 		//データベースからモデルに追加
 
-		while(annualModel.getEmployeeNo() == null){
-			if(year > now_year ){
-			i-=1;
-			}else{
-			i+=1;
-			}
-			annualModel = annualDao.findAnnualTime(myEmp.getEmployeeNo(),year+i);
+		if(annualModel.getEmployeeNo() == null){
+			eMsg = year+"の勤務表はありません。";
 		}
-		year+=i;
-		i=0;
 		monthlyModel = monthlyDao.findMonthlyTime(myEmp.getEmployeeNo(),year,month);
-		while(monthlyModel.getEmployeeNo() == null){
-			if(month >= now_month ){
-				i-=1;
-				}else{
-				i+=1;
-				}
-			monthlyModel = monthlyDao.findMonthlyTime(myEmp.getEmployeeNo(),year,month+i);
+		if(monthlyModel.getEmployeeNo() == null){
+			eMsg = month+"の勤務表はありません。";
 		}
-		month+=i;
-		workTimeList = (ArrayList<WorkTimeModel>)workDao.d_findByEmployeeNoAndMonth(myEmp.getEmployeeNo(),year,month);
+		if(eMsg== null){
+			workTimeList = (ArrayList<WorkTimeModel>)workDao.d_findByEmployeeNoAndMonth(myEmp.getEmployeeNo(),year,month);
 
-		//モデルに必要な情報を他メソッドを使い追加
-		for(WorkTimeModel wtm :workTimeList){
-			long fix = dateMath.fixedTime(wtm.getYear(), wtm.getMonth(), wtm.getDay());
-			long over = dateMath.overTime(wtm.getYear(), wtm.getMonth(), wtm.getDay());
-			long leave = wtm.getLeaving().getTime();
+			//モデルに必要な情報を他メソッドを使い追加
+			for(WorkTimeModel wtm :workTimeList){
+				long fix = dateMath.fixedTime(wtm.getYear(), wtm.getMonth(), wtm.getDay());
+				long over = dateMath.overTime(wtm.getYear(), wtm.getMonth(), wtm.getDay());
+				long leave = wtm.getLeaving().getTime();
 			long attend = wtm.getAttendance().getTime();
 
 			int workTime = dateMath.diff(leave, attend);	//勤務時間を算出
@@ -182,30 +172,36 @@ public class WorkServlet extends HttpServlet {
 		session.setAttribute("MOUNTHLY", monthlyModel);
 		session.setAttribute("WorkTimeDate", workTimeDateModel);
 		session.setAttribute("Worktime", workTimeList);
-
-
+	}else{
+		session.setAttribute("eMsg", eMsg);
+	}
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/workTimeList.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 
-		//入力内容を取得
+		// 入力内容を取得
 		WorkTimeModel workTimeModel = new WorkTimeModel();
 		workTimeModel.setEmployeeNo(request.getParameter("wtm.employeeNo"));
-		workTimeModel.setYear(Integer.parseInt(request.getParameter("wtm.year")));
-		workTimeModel.setMonth(Integer.parseInt(request.getParameter("wtm.month")));
+		workTimeModel
+				.setYear(Integer.parseInt(request.getParameter("wtm.year")));
+		workTimeModel.setMonth(Integer.parseInt(request
+				.getParameter("wtm.month")));
 		workTimeModel.setDay(Integer.parseInt(request.getParameter("wtm.day")));
 		WorkDAO workDao = new WorkDAO();
-		workTimeModel = workDao.findWorkTime(workTimeModel.getEmployeeNo(), workTimeModel.getYear(),
-				workTimeModel.getMonth(), workTimeModel.getDay());
-		//入力内容をセッションにセット
+		workTimeModel = workDao.findWorkTime(workTimeModel.getEmployeeNo(),
+				workTimeModel.getYear(), workTimeModel.getMonth(),
+				workTimeModel.getDay());
+		// 入力内容をセッションにセット
 		session.setAttribute("workTimeModel", workTimeModel);
 
 		RequestDispatcher dispatcher = request
