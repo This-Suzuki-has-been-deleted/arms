@@ -137,16 +137,9 @@ public class ChangeServlet extends HttpServlet {
 			Validation validation = new Validation();
 
 			// エラーチェック
-			if (validation.nullCheck(employeeUser.getEmployeeNo())) { // 社員番号は入力されているかチェック
-				if (validation.employeeCodeValidation(employeeUser.getEmployeeNo())) { // 社員番号が入力されていてかつ入力形式が正しいかチェック
-					msg = "・入力形式に誤りがあります。";
-				}
 				if (!(validation.nullCheck(employeeUser.getEmployeeName()))) { // 社員名が入力されているかチェック
 					msg = msg + "・未入力項目があります。";
 				}
-			} else { // 社員番号が入力されていなかった場合
-				msg = "・未入力項目があります。";
-			}
 
 			session.setAttribute("pageFlg", pageFlg);
 			session.setAttribute("employeeModel", employeeUser);
