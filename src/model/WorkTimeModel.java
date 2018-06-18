@@ -33,8 +33,6 @@ public class WorkTimeModel {
 
 		cal.set(y, m, d);
 
-		System.out.println(cal.get(Calendar.DAY_OF_WEEK));
-
 		switch (cal.get(Calendar.DAY_OF_WEEK)) {
 		case Calendar.SUNDAY: // Calendar.SUNDAY:1 （値。意味はない）
 			// 日曜日

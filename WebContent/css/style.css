@@ -13,6 +13,8 @@
 	float:left;
 	font-size:25px;
 	vertical-align:middle;
+	margin-top:0px;
+	margin-bottom:0px;
 }
 .clock{
 	font-size:80%
