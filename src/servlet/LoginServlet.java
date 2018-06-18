@@ -87,7 +87,7 @@ public class LoginServlet extends HttpServlet {
 			String no =wm.getEmployeeNo();
 
 			if (no != null) { // 前日のレコードの有無を確認
-				if (wm.isWorkFlg() == 1) { // 勤怠フラグを確認、本日のレコードの有無を確認
+				if (wm.isWorkTimeFlg() == 1) { // 勤怠フラグを確認、本日のレコードの有無を確認
 					wm = wdao.findWorkTime(em.getEmployeeNo(), year, month,
 							day + 1);
 					if (wm.getEmployeeNo() != null) {
