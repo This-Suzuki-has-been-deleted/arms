@@ -89,7 +89,7 @@ public class ChangeServlet extends HttpServlet {
 			EmployeeDAO employeeDao = new EmployeeDAO();
 			EmployeeModel emp = employeeDao.findEmployee(employeeNo);
 			Validation validation = new Validation();
-			if(validation.nullCheck(password) || validation.nullCheck(nextPassword)){
+			if(! validation.nullCheck(password) || ! validation.nullCheck(nextPassword)){
 				eMsg = "パスワードが未入力です。";
 				session.setAttribute("eMsg",eMsg);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
@@ -131,6 +131,7 @@ public class ChangeServlet extends HttpServlet {
 			employeeUser.setDepName(employeeDao.findByDepName(employeeUser.getDepNo()));
 
 			Validation validation = new Validation();
+
 			// エラーチェック
 			if (validation.nullCheck(employeeUser.getEmployeeNo())) { // 社員番号は入力されているかチェック
 				if (validation.employeeCodeValidation(employeeUser.getEmployeeNo())) { // 社員番号が入力されていてかつ入力形式が正しいかチェック
