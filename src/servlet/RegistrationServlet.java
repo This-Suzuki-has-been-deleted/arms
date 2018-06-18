@@ -120,6 +120,7 @@ public class RegistrationServlet extends HttpServlet {
 		employeeModel.setAuthNo(selectAuthorityNo);
 		employeeModel.setPassword(ll.passHash("pass1234"));
 		employeeModel.setDelFlg(1);
+
 		// エラーチェック
 		if (validation.nullCheck(textCode)) { // 社員番号は入力されているかチェック
 			if (validation.employeeCodeValidation(textCode)) { // 社員番号が入力されていてかつ入力形式が正しいかチェック
