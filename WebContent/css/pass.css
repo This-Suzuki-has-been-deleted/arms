@@ -33,7 +33,9 @@ tr:hover {
 	color: #FFF;
 	border-bottom: solid 4px #627295;
 	border-radius: 3px;
+	position: relative;
 	float:left;
+	left:50%;
 	margin-top:10px;
 }
 .pc_button{
@@ -44,10 +46,16 @@ tr:hover {
 	color: #FFF;
 	border-bottom: solid 4px #627295;
 	border-radius: 3px;
+	position: relative;
 	float:left;
+	left:50%;
 	margin-top:10px;
 }
 
 .p_center{
 	text-align:center;
+}
+.p_centers{
+	position: relative;
+	overflow: hidden;
 }

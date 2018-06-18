@@ -42,8 +42,10 @@
 		</c:if>
 		</table>
 		<br>
-		<input type="button" value="戻る" class="pc_button" onclick="history.back()">
-		<input type="submit" value="確認" class="wc_button">
+		<div class="_e_centers">
+		<input type="button" value="戻る" class="wc_button" onclick="history.back()">
+		<input type="submit" value="確認" class="w_button">
+		</div>
 		<div class="clear"></div>
 	</form>
 	<form action="InfoChangeServlet" method="GET">
