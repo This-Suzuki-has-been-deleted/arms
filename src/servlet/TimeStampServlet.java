@@ -60,7 +60,7 @@ public class TimeStampServlet extends HttpServlet {
 			wdao.updateWorkTime(wt);
 			session.setAttribute("buttonvalue", "退勤");
 			session.setAttribute("index_date",date);
-		} else {
+		} else if(value.equals("退勤")){
 			java.util.Date date = new java.util.Date();
 			long nowTime = date.getTime();
 			Timestamp now = new Timestamp(nowTime);
@@ -142,6 +142,8 @@ public class TimeStampServlet extends HttpServlet {
 
 			mdao.updateMonthlyTime(mm);
 			adao.updateMonthlyTime(am);
+		}else{
+			session.setAttribute("values", "本日は打刻済です。");
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);

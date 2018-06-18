@@ -152,6 +152,9 @@ public class WorkServlet extends HttpServlet {
 				long fix = dateMath.fixedTime(wtm.getYear(), wtm.getMonth(), wtm.getDay());
 				long over = dateMath.overTime(wtm.getYear(), wtm.getMonth(), wtm.getDay());
 				long leave = wtm.getLeaving().getTime();
+				if(leave == 0){
+					break;
+				}
 			long attend = wtm.getAttendance().getTime();
 
 			int workTime = dateMath.diff(leave, attend);	//勤務時間を算出
@@ -216,7 +219,7 @@ public class WorkServlet extends HttpServlet {
 				workTimeModel.getDay());
 		// 入力内容をセッションにセット
 		session.setAttribute("workTimeModel", workTimeModel);
-		session.setAttribute("pageTitle", "出退勤確認");
+		session.setAttribute("pageTitle", "出退勤修正");
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/workTimeChange.jsp");
 		dispatcher.forward(request, response);

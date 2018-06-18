@@ -20,12 +20,12 @@
 		<form action="WorkModifiServlet" method="post">
 			<table>
 				<tr>
-					<th class="t_top">出勤時刻</th>
-					<td class="t_top"><input type="text" value="${ workTimeModel.attendance}"name="attendance"></td>
+					<th class="t_top">出勤時間</th>
+					<td class="t_top"><input type="text" value="<fmt:formatDate value="${ workTimeModel.attendance}" pattern="yyyy年MM月dd日 HH時mm分"/>"name="attendance"></td>
 				</tr>
 				<tr>
-					<th>退勤時刻</th>
-					<td><input type="text"value="${ workTimeModel.leaving}" name="leaving"></td>
+					<th>退勤時間</th>
+					<td class="t_top"><input type="text" value="<fmt:formatDate value="${ workTimeModel.leaving}" pattern="yyyy年MM月dd日 HH時mm分"/>"name="leaving"></td>
 				</tr>
 			</table>
 			<div class="w_center">

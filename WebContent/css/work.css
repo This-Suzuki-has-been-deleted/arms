@@ -6,7 +6,9 @@
 	color: #FFF;
 	border-bottom: solid 4px #627295;
 	border-radius: 3px;
-	float:left;
+	position: relative;
+	float:right;
+	right:50%;
 	margin-top:10px;
 }
 .wc_button{
@@ -17,8 +19,15 @@
 	color: #FFF;
 	border-bottom: solid 4px #627295;
 	border-radius: 3px;
-	float:left;
+	position: relative;
+	float:right;
+	right:50%;
 	margin-top:10px;
+}
+
+.w_centers{
+	position: relative;
+	overflow: hidden;
 }
 
 .w_center{
