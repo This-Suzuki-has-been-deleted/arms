@@ -48,6 +48,8 @@ public class RegistrationServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
+		session.removeAttribute("eMsg");
+
 		// 部署のプルダウンメニューのために一覧を持ってくる
 		ArrayList<DepModel> depList = (ArrayList<DepModel>) dd.findDepAll();
 

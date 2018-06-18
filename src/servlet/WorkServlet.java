@@ -48,7 +48,7 @@ public class WorkServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		session.removeAttribute("Msg");
+		session.removeAttribute("eMsg");
 
 		//ログイン中のユーザーの情報をセッションから得る
 		EmployeeModel myEmp = (EmployeeModel)session.getAttribute("Employee");
@@ -128,11 +128,21 @@ public class WorkServlet extends HttpServlet {
 		//データベースからモデルに追加
 
 		if(annualModel.getEmployeeNo() == null){
-			eMsg = year+"の勤務表はありません。";
+			eMsg = year+"年の勤務表はありません。";
+			session.removeAttribute("ANNUAL");
+		}else{
+			session.setAttribute("ANNUAL", annualModel);
 		}
+
 		monthlyModel = monthlyDao.findMonthlyTime(myEmp.getEmployeeNo(),year,month);
 		if(monthlyModel.getEmployeeNo() == null){
-			eMsg = month+"の勤務表はありません。";
+			if(eMsg == null){
+				eMsg = month+"月の勤務表はありません。";
+			}
+
+			session.removeAttribute("MOUNTHLY");
+		}else{
+			session.setAttribute("MOUNTHLY", monthlyModel);
 		}
 		if(eMsg== null){
 			workTimeList = (ArrayList<WorkTimeModel>)workDao.d_findByEmployeeNoAndMonth(myEmp.getEmployeeNo(),year,month);
@@ -174,6 +184,8 @@ public class WorkServlet extends HttpServlet {
 		session.setAttribute("Worktime", workTimeList);
 	}else{
 		session.setAttribute("eMsg", eMsg);
+		session.removeAttribute("WorkTimeDate");
+		session.removeAttribute("Worktime");
 	}
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/workTimeList.jsp");
