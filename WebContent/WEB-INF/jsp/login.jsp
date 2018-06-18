@@ -16,7 +16,7 @@
 		<h3>${eMsg}</h3>
 		<form class="login-container" action="LoginServlet" method="POST">
 			<p>
-				社員番号：<input type="text" name="syainNo" placeholder="id">
+				社員番号：<input type="text" name="syainNo" placeholder="id" maxlength='10'>
 			</p>
 			<p>
 				パスワード：<input type="password" name="password" placeholder="Password">
