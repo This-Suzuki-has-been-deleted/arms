@@ -45,6 +45,7 @@ public class InfoChangeServlet extends HttpServlet {
 		employeeDao.updateEmppass(employee);
 		String Msg = "パスワード変更しました。";
 		session.setAttribute("Msg",Msg);
+		session.setAttribute("pageTitle", "メインメニュー");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 
@@ -81,7 +82,7 @@ public class InfoChangeServlet extends HttpServlet {
 		session.setAttribute("AuthModel",authModel);
 		session.setAttribute("ChangeEmployee", employeeModel);
 		session.setAttribute("Employee",employee);
-
+		session.setAttribute("pageTitle", "社員情報変更");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
 		dispatcher.forward(request, response);
 	}

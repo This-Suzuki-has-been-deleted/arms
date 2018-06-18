@@ -58,11 +58,12 @@ public class ChangeServlet extends HttpServlet {
 		session.setAttribute("DepModel", depModel);
 		session.setAttribute("AuthModel",authModel);
 		if(employee.getAuthNo().equals("01") || employee.getEmployeeNo() == employeeNo ){
+			session.setAttribute("pageTitle", "社員情報変更");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 			dispatcher.forward(request, response);
 		}else{
 			EmployeeModel employeeModel = new EmployeeModel();
-
+			session.setAttribute("pageTitle", "社員情報変更");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -92,11 +93,13 @@ public class ChangeServlet extends HttpServlet {
 			if(! validation.nullCheck(password) || ! validation.nullCheck(nextPassword)){
 				eMsg = "パスワードが未入力です。";
 				session.setAttribute("eMsg",eMsg);
+				session.setAttribute("pageTitle", "社員情報変更");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 				dispatcher.forward(request, response);
 			}else if(emp.getPassword() == passHashCode){
 				eMsg = "パスワードが重複しています。";
 				session.setAttribute("eMsg",eMsg);
+				session.setAttribute("pageTitle", "社員情報変更");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 				dispatcher.forward(request, response);
 			}else{
@@ -105,6 +108,7 @@ public class ChangeServlet extends HttpServlet {
 			String nextPassHashCode = loginlogic.passHash(nextPassword);
 			emp.setPassword(nextPassHashCode);
 			employeeDao.updateEmppass(emp);
+			session.setAttribute("pageTitle", "メインメニュー");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 			}
@@ -149,10 +153,12 @@ public class ChangeServlet extends HttpServlet {
 			session.setAttribute("Employee", employee);
 
 			if(msg == null){
+				session.setAttribute("pageTitle", "社員情報確認");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/conf.jsp");
 				dispatcher.forward(request, response);
 			}else{
 				session.setAttribute("eMsg", msg);
+				session.setAttribute("pageTitle", "社員情報変更");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
 				dispatcher.forward(request, response);
 			}

@@ -62,6 +62,7 @@ public class ConfServlet extends HttpServlet {
 			String Msg = null;
 			session.setAttribute("Msg", "完了です！");
 			session.removeAttribute("RESULT");
+			session.setAttribute("pageTitle", "社員検索");
 			response.sendRedirect("EmployeeServlet");
 		}
 

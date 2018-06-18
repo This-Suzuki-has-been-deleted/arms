@@ -187,6 +187,7 @@ public class WorkServlet extends HttpServlet {
 		session.removeAttribute("WorkTimeDate");
 		session.removeAttribute("Worktime");
 	}
+		session.setAttribute("pageTitle", "出退勤確認");
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/workTimeList.jsp");
 		dispatcher.forward(request, response);
@@ -215,7 +216,7 @@ public class WorkServlet extends HttpServlet {
 				workTimeModel.getDay());
 		// 入力内容をセッションにセット
 		session.setAttribute("workTimeModel", workTimeModel);
-
+		session.setAttribute("pageTitle", "出退勤確認");
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/workTimeChange.jsp");
 		dispatcher.forward(request, response);
