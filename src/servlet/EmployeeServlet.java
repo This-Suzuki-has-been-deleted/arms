@@ -45,6 +45,7 @@ public class EmployeeServlet extends HttpServlet {
 		session.setAttribute("DepList",deplist);
 		session.setAttribute("PAGENO",pageno);
 		session.setAttribute("SELECTPG",nowpage);
+		session.setAttribute("pageTitle", "社員検索");
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");
