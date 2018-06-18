@@ -108,9 +108,13 @@ public class ChangeServlet extends HttpServlet {
 			String nextPassHashCode = loginlogic.passHash(nextPassword);
 			emp.setPassword(nextPassHashCode);
 			employeeDao.updateEmppass(emp);
+			employee = employeeDao.findEmployee(employee.getEmployeeNo());
+			session.setAttribute("Employee", employee);
+
 			session.setAttribute("pageTitle", "メインメニュー");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+//			dispatcher.forward(request, response);
+			response.sendRedirect("index.jsp");
 			}
 		}else{
 			EmployeeModel employeeUser = (EmployeeModel) session.getAttribute("ChangeEmployee");
