@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="css/style.css" rel="stylesheet" type="text/css" />
 <link href="css/conf.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 <c:choose>
 <c:when test="${pageFlg == 'ChangeServlet' }"><title>変更確認</title></c:when>
 <c:when test="${pageFlg == 'RegistrationServlet' }"><title>登録確認</title></c:when>
