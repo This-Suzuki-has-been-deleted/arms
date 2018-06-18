@@ -70,12 +70,10 @@ public class LoginServlet extends HttpServlet {
 		String passHashCode = loginlogic.passHash(employeePw);
 
 		if (loginlogic.login(employeeNo, passHashCode)) {
-
-			EmployeeModel employee = new EmployeeModel();
-			EmployeeDAO employeeDAO = new EmployeeDAO();
-			employee = employeeDAO.findEmployee(employeeNo);
-			session.setAttribute("Employee", employee);
-
+				EmployeeModel employee = new EmployeeModel();
+				EmployeeDAO employeeDAO = new EmployeeDAO();
+				employee = employeeDAO.findEmployee(employeeNo);
+				session.setAttribute("Employee", employee);
 			// ここから鈴木追加分
 			LocalDateTime date = LocalDateTime.now();
 			int year = date.getYear();
@@ -133,10 +131,13 @@ public class LoginServlet extends HttpServlet {
 				}
 			}
 			//ここまで
-
-			dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
-
+			if(employeePw.equals("pass1234")){
+				dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
+				dispatcher.forward(request, response);
+			}else{
+				dispatcher = request.getRequestDispatcher("index.jsp");
+				dispatcher.forward(request, response);
+			}
 		} else {
 			String eMsg = "社員番号又はパスワードに誤りがあります。";
 			session.setAttribute("eMsg", eMsg);

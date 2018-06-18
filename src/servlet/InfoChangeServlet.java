@@ -39,6 +39,15 @@ public class InfoChangeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+		EmployeeModel employee = (EmployeeModel) session.getAttribute("ChangeEmployee");
+		EmployeeDAO employeeDao = new EmployeeDAO();
+		employeeDao.updateEmppass(employee);
+		String Msg = "パスワード変更しました。";
+		session.setAttribute("Msg",Msg);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		dispatcher.forward(request, response);
+
 	}
 
 	/**
