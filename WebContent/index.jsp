@@ -19,7 +19,7 @@
 
 
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
@@ -28,7 +28,8 @@
 </head>
 
 <body>
-<jsp:include page="WEB-INF/jsp/header.jsp" />
+<jsp:include page="WEB-INF/jsp/header.jsp" />]
+<h1>${Msg}</h1>
 <div class="main">
 	<div class="timestamp_box">
 		<p class="timestamp_title">勤怠登録</p>
