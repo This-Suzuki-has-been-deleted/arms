@@ -125,7 +125,6 @@ public class RegistrationServlet extends HttpServlet {
 			if (validation.employeeCodeValidation(textCode)) { // 社員番号が入力されていてかつ入力形式が正しいかチェック
 				employee = ed.findEmployee(textCode);
 				if (employee.getEmployeeNo() != null) { // 社員番号が既に存在しているかチェック
-					System.out.println("重複");
 					msg = "・社員番号が重複しています。";
 					if (!(validation.nullCheck(textName))) { // 社員名が入力されているかチェック
 						msg = msg + "・未入力項目があります。";
