@@ -78,8 +78,6 @@ public class TimeStampServlet extends HttpServlet {
 			MonthlyModel mm = mdao.findMonthlyTime(wt.getEmployeeNo(),wt.getYear(), wt.getMonth());
 			AnnualModel am = adao.findAnnualTime(wt.getEmployeeNo(), wt.getYear());
 
-			System.out.println(mm.getEmployeeNo()+" "+am.getEmployeeNo());
-
 			//月次データがなかった場合の処理
 			if(mm.getEmployeeNo() ==null){
 				mm.setEmployeeNo(wt.getEmployeeNo());
