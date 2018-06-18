@@ -75,16 +75,21 @@
 		}
 			if (pageno != 1) { //検索結果件数を持っているのか
 				for (int i = 1; i < pageno + 1; i++) {
+					if(nowpage == i) {
 		%>
-		<!-- <form action="EmployeeServlet" method="POST">
-			<input type="submit" value="<%=i%>" name="pgno" />
-		</form>-->
-
+			<form name="selectpage<%= i %>" action="EmployeeServlet" method="POST">
+			<input type="hidden" name="pgno" value="<%= i %>">
+		</form>
+		<a href="EmployeeServlet" onclick="document.selectpage<%= i %>.submit();return false;" class="now_button"><%=i%></a>
+		<%
+					}else {
+		%>
 		<form name="selectpage<%= i %>" action="EmployeeServlet" method="POST">
 			<input type="hidden" name="pgno" value="<%= i %>">
 		</form>
 		<a href="EmployeeServlet" onclick="document.selectpage<%= i %>.submit();return false;" class="next_button"><%=i%></a>
 		<%
+					}
 				}
 			}
 		%>
