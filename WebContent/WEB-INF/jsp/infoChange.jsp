@@ -42,7 +42,7 @@
 		</c:if>
 		</table>
 		<br>
-		<input type="reset" value="戻る" class="w_button">
+		<input type="button" value="戻る" class="pc_button" onclick="history.back()">
 		<input type="submit" value="確認" class="wc_button">
 		<div class="clear"></div>
 	</form>

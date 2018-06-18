@@ -66,11 +66,11 @@
 			<tr>
 				<td>${wtime.day}</td>
 				<td>${wtime.week}</td>
-				<td><fmt:formatDate value="${wtime.attendance}" pattern="yyyy年MM月dd日HH時mm分ss秒"/></td>
-				<td><fmt:formatDate value="${wtime.leaving}" pattern="yyyy年MM月dd日HH時mm分ss秒"/></td>
-				<td>${wtime.nightTimeH}:${wtime.nightTimeM }</td>
-				<td>${wtime.overTimeH}:${wtime.overTimeM }</td>
-				<td>${wtime.workTimeH}:${wtime.workTimeM }</td>
+				<td><fmt:formatDate value="${wtime.attendance}" pattern="yyyy年MM月dd日HH時mm分"/></td>
+				<td><fmt:formatDate value="${wtime.leaving}" pattern="yyyy年MM月dd日HH時mm分"/></td>
+				<td>${wtime.nightTimeH}時間${wtime.nightTimeM }分</td>
+				<td>${wtime.overTimeH}時間${wtime.overTimeM }分</td>
+				<td>${wtime.workTimeH}時間${wtime.workTimeM }分</td>
 				<td><form action="WorkServlet" method="POST">
 					<input type="hidden" value="${wtime.employeeNo}" name="wtm.employeeNo" />
 					<input type="hidden" value="${wtime.year }" name="wtm.year"/>
@@ -93,11 +93,11 @@
 		<tr>
 			<td>${MOUNTHLY.month}</td>
 			<td><fmt:formatNumber value="${WorkTimeDate.m_nightTime/60}" pattern="###" maxFractionDigits="0" />
-				<fmt:formatNumber value="${WorkTimeDate.m_nightTime%60}" pattern=":##" /></td>
+				<fmt:formatNumber value="${WorkTimeDate.m_nightTime%60}" pattern="時間##分" /></td>
 			<td><fmt:formatNumber value="${WorkTimeDate.m_overTime/60}" pattern="###" maxFractionDigits="0" />
-				<fmt:formatNumber value="${WorkTimeDate.m_overTime%60}" pattern=":##" /></td>
+				<fmt:formatNumber value="${WorkTimeDate.m_overTime%60}" pattern="時間##分" /></td>
 			<td><fmt:formatNumber value="${WorkTimeDate.m_workTime/60}" pattern="###" maxFractionDigits="0" />
-				<fmt:formatNumber value="${WorkTimeDate.m_workTime%60}" pattern=":##" /></td>
+				<fmt:formatNumber value="${WorkTimeDate.m_workTime%60}" pattern="時間##分" /></td>
 		</tr>
 	</table>
 	</div>
