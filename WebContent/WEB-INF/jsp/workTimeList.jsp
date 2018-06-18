@@ -20,7 +20,7 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="main">
-	<h2>${Msg }</h2>
+	<h2>${eMsg }</h2>
 	<h2>出退勤一覧</h2>
 	<form action="WorkServlet" method="GET">
 	<%  %>
@@ -37,16 +37,16 @@
 		</tr>
 		<tr>
 			<td>${ANNUAL.year}</td>
-			<td><fmt:formatNumber value="${WorkTimeDate.y_nightTime/60}" pattern="###" maxFractionDigits="0" />
-				<fmt:formatNumber value="${WorkTimeDate.y_nightTime%60}" pattern=":##" /></td>
-			<td><fmt:formatNumber value="${WorkTimeDate.y_overTime/60}" pattern="###" maxFractionDigits="0" />
-				<fmt:formatNumber value="${WorkTimeDate.y_overTime%60}" pattern=":##" /></td>
-			<td><fmt:formatNumber value="${WorkTimeDate.y_workTime/60}" pattern="###" maxFractionDigits="0" />
-				<fmt:formatNumber value="${WorkTimeDate.y_workTime%60}" pattern=":##" /></td>
+			<td><fmt:formatNumber value="${WorkTimeDate.y_nightTime/60}" pattern="###時間" maxFractionDigits="0" />
+				<fmt:formatNumber value="${WorkTimeDate.y_nightTime%60}" pattern="##分" /></td>
+			<td><fmt:formatNumber value="${WorkTimeDate.y_overTime/60}" pattern="###時間" maxFractionDigits="0" />
+				<fmt:formatNumber value="${WorkTimeDate.y_overTime%60}" pattern="##分" /></td>
+			<td><fmt:formatNumber value="${WorkTimeDate.y_workTime/60}" pattern="###時間" maxFractionDigits="0" />
+				<fmt:formatNumber value="${WorkTimeDate.y_workTime%60}" pattern="##分" /></td>
 		</tr>
 	</table>
 	<br>
-	<h3></h3>
+	<h3>${ANNUAL.year}年  ${MOUNTHLY.month}月</h3>
 	<form action="WorkServlet" method="GET">
 		<button type="submit" name="m_btn" value="-1" class="wl2_button">前月</button>
 		<button type="submit" name="m_btn" value="1" class="wl_button">次月</button>
@@ -66,8 +66,8 @@
 			<tr>
 				<td>${wtime.day}</td>
 				<td>${wtime.week}</td>
-				<td>${wtime.attendance}</td>
-				<td>${wtime.leaving}</td>
+				<td><fmt:formatDate value="${wtime.attendance}" pattern="yyyy年MM月dd日HH時mm分ss秒"/></td>
+				<td><fmt:formatDate value="${wtime.leaving}" pattern="yyyy年MM月dd日HH時mm分ss秒"/></td>
 				<td>${wtime.nightTimeH}:${wtime.nightTimeM }</td>
 				<td>${wtime.overTimeH}:${wtime.overTimeM }</td>
 				<td>${wtime.workTimeH}:${wtime.workTimeM }</td>
