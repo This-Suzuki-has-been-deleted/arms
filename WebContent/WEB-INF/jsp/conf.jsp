@@ -37,7 +37,9 @@
 	<c:if test="${Employee.authNo == '003' || Employee.authNo == '999'}">
 	<p>権限名:${employeeModel.authName }</p>
 	</c:if>
+
 <div class="conf_center">
+	<input type="button" value="戻る" class="conf_button" onclick="history.back()">
 	<input type="submit" value="確認" class="conf_button">
 </div>
 </form>
