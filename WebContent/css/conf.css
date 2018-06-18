@@ -16,6 +16,16 @@
 	border-bottom: solid 4px #627295;
 	border-radius: 3px;
 }
+.pc_button{
+	width:10%;
+	padding: 0.5em 1em;
+	text-decoration: none;
+	background: #808080;/*ボタン色*/
+	color: #FFF;
+	border-bottom: solid 4px #627295;
+	border-radius: 3px;
+}
+
 .conf_button active {/*ボタンを押したとき*/
     -ms-transform: translateY(4px);
     -webkit-transform: translateY(4px);
