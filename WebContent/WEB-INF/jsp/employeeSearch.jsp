@@ -12,6 +12,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
+	<h3>${Msg }</h3>
 	<div class="main">
 		<form method="post" action="EmployeeServlet">
 			社員名 <input type="text" name="employee_name"> 部署名<select
