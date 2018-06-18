@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import model.EmployeeModel;
+import others.LoginLogic;
 
 /**
  * Servlet Filter implementation class LoginCheckFilter
@@ -40,11 +41,15 @@ public class LoginCheckFilter implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
+		LoginLogic loginLogic = new LoginLogic();
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
 		ServletResponse httpResponse = (ServletResponse)response;
 		HttpSession session = httpRequest.getSession();
 
-		EmployeeModel em = (EmployeeModel)session.getAttribute("Employee");
+
+		EmployeeModel em;
+		em = (EmployeeModel)session.getAttribute("Employee");
+
 		if(em != null){
 			httpRequest.setCharacterEncoding("UTF-8");
 			chain.doFilter(httpRequest, httpResponse);
