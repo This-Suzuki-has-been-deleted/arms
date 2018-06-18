@@ -28,7 +28,7 @@
 </head>
 
 <body>
-<jsp:include page="WEB-INF/jsp/header.jsp" />]
+<jsp:include page="WEB-INF/jsp/header.jsp" />
 <h1>${Msg}</h1>
 <div class="main">
 	<div class="timestamp_box">
