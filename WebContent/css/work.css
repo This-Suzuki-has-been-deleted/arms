@@ -7,8 +7,8 @@
 	border-bottom: solid 4px #627295;
 	border-radius: 3px;
 	position: relative;
-	float:left;
-	left:50%;
+	float:right;
+	right:50%;
 	margin-top:10px;
 }
 .wc_button{
@@ -20,8 +20,8 @@
 	border-bottom: solid 4px #627295;
 	border-radius: 3px;
 	position: relative;
-	float:left;
-	left:50%;
+	float:right;
+	right:50%;
 	margin-top:10px;
 }
 
