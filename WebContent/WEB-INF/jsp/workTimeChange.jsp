@@ -20,11 +20,11 @@
 		<form action="WorkModifiServlet" method="post">
 			<table>
 				<tr>
-					<th class="t_top">出勤時刻</th>
+					<th class="t_top">出勤時間</th>
 					<td class="t_top"><input type="text" value="<fmt:formatDate value="${ workTimeModel.attendance}" pattern="yyyy年MM月dd日 HH時mm分"/>"name="attendance"></td>
 				</tr>
 				<tr>
-					<th>退勤時刻</th>
+					<th>退勤時間</th>
 					<td class="t_top"><input type="text" value="<fmt:formatDate value="${ workTimeModel.leaving}" pattern="yyyy年MM月dd日 HH時mm分"/>"name="leaving"></td>
 				</tr>
 			</table>

@@ -219,7 +219,7 @@ public class WorkServlet extends HttpServlet {
 				workTimeModel.getDay());
 		// 入力内容をセッションにセット
 		session.setAttribute("workTimeModel", workTimeModel);
-		session.setAttribute("pageTitle", "出退勤確認");
+		session.setAttribute("pageTitle", "出退勤修正");
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/workTimeChange.jsp");
 		dispatcher.forward(request, response);
