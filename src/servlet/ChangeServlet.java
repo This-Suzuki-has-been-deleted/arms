@@ -65,7 +65,7 @@ public class ChangeServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 			dispatcher.forward(request, response);
 		}else{
-			EmployeeModel employeeModel = new EmployeeModel();
+//			EmployeeModel employeeModel = new EmployeeModel();
 			session.setAttribute("pageTitle", "社員情報変更");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
 			dispatcher.forward(request, response);
