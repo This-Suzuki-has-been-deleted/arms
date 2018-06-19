@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.naming.NamingException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.AnnualModel;
+import model.EmployeeModel;
 import model.MonthlyModel;
 import model.WorkTimeModel;
 import others.DateMath;
@@ -47,17 +49,33 @@ public class TimeStampServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String value = (String) session.getAttribute("buttonvalue");
 		WorkTimeModel wt = (WorkTimeModel) session.getAttribute("work");
+		EmployeeModel em =(EmployeeModel)session.getAttribute("Employee");
 		WorkDAO wdao = new WorkDAO();
 		MonthlyDAO mdao = new MonthlyDAO();
 		AnnualDAO adao = new AnnualDAO();
 		DateMath dm = new DateMath();
 
 		if (value.equals("出勤")) {
+			LocalDateTime date2 = LocalDateTime.now();
+			int year = date2.getYear();
+			int month = date2.getMonthValue();
+			int day = date2.getDayOfMonth();
+
+			String emp_no = em.getEmployeeNo();
+
+			wt = new WorkTimeModel();
+
+			wt.setEmployeeNo(emp_no);
+			wt.setYear(year);
+			wt.setMonth(month);
+			wt.setDay(day);
+
 			java.util.Date date = new java.util.Date();
 			long nowTime = date.getTime();
 			Timestamp now = new Timestamp(nowTime);
 			wt.setAttendance(now);
-			wdao.updateWorkTime(wt);
+
+			wdao.insertWorkTime(wt);
 			session.setAttribute("buttonvalue", "退勤");
 			session.setAttribute("index_date",date);
 		} else if(value.equals("退勤")){
