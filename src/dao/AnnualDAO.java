@@ -12,7 +12,7 @@ import model.AnnualModel;
 //年次
 public class AnnualDAO {
 	// 打刻するメソッド
-	public void insertMonthlyTime(AnnualModel am){
+	public void insertAnnualTime(AnnualModel am){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -60,7 +60,7 @@ public class AnnualDAO {
 		}
 	}
 
-	public void updateMonthlyTime(AnnualModel am){
+	public void updateAnnualTime(AnnualModel am){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
