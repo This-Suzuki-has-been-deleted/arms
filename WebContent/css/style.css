@@ -91,6 +91,8 @@
 }
 .main{
 	width:80%;
+	height:100%;
+	position: relative;
 	float:left;
 }
 
@@ -136,8 +138,17 @@
 	margin-bottom:20px;
 	text-align:center;
 }
+
 .footer{
+	float:left;
 	text-align:center;
+	position:relative;
+	width:90%;
+	height:20px;
+	margin-top:18%;
+	overflow:hidden;
+	bottom:0;
+
 }
 .logout{
 	background:#ccc;
