@@ -61,7 +61,11 @@ public class TimeStampServlet extends HttpServlet {
 			int month = date2.getMonthValue();
 			int day = date2.getDayOfMonth();
 
-			wt.setEmployeeNo(em.getEmployeeNo());
+			String emp_no = em.getEmployeeNo();
+
+			wt = new WorkTimeModel();
+
+			wt.setEmployeeNo(emp_no);
 			wt.setYear(year);
 			wt.setMonth(month);
 			wt.setDay(day);
@@ -70,7 +74,8 @@ public class TimeStampServlet extends HttpServlet {
 			long nowTime = date.getTime();
 			Timestamp now = new Timestamp(nowTime);
 			wt.setAttendance(now);
-			wdao.updateWorkTime(wt);
+
+			wdao.insertWorkTime(wt);
 			session.setAttribute("buttonvalue", "退勤");
 			session.setAttribute("index_date",date);
 		} else if(value.equals("退勤")){
