@@ -50,7 +50,6 @@ public class ConfServlet extends HttpServlet {
 			empModel = (EmployeeModel) session.getAttribute("employeeModel");
 			employeeDao = new EmployeeDAO();
 			employeeDao.InsertEmployee(empModel);
-			String Msg = null;
 			session.setAttribute("Msg", "完了です！");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");
 			dispatcher.forward(request, response);
@@ -59,7 +58,6 @@ public class ConfServlet extends HttpServlet {
 			empModel = (EmployeeModel) session.getAttribute("employeeModel");
 			employeeDao = new EmployeeDAO();
 			employeeDao.updateEmployee(empModel);
-			String Msg = null;
 			session.setAttribute("Msg", "完了です！");
 			session.removeAttribute("RESULT");
 			session.setAttribute("pageTitle", "社員検索");

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import model.DepModel;
 import model.EmployeeModel;
 import others.LoginLogic;
+import others.PassChanger;
 import others.SpaceKill;
 import validation.Validation;
 import dao.DepDAO;
@@ -47,6 +48,9 @@ public class RegistrationServlet extends HttpServlet {
 		DepDAO dd = new DepDAO();
 
 		HttpSession session = request.getSession();
+
+		PassChanger passChanger = new PassChanger();
+		passChanger.indexOut(request, response);
 
 		session.removeAttribute("eMsg");
 

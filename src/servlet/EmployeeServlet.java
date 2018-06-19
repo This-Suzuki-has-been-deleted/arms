@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import model.DepModel;
 import model.EmployeeModel;
+import others.PassChanger;
 import dao.EmployeeDAO;
 
 /**
@@ -35,6 +36,9 @@ public class EmployeeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+
+		PassChanger passChanger = new PassChanger();
+		passChanger.indexOut(request, response);
 
 		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
 		emodel.setDepName(employeeDao.findByDepName(emodel.getDepNo()));	//depnoを渡してdepnameをset

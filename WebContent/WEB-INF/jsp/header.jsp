@@ -7,6 +7,7 @@
 	if(pageTitle == null){
 		pageTitle = "";
 	}
+	session.removeAttribute("pageTitle");
 	EmployeeModel em = (EmployeeModel) session.getAttribute("Employee");
 	String name = "";
 	if(em==null){

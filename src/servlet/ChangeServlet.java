@@ -16,6 +16,7 @@ import model.AuthModel;
 import model.DepModel;
 import model.EmployeeModel;
 import others.LoginLogic;
+import others.PassChanger;
 import validation.Validation;
 import dao.AuthDAO;
 import dao.DepDAO;
@@ -53,6 +54,8 @@ public class ChangeServlet extends HttpServlet {
 		List<AuthModel> authModel = new ArrayList<AuthModel>();
 		DepDAO depDao = new DepDAO();
 		AuthDAO authDao = new AuthDAO();
+		PassChanger passChanger = new PassChanger();
+		passChanger.indexOut(request, response);
 		depModel = depDao.findDepAll();
 		authModel = authDao.findAuthAll();
 		session.setAttribute("DepModel", depModel);
@@ -62,7 +65,7 @@ public class ChangeServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 			dispatcher.forward(request, response);
 		}else{
-			EmployeeModel employeeModel = new EmployeeModel();
+//			EmployeeModel employeeModel = new EmployeeModel();
 			session.setAttribute("pageTitle", "社員情報変更");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/infoChange.jsp");
 			dispatcher.forward(request, response);

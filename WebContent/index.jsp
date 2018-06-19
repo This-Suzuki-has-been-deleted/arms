@@ -1,3 +1,4 @@
+<%@page import="others.PassChanger"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.Date" %>
@@ -10,13 +11,20 @@
 		value = "入ってないよ";
 	}
 	String values = (String)session.getAttribute("values");
+	String msg = (String)session.getAttribute("Msg");
+	if(msg==null){
+		msg = "";
+	}
 	Date dates = (Date)session.getAttribute("index_date");
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 hh時mm分");
+	PassChanger passChanger = new PassChanger();
+	passChanger.indexOut(request, response);
 	if(dates!=null){
 		date = sdf.format(dates);
 	}
 	session.removeAttribute("pageTitle");
 	session.removeAttribute("eMsg");
+	session.removeAttribute("Msg");
 
 
 %>
@@ -29,7 +37,7 @@
 </head>
 <body>
 <jsp:include page="WEB-INF/jsp/header.jsp" />
-<h1>${Msg}</h1>
+<h1><%=msg %></h1>
 <div class="main">
 	<div class="timestamp_box">
 		<p class="timestamp_title">勤怠登録</p>
