@@ -144,7 +144,7 @@ public class WorkModifiServlet extends HttpServlet {
 		monthly.setM_overTime(dateMath.addMinute(annual.getY_overTime(), overTimes));
 		monthly.setM_nightTime(dateMath.addMinute(annual.getY_nightTime(),nightTimes));
 
-		annualDao.updateMonthlyTime(annual);
+		annualDao.updateAnnualTime(annual);
 		monthlyDao.updateMonthlyTime(monthly);
 
 		session.setAttribute("Msg", "変更完了です。");
