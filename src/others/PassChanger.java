@@ -19,6 +19,7 @@ public class PassChanger {
 
 		myEm = (EmployeeModel)session.getAttribute("Employee");
 		if(myEm.getPassword().equals(ll.passHash("pass1234"))){
+			session.setAttribute("pageTitle", "初期パスワード変更");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 			dispatcher.forward(request, response);
 		}
