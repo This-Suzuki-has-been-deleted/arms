@@ -110,8 +110,6 @@ public class DateMath {
 		date = date.replace("時", ":");
 		date = date.replace("分", ":00");
 
-		System.out.println(date);
-
 		return date;
 	}
 }

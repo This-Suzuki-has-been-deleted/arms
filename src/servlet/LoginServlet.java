@@ -82,21 +82,12 @@ public class LoginServlet extends HttpServlet {
 
 			EmployeeModel em = employee;
 			WorkDAO wdao = new WorkDAO();
-			WorkTimeModel wm = wdao.findWorkTime(em.getEmployeeNo(), year,
-					month, day);
-			String no =wm.getEmployeeNo();
+			WorkTimeModel wm = wdao.findWorkTime(em.getEmployeeNo(), year,month, day);
 
-			if (no != null) { // 前日のレコードの有無を確認
+			if (wm.getEmployeeNo() != null) { // 前日のレコードの有り
 				if (wm.isWorkTimeFlg() == 1) { // 勤怠フラグを確認、本日のレコードの有無を確認
-					wm = wdao.findWorkTime(em.getEmployeeNo(), year, month,
-							day + 1);
-					if (wm.getEmployeeNo() != null) {
-						wm.setEmployeeNo(em.getEmployeeNo());
-						wm.setYear(year);
-						wm.setMonth(month);
-						wm.setDay(day);
-						wdao.insertWorkTime(wm); // レコード作成
-						session.setAttribute("work", wm); // 当日を参照する
+					wm = wdao.findWorkTime(em.getEmployeeNo(), year, month,day + 1);
+					if (wm.getEmployeeNo() == null) {
 						session.setAttribute("buttonvalue", "出勤"); // ボタンのバリューを出勤に
 					} else {
 						session.setAttribute("work", wm); // 当日を参照する
@@ -107,19 +98,10 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("work", wm); // 昨日を参照する
 					session.setAttribute("buttonvalue", "退勤"); // ボタンのバリューを退勤に
 				}
-			} else {
-				wm = wdao
-						.findWorkTime(em.getEmployeeNo(), year, month, day + 1);
-				no =wm.getEmployeeNo();
+			} else {	//前日レコード無し
+				wm = wdao.findWorkTime(em.getEmployeeNo(), year, month, day + 1);
 
-				if (no == null) { // 本日のレコードの有無を確認
-					System.out.println("a");
-					wm.setEmployeeNo(em.getEmployeeNo());
-					wm.setYear(year);
-					wm.setMonth(month);
-					wm.setDay(day+1);
-					wdao.insertWorkTime(wm); // レコード作成
-					session.setAttribute("work", wm); // 当日を参照する
+				if (wm.getEmployeeNo() == null) { // 本日のレコードの有無を確認
 					session.setAttribute("buttonvalue", "出勤"); // ボタンのバリューを出勤に
 				} else {
 					if(wm.isWorkTimeFlg()==1){

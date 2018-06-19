@@ -78,19 +78,19 @@ public class WorkModifiServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		System.out.println(attendanceTime);
-
+		
 		workTimeModel.setAttendance(attendanceTime);
 		workTimeModel.setLeaving(leavingTime);
 		Validation validation = new Validation();
-
-	/**
-	 * if(validation.(workTimeModel)){
-	 * String eMsg = "入力誤り有";
-	 * session.setAttribute("eMsg",eMsg);
-	 * RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/workTimeChange.jsp");
-	 * dispatcher.forword(request,response);
-	 * }
-	 */
+		
+		/**
+		 * if(validation.(workTimeModel)){
+		 * String eMsg = "入力誤り有";
+		 * session.setAttribute("eMsg",eMsg);
+		 * RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/workTimeChange.jsp");
+		 * dispatcher.forword(request,response);
+		 * }
+		 */
 		WorkDAO workDao = new WorkDAO();
 		WorkTimeModel workTime = new WorkTimeModel();
 		workTime = workDao.findWorkTime(workTimeModel.getEmployeeNo(), workTimeModel.getYear(), workTimeModel.getMonth(), workTimeModel.getDay());
@@ -130,22 +130,23 @@ public class WorkModifiServlet extends HttpServlet {
 		leave = workTimeModel.getLeaving().getTime();
 		attend = workTimeModel.getAttendance().getTime();
 
+
 		workTimes = dateMath.diff(leave, attend);	//勤務時間を算出
 		overTimes = dateMath.diff(leave, fix);		//残業時間を算出
 		nightTimes = dateMath.diff(leave, over);		//深夜時間を算出
 
 		//加算処理
-		//年
-		annual.setY_workTime(dateMath.addMinute(annual.getY_workTime(), workTimes));
-		annual.setY_overTime(dateMath.addMinute(annual.getY_overTime(), overTimes));
-		annual.setY_nightTime(dateMath.addMinute(annual.getY_nightTime(), nightTimes));
-		//
-		monthly.setM_workTime(dateMath.addMinute(annual.getY_workTime(), workTimes));
-		monthly.setM_overTime(dateMath.addMinute(annual.getY_overTime(), overTimes));
-		monthly.setM_nightTime(dateMath.addMinute(annual.getY_nightTime(),nightTimes));
+				//年
+				annual.setY_workTime(dateMath.addMinute(annual.getY_workTime(), workTimes));
+				annual.setY_overTime(dateMath.addMinute(annual.getY_overTime(), overTimes));
+				annual.setY_nightTime(dateMath.addMinute(annual.getY_nightTime(), nightTimes));
+				//
+				monthly.setM_workTime(dateMath.addMinute(annual.getY_workTime(), workTimes));
+				monthly.setM_overTime(dateMath.addMinute(annual.getY_overTime(), overTimes));
+				monthly.setM_nightTime(dateMath.addMinute(annual.getY_nightTime(),nightTimes));
 
-		annualDao.updateAnnualTime(annual);
-		monthlyDao.updateMonthlyTime(monthly);
+				annualDao.updateMonthlyTime(annual);
+				monthlyDao.updateMonthlyTime(monthly);
 
 		session.setAttribute("Msg", "変更完了です。");
 		response.sendRedirect("WorkServlet");
