@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import model.DepModel;
 import model.EmployeeModel;
 import others.PassChanger;
+import dao.DepDAO;
 import dao.EmployeeDAO;
 
 /**
@@ -22,6 +23,8 @@ import dao.EmployeeDAO;
 @WebServlet("/EmployeeServlet")
 public class EmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	DepDAO d_dao = new DepDAO();
 
 	EmployeeDAO employeeDao = new EmployeeDAO();
 	ArrayList<DepModel> deplist = new ArrayList<DepModel>();
@@ -43,7 +46,10 @@ public class EmployeeServlet extends HttpServlet {
 		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
 		emodel.setDepName(employeeDao.findByDepName(emodel.getDepNo()));	//depnoを渡してdepnameをset
 
-		deplist = employeeDao.findAllByDepNo(emodel.getDepNo());
+		//deplist = employeeDao.findAllByDepNo(emodel.getDepNo());
+
+
+		deplist = (ArrayList<DepModel>) d_dao.findDepAll();		//追加
 
 		session.setAttribute("Employee",emodel);
 		session.setAttribute("DepList",deplist);

@@ -15,12 +15,18 @@
 	<h3>${Msg }</h3>
 	<div class="main">
 		<form method="post" action="EmployeeServlet">
-			社員名 <input type="text" name="employee_name"> 部署名<select
-				name="dep_no">
-				<option value="${Employee.depNo}">${Employee.depName}</option>
+			社員名 <input type="text" name="employee_name">
+			部署名<select name="dep_no">
 				<c:forEach var="deplist" items="${DepList}">
 					<c:if test="${Employee.authNo == '003' || Employee.authNo =='999'}">
-						<option value="${deplist.depNo}">${deplist.depName}</option>
+						<c:choose>
+							<c:when test="${Employee.depNo == deplist.depNo}">
+								<option value="${deplist.depNo}" selected>${deplist.depName}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${deplist.depNo}">${deplist.depName}</option>
+							</c:otherwise>
+						</c:choose>
 					</c:if>
 				</c:forEach>
 			</select><input type="submit" value="検索" class="s_button">
@@ -64,46 +70,52 @@
 			int nowpage = (Integer) session.getAttribute("SELECTPG");
 		%>
 		<div class="s_box">
-		<%
-		if(1 != nowpage) {
-		%>
-		<form name="backpage" action="EmployeeServlet" method="POST">
-			<input type="hidden" name="pgno" value="<%=nowpage - 1%>">
-		</form>
-		<a href="EmployeeServlet"
-			onclick="document.backpage.submit();return false;" class="pre">前</a>
-		<%
-		}
-			if (pageno != 1) { //検索結果件数を持っているのか
-				for (int i = 1; i < pageno + 1; i++) {
-					if(nowpage == i) {
-		%>
-			<form name="selectpage<%= i %>" action="EmployeeServlet" method="POST">
-			<input type="hidden" name="pgno" value="<%= i %>">
-		</form>
-		<a href="EmployeeServlet" onclick="document.selectpage<%= i %>.submit();return false;" class="now_button"><%=i%></a>
-		<%
-					}else {
-		%>
-		<form name="selectpage<%= i %>" action="EmployeeServlet" method="POST">
-			<input type="hidden" name="pgno" value="<%= i %>">
-		</form>
-		<a href="EmployeeServlet" onclick="document.selectpage<%= i %>.submit();return false;" class="next_button"><%=i%></a>
-		<%
+			<%
+				if (1 != nowpage) {
+			%>
+			<form name="backpage" action="EmployeeServlet" method="POST">
+				<input type="hidden" name="pgno" value="<%=nowpage - 1%>">
+			</form>
+			<a href="EmployeeServlet"
+				onclick="document.backpage.submit();return false;" class="pre">前</a>
+			<%
+				}
+				if (pageno != 1) { //検索結果件数を持っているのか
+					for (int i = 1; i < pageno + 1; i++) {
+						if (nowpage == i) {
+			%>
+			<form name="selectpage<%=i%>" action="EmployeeServlet"
+				method="POST">
+				<input type="hidden" name="pgno" value="<%=i%>">
+			</form>
+			<a href="EmployeeServlet"
+				onclick="document.selectpage<%=i%>.submit();return false;"
+				class="now_button"><%=i%></a>
+			<%
+				} else {
+			%>
+			<form name="selectpage<%=i%>" action="EmployeeServlet"
+				method="POST">
+				<input type="hidden" name="pgno" value="<%=i%>">
+			</form>
+			<a href="EmployeeServlet"
+				onclick="document.selectpage<%=i%>.submit();return false;"
+				class="next_button"><%=i%></a>
+			<%
+				}
 					}
 				}
-			}
-		%>
-		<%
-		if(pageno != nowpage) {
-		%>
-		<form name="nextpage" action="EmployeeServlet" method="POST">
-			<input type="hidden" name="pgno" value="<%=nowpage + 1%>">
-		</form>
-		<a href="EmployeeServlet"
-			onclick="document.nextpage.submit();return false;" class="next">次</a>
+			%>
 			<%
-		}
+				if (pageno != nowpage) {
+			%>
+			<form name="nextpage" action="EmployeeServlet" method="POST">
+				<input type="hidden" name="pgno" value="<%=nowpage + 1%>">
+			</form>
+			<a href="EmployeeServlet"
+				onclick="document.nextpage.submit();return false;" class="next">次</a>
+			<%
+				}
 			%>
 		</div>
 		<div class="clear"></div>
