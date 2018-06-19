@@ -140,8 +140,9 @@
 }
 
 .footer{
+	float:left;
 	text-align:center;
-	position:absolute;
+	position:relative;
 	width:90%;
 	height:20px;
 	overflow:hidden;
