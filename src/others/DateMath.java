@@ -95,4 +95,23 @@ public class DateMath {
 		over = dates.getTime();
 		return over;
 	}
+
+	/**
+	 * 引数の文字列からから"年月日時分"を除去し、
+	 * 既定のフォーマットに治すメソッド
+	 *
+	 * @param date
+	 * @return date
+	 */
+	public String replaceDate(String date){
+		date = date.replace("年", "-");
+		date = date.replace("月", "-");
+		date = date.replace("日", "");
+		date = date.replace("時", ":");
+		date = date.replace("分", ":00");
+
+		System.out.println(date);
+
+		return date;
+	}
 }

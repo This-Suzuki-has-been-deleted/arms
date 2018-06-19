@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,27 +50,39 @@ public class WorkModifiServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
+		DateMath dateMath = new DateMath();
 		WorkTimeModel workTimeModel = (WorkTimeModel) session.getAttribute("workTimeModel");
 		Timestamp attendanceTime = null;
 		Timestamp leavingTime = null;
-		java.util.Date dates =  new java.util.Date();
+		Date dates =  new Date();
+		Date dates2 =  new Date();
+		request.setCharacterEncoding("utf-8");
 		String attendance = request.getParameter("attendance");
 		String leaving = request.getParameter("leaving");
 
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			//体裁を整える
+			attendance= dateMath.replaceDate(attendance);
+			leaving = dateMath.replaceDate(leaving);
+
+			//String→Dateの変換
 			dates = sdf.parse(attendance);
+			dates2 = sdf.parse(leaving);
+
+			//Date→TimeStampの変換
 			attendanceTime = new Timestamp(dates.getTime());
-			dates = sdf.parse(leaving);
-			leavingTime = new Timestamp(dates.getTime());
+			leavingTime = new Timestamp(dates2.getTime());
 		} catch (ParseException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
+		System.out.println(attendanceTime);
+
 		workTimeModel.setAttendance(attendanceTime);
 		workTimeModel.setLeaving(leavingTime);
 		Validation validation = new Validation();
-		DateMath dateMath = new DateMath();
+
 	/**
 	 * if(validation.(workTimeModel)){
 	 * String eMsg = "入力誤り有";
