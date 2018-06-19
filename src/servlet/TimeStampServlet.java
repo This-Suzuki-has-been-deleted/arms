@@ -84,7 +84,7 @@ public class TimeStampServlet extends HttpServlet {
 				mm.setYear(wt.getYear());
 				mm.setMonth(wt.getMonth());
 				try {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					Date dates = sdf.parse("2000-01-01 00:00:00");
 
 					Timestamp work = new Timestamp(dates.getTime());
@@ -106,7 +106,7 @@ public class TimeStampServlet extends HttpServlet {
 				am.setEmployeeNo(wt.getEmployeeNo());
 				am.setYear(wt.getYear());
 				try {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					Date dates = sdf.parse("2000-01-01 00:00:00");
 
 					Timestamp work = new Timestamp(dates.getTime());
