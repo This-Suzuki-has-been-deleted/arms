@@ -19,7 +19,7 @@ public class DateMath {
 		cal.setTime(workTime);
 		cal.add(Calendar.MINUTE, minute);
 		Date temp = cal.getTime();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dates = sdf.format(temp);
 		Timestamp resultDate = Timestamp.valueOf(dates);
 		return resultDate;
