@@ -25,7 +25,7 @@
 				</tr>
 				<tr>
 					<th>退勤時間</th>
-					<td class="t_top"><input type="text" value="<fmt:formatDate value="${ workTimeModel.leaving}" pattern="yyyy年MM月dd日 HH時mm分"/>"name="leaving"></td>
+					<td class="t_top"><input type="text" value="<fmt:formatDate value="${ workTimeModel.leaving}" pattern="yyyy年MM月dd日 HH時mm分"/>" name="leaving"></td>
 				</tr>
 			</table>
 			<div class="w_center">
@@ -47,3 +47,5 @@
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
 </body>
 </html>
+
+<!--  -->

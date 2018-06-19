@@ -116,7 +116,7 @@ public class TimeStampServlet extends HttpServlet {
 					am.setY_overTime(over);
 					am.setY_nightTime(night);
 
-					adao.insertMonthlyTime(am);
+					adao.insertAnnualTime(am);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -141,7 +141,7 @@ public class TimeStampServlet extends HttpServlet {
 			am.setY_nightTime(dm.addMinute(nightTime, diff));
 
 			mdao.updateMonthlyTime(mm);
-			adao.updateMonthlyTime(am);
+			adao.updateAnnualTime(am);
 		}else{
 			session.setAttribute("values", "本日は打刻済です。");
 		}
