@@ -19,6 +19,7 @@ import model.MonthlyModel;
 import model.WorkTimeDateModel;
 import model.WorkTimeModel;
 import others.DateMath;
+import others.PassChanger;
 import dao.AnnualDAO;
 import dao.MonthlyDAO;
 import dao.WorkDAO;
@@ -49,6 +50,9 @@ public class WorkServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		session.removeAttribute("eMsg");
+
+		PassChanger passChanger = new PassChanger();
+		passChanger.indexOut(request, response);
 
 		//ログイン中のユーザーの情報をセッションから得る
 		EmployeeModel myEmp = (EmployeeModel)session.getAttribute("Employee");

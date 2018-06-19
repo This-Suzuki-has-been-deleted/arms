@@ -16,6 +16,7 @@ import model.AuthModel;
 import model.DepModel;
 import model.EmployeeModel;
 import others.LoginLogic;
+import others.PassChanger;
 import validation.Validation;
 import dao.AuthDAO;
 import dao.DepDAO;
@@ -53,6 +54,8 @@ public class ChangeServlet extends HttpServlet {
 		List<AuthModel> authModel = new ArrayList<AuthModel>();
 		DepDAO depDao = new DepDAO();
 		AuthDAO authDao = new AuthDAO();
+		PassChanger passChanger = new PassChanger();
+		passChanger.indexOut(request, response);
 		depModel = depDao.findDepAll();
 		authModel = authDao.findAuthAll();
 		session.setAttribute("DepModel", depModel);
