@@ -92,14 +92,17 @@ public class LoginServlet extends HttpServlet {
 					} else {
 						session.setAttribute("work", wm); // 当日を参照する
 						session.setAttribute("buttonvalue", "退勤"); // ボタンのバリューを退勤に
+						session.setAttribute("record", "1");
 
 					}
 				} else {
 					session.setAttribute("work", wm); // 昨日を参照する
+					session.setAttribute("record", "0");
 					session.setAttribute("buttonvalue", "退勤"); // ボタンのバリューを退勤に
 				}
 			} else {	//前日レコード無し
 				wm = wdao.findWorkTime(em.getEmployeeNo(), year, month, day + 1);
+				session.setAttribute("record", "0");
 
 				if (wm.getEmployeeNo() == null) { // 本日のレコードの有無を確認
 					session.setAttribute("buttonvalue", "出勤"); // ボタンのバリューを出勤に

@@ -78,7 +78,22 @@ public class TimeStampServlet extends HttpServlet {
 			wdao.insertWorkTime(wt);
 			session.setAttribute("buttonvalue", "退勤");
 			session.setAttribute("index_date",date);
+
 		} else if(value.equals("退勤")){
+			String record = (String)session.getAttribute("record");
+			LocalDateTime today = LocalDateTime.now();
+			int year = today.getYear();
+			int month = today.getMonthValue();
+			int day = today.getDayOfMonth();
+
+			if(record.equals("0")){			//前日レコード無 当日レコードを参照
+				wt = wdao.findWorkTime(em.getEmployeeNo(), year, month, day);
+			}else if(record.equals("1")){	//前日レコード有 前日レコードを参照
+				wt = wdao.findWorkTime(em.getEmployeeNo(), year, month, day-1);
+			}else{							//とりあえず当日レコードを参照
+				wt = wdao.findWorkTime(em.getEmployeeNo(), year, month, day);
+			}
+
 			java.util.Date date = new java.util.Date();
 			long nowTime = date.getTime();
 			Timestamp now = new Timestamp(nowTime);
@@ -87,7 +102,7 @@ public class TimeStampServlet extends HttpServlet {
 			wt.setWorkFlg(1);
 			wt.setWorkTimeFlg(1);
 			wdao.updateWorkTime(wt); // 日次をアップデート
-			session.setAttribute("buttonvalue", "出勤");
+			session.setAttribute("buttonvalue", "本日は打刻済です");
 
 			// 労働時間の算出
 			long attendance = wt.getAttendance().getTime();
