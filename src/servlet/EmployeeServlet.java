@@ -117,7 +117,11 @@ public class EmployeeServlet extends HttpServlet {
 		}
 
 		//ページ数取得
+<<<<<<< HEAD
 		pageno = employeeDao.CountEmp(emodel.getEmployeeNo(),dep_No,emp_Name);
+=======
+		pageno = employeeDao.CountEmp(emodel.getEmployeeNo(),dep_No,emp_Name); //ページ数取得
+>>>>>>> branch 'master' of https://github.com/This-Suzuki-has-been-deleted/arms.git
 
 		//セッションに表示内容をセット
 		session.setAttribute("RESULT",employeelist);

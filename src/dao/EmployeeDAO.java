@@ -542,7 +542,7 @@ public class EmployeeDAO {
 
 	}
 
-	public boolean InsertEmployee(EmployeeModel empmodel) {
+	public boolean insertEmployee(EmployeeModel empmodel) {
 
 		conn = null;
 		pStmt = null;
