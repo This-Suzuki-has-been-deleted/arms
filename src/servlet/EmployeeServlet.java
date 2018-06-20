@@ -98,13 +98,14 @@ public class EmployeeServlet extends HttpServlet {
 		nowpage = Integer.parseInt(selectno);		//現在表示しているページ
 
 		//社員名、部署番号が入力されているかどうか
-		if(dep_No == null  && emp_Name == null) {	//社員番号、部署番号ともに入力されていなかった場合
+		if(dep_No.equals(null)  && emp_Name.equals(null)) {	//社員番号、部署番号ともに入力されていなかった場合
 			emp_Name = (String) session.getAttribute("SELECTNAME");
 			dep_No = (String) session.getAttribute("SELECTDEP");
-		}else if(emp_Name == null) {				//社員名のみが入力されていなかった場合
+		}else if(emp_Name.equals(null)) {				//社員名のみが入力されていなかった場合
 			emp_Name = (String) session.getAttribute("SELECTNAME");
-		}else if(dep_No == null) {					//部署番号のみが入力されていなかった場合
+		}else if(dep_No.equals(null)) {					//部署番号のみが入力されていなかった場合
 			dep_No = (String) session.getAttribute("SELECTDEP");
+		}else{
 		}
 
 		//社員検索呼出し	部署検索OR全社員一覧（00=全部署検索）

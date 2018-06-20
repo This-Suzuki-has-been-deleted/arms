@@ -44,22 +44,30 @@ public class ChangeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		session = request.getSession();
+		//メッセージ削除
 		session.removeAttribute("eMsg");
+
 		EmployeeModel employee = (EmployeeModel) session.getAttribute("Employee");
 		String employeeNo = request.getParameter("employeeNo");
-		if(employeeNo == null){
+		//もし入ってなかった場合ログインしている人の番号を入力
+		if (employeeNo == null){
 			employeeNo = employee.getEmployeeNo();
 		}
 		List<DepModel> depModel = new ArrayList<DepModel>();
 		List<AuthModel> authModel = new ArrayList<AuthModel>();
 		DepDAO depDao = new DepDAO();
 		AuthDAO authDao = new AuthDAO();
+		//初期パスワード検査
 		PassChanger passChanger = new PassChanger();
 		passChanger.indexOut(request, response);
+		//部署と権限をすべて持ってくる
 		depModel = depDao.findDepAll();
 		authModel = authDao.findAuthAll();
+		//sessionに上記の２つをセット
 		session.setAttribute("DepModel", depModel);
 		session.setAttribute("AuthModel",authModel);
+
+		//権限が一般、もしくは社員番号が同じだった時
 		if(employee.getAuthNo().equals("01") || employee.getEmployeeNo() == employeeNo ){
 			session.setAttribute("pageTitle", "社員情報変更");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
@@ -83,6 +91,7 @@ public class ChangeServlet extends HttpServlet {
 		if(employeeNo == null){
 			employeeNo = employee.getEmployeeNo();
 		}
+		//権限が一般、もしくは社員番号が同じだった時
 		if(employee.getAuthNo().equals("01") || employee.getEmployeeNo() == employeeNo ){
 			String password = request.getParameter("pass");
 			String nextPassword = request.getParameter("nextPass");
@@ -93,14 +102,18 @@ public class ChangeServlet extends HttpServlet {
 			EmployeeDAO employeeDao = new EmployeeDAO();
 			EmployeeModel emp = employeeDao.findEmployee(employeeNo);
 			Validation validation = new Validation();
-			if(! validation.nullCheck(password) || ! validation.nullCheck(nextPassword)){
+
+			//password とnextPasswordがnullであるかどうか
+			if (! validation.nullCheck(password) || ! validation.nullCheck(nextPassword)){
 				eMsg = "パスワードが未入力です。";
 				session.setAttribute("eMsg",eMsg);
 				session.setAttribute("pageTitle", "社員情報変更");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 				dispatcher.forward(request, response);
+
+				//入力された現パスワードが一致しているか
 			}else if(emp.getPassword() == passHashCode){
-				eMsg = "パスワードが重複しています。";
+				eMsg = "パスワードが間違っています。";
 				session.setAttribute("eMsg",eMsg);
 				session.setAttribute("pageTitle", "社員情報変更");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
@@ -119,6 +132,7 @@ public class ChangeServlet extends HttpServlet {
 //			dispatcher.forward(request, response);
 			response.sendRedirect("index.jsp");
 			}
+
 		}else{
 			EmployeeModel employeeUser = (EmployeeModel) session.getAttribute("ChangeEmployee");
 			String employeeName = null;
@@ -152,6 +166,7 @@ public class ChangeServlet extends HttpServlet {
 			session.setAttribute("employeeModel", employeeUser);
 			session.setAttribute("Employee", employee);
 
+			//msgがnullでない ＝ エラーがなかった状態
 			if(msg == null){
 				session.setAttribute("pageTitle", "社員情報確認");
 				RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/conf.jsp");
