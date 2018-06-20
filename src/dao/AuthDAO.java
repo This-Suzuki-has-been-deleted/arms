@@ -102,4 +102,46 @@ public class AuthDAO {
 		}
 		return authlist;
 	}
+	public String findByAuthName(String authno) {
+
+		Connection conn = null;
+		PreparedStatement pStmt = null;
+		String authname = "";
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms"
+									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
+							"root", "password");
+			// SQLの実行
+			String sql = "select authorityName "
+					+ "from employeeposition WHERE employeeAuthorityNo = ?"; // 権限
+
+			pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, authno);
+
+			// 結果の取得と出力
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+
+				authname = rs.getString("authorityName");
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+
+		} finally {
+			try {
+				// 切断
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return authname;
+	}
 }
