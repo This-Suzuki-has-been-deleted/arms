@@ -76,7 +76,7 @@ public class EmployeeServlet extends HttpServlet {
 		if(emp_Name != null){
 			session.setAttribute("SELECTNAME",emp_Name);
 		}
-		//社員番号が入力されていた場合取得
+		//部署番号判別
 		String dep_No = request.getParameter("dep_no");
 		if(dep_No.equals("00")) {
 
@@ -114,7 +114,6 @@ public class EmployeeServlet extends HttpServlet {
 		}else {
 			employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),dep_No,emp_Name,pageno); // 検索結果取得 ログイン番号、入力部署、入力社員名、ページ番号
 		}
-
 		//ページ数取得
 		pageno = employeeDao.CountEmp(dep_No,emp_Name); //ページ数取得
 
