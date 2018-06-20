@@ -16,6 +16,7 @@ import model.AuthModel;
 import model.DepModel;
 import model.EmployeeModel;
 import dao.AuthDAO;
+import dao.DepDAO;
 import dao.EmployeeDAO;
 
 /**
@@ -72,10 +73,11 @@ public class InfoChangeServlet extends HttpServlet {
 		employeeModel.setAuthNo(request.getParameter("selectAuthorityNo"));
 		EmployeeDAO employeeDao = new EmployeeDAO();
 		AuthDAO authDao = new AuthDAO();
-		depModel = employeeDao.findAllByDepNo(employeeModel.getDepNo());
+		DepDAO depDao = new DepDAO();
+		depModel = depDao.findAllByDepNo(employeeModel.getDepNo());
 		authModel = authDao.findAllByAuthNo(employeeModel.getAuthNo());
-		employeeModel.setAuthName(employeeDao.findByAuthName(employeeModel.getAuthNo()));
-		employeeModel.setDepName(employeeDao.findByDepName(employeeModel.getDepNo()));
+		employeeModel.setAuthName(authDao.findByAuthName(employeeModel.getAuthNo()));
+		employeeModel.setDepName(depDao.findByDepName(employeeModel.getDepNo()));
 		session.setAttribute("DepModel", depModel);
 		session.setAttribute("AuthModel",authModel);
 		session.setAttribute("ChangeEmployee", employeeModel);

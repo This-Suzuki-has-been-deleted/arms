@@ -135,6 +135,8 @@ public class ChangeServlet extends HttpServlet {
 
 		}else{
 			EmployeeModel employeeUser = (EmployeeModel) session.getAttribute("ChangeEmployee");
+			DepDAO depDao = new DepDAO();
+			AuthDAO authDao = new AuthDAO();
 			String employeeName = null;
 			String divisionNo = null;
 			String authorityNo = null;
@@ -152,8 +154,8 @@ public class ChangeServlet extends HttpServlet {
 			employeeUser.setEmployeeName(employeeName);
 			employeeUser.setAuthNo(authorityNo);
 			employeeUser.setDepNo(divisionNo);
-			employeeUser.setAuthName(employeeDao.findByAuthName(employeeUser.getAuthNo()));
-			employeeUser.setDepName(employeeDao.findByDepName(employeeUser.getDepNo()));
+			employeeUser.setAuthName(authDao.findByAuthName(employeeUser.getAuthNo()));
+			employeeUser.setDepName(depDao.findByDepName(employeeUser.getDepNo()));
 
 			Validation validation = new Validation();
 
