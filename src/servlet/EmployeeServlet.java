@@ -115,7 +115,6 @@ public class EmployeeServlet extends HttpServlet {
 		employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),dep_No,emp_Name,pageno); // 検索結果取得 ログイン番号、入力部署、入力社員名、ページ番号
 
 		//ページ数取得
-
 		pageno = employeeDao.CountEmp(emodel.getEmployeeNo(),dep_No,emp_Name); //ページ数取得
 
 		//セッションに表示内容をセット

@@ -346,7 +346,7 @@ public class EmployeeDAO {
 			String sql = "select E.EmployeeNo,E.EmployeeName,E.employeedivisionNo,E.employeeAuthorityNo,ED.DivisionName,EP.AuthorityName "
 					+ "from Employee AS E LEFT JOIN employeedivision AS ED ON(E.employeeDivisionNo = ED.DivisionNo)"
 					+ " LEFT JOIN employeeposition AS EP ON(E.employeeAuthorityNo = EP.employeeAuthorityNo) "
-					+ " WHERE  E.employeeAuthorityNo <> '999' AND E.EmployeeNo <> ?";
+					+ " WHERE  E.employeeAuthorityNo <> '999'";
 
 			if (employee_name != "") {
 				sql = sql +  " AND E.EmployeeName LIKE ?";		//SQLの％記号はpreparestatementだと変換されるため
@@ -526,7 +526,7 @@ public class EmployeeDAO {
 
 	}
 
-	public boolean InsertEmployee(EmployeeModel empmodel) {
+	public boolean insertEmployee(EmployeeModel empmodel) {
 
 		conn = null;
 		pStmt = null;
