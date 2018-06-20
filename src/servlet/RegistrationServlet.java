@@ -17,6 +17,7 @@ import others.LoginLogic;
 import others.PassChanger;
 import others.SpaceKill;
 import validation.Validation;
+import dao.AuthDAO;
 import dao.DepDAO;
 import dao.EmployeeDAO;
 
@@ -82,6 +83,8 @@ public class RegistrationServlet extends HttpServlet {
 		LoginLogic ll = new LoginLogic();
 
 		EmployeeDAO ed = new EmployeeDAO();
+		DepDAO dd = new DepDAO();
+		AuthDAO ad = new AuthDAO();
 
 		Validation validation = new Validation();
 
@@ -151,8 +154,8 @@ public class RegistrationServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 
-		employeeModel.setDepName(ed.findByDepName(employeeModel.getDepNo()));
-		employeeModel.setAuthName(ed.findByAuthName(employeeModel.getAuthNo()));
+		employeeModel.setDepName(dd.findByDepName(employeeModel.getDepNo()));
+		employeeModel.setAuthName(ad.findByAuthName(employeeModel.getAuthNo()));
 
 		session.setAttribute("employeeModel", employeeModel);
 
