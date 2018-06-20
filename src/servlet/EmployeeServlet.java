@@ -41,13 +41,16 @@ public class EmployeeServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
+		//初期パスワードの変更を促す
 		PassChanger passChanger = new PassChanger();
 		passChanger.indexOut(request, response);
 
 		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
 		emodel.setDepName(employeeDao.findByDepName(emodel.getDepNo())); // depnoを渡してdepnameをset
 
+		//地震の所属部署以外をdeplistにいれる
 		deplist = (ArrayList<DepModel>) d_dao.findDepAll(); // 追加
+
 
 		session.setAttribute("Employee", emodel);
 		session.setAttribute("DepList", deplist);
@@ -55,40 +58,50 @@ public class EmployeeServlet extends HttpServlet {
 		session.setAttribute("SELECTPG", nowpage);
 		session.setAttribute("pageTitle", "社員検索");
 
+
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");
 		dispatcher.forward(request, response);
 	}
 
+
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
+		//社員の検索結果をいれる
 		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
+		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
 
 		// 検索結果の情報を削除
 		session.removeAttribute("RESULT");
 
-		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
-
 		// 社員名が入力されていた場合取得
 		String emp_Name = request.getParameter("employee_name");
-		// 社員名が入力されていなかった場合セッションから社員名情報を取得
+
+
+		// 社員名が入力されていなかった場合、セッションから社員名情報を取得
 		if (emp_Name != null) {
 			session.setAttribute("SELECTNAME", emp_Name);
 		} else {
 			emp_Name = (String) session.getAttribute("SELECTNAME");
 		}
+
 		// 部署番号判別
 		String dep_No = request.getParameter("dep_no");
+
+		//部署名がNullだった場合、セッションから部署番号を取得
 		if(dep_No != null){
 			session.setAttribute("SELECTDEP", dep_No);
-			if (dep_No.equals("00")) {
 
+			//全部署検索だった場合
+			if (dep_No.equals("00")) {
 			}
 		} else {
 			dep_No = (String) session.getAttribute("SELECTDEP");
 		}
+
+
 		// ページ番号の選択された番号を取得
 		selectno = request.getParameter("pgno"); // ページ選択value
 		// ページ番号が選択されていなかった場合初期値をセット
