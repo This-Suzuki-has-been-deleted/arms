@@ -341,7 +341,7 @@ public class EmployeeDAO {
 	}
 
 	//全社員一覧
-	public ArrayList<EmployeeModel> findByAll( String employee_name,int pageno) {
+	public ArrayList<EmployeeModel> findByAll(String employee_name,int pageno) {
 		conn = null;
 		pStmt = null;
 		int lim = 20;
@@ -354,7 +354,6 @@ public class EmployeeDAO {
 							"jdbc:mysql://localhost:3306/arms"
 									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
 							"root", "password");
-
 			// SQLの実行
 			String sql = "select E.EmployeeNo,E.EmployeeName,E.employeedivisionNo,E.employeeAuthorityNo,ED.DivisionName,EP.AuthorityName "
 					+ "from Employee AS E LEFT JOIN employeedivision AS ED ON(E.employeeDivisionNo = ED.DivisionNo)"
@@ -365,7 +364,7 @@ public class EmployeeDAO {
 				sql = sql +  " AND E.EmployeeName LIKE ?";		//SQLの％記号はpreparestatementだと変換されるため
 				employee_name = "%" + employee_name + "%";		//% + + %をsetしてあげる
 			}
-			sql = sql + " ORDER BY E.employeeDivisionNo,E.EmployeeNo LIMIT ?,?";
+			sql = sql + " ORDER BY E.EmployeeNo,E.employeeDivisionNo LIMIT ?,?";
 
 			int mathpageno = (lim * pageno) -20;
 
@@ -417,7 +416,7 @@ public class EmployeeDAO {
 	/**
 	 * 社員検索メソッド 検索結果の件数を算出する
 	 **/
-	public int CountEmp(String employee_no, String dep_no, String employee_name) {
+	public int CountEmp( String dep_no, String employee_name) {
 		conn = null;
 		pStmt = null;
 		int counter = 0;
@@ -438,19 +437,16 @@ public class EmployeeDAO {
 				employee_name = "%" + employee_name + "%";		//% + + %をsetしてあげる
 			}
 
-			if(dep_no == "00") {
-				pStmt = conn.prepareStatement(cntsql);
-				pStmt.setString(1, employee_no);
 
+			if(dep_no.equals("00")) {
+				pStmt = conn.prepareStatement(cntsql);
+				//pStmt.setString(1, employee_no);
 				if (employee_name != "") {
 					pStmt.setString(1, employee_name);
 				}
-
 			}else {
 				cntsql = cntsql + " AND employeedivisionNo = ?";
 				pStmt = conn.prepareStatement(cntsql);
-				pStmt.setString(1, employee_no);
-
 				if (employee_name != "") {
 					pStmt.setString(1, employee_name);
 					pStmt.setString(2, dep_no);
@@ -591,7 +587,6 @@ public class EmployeeDAO {
 				e.printStackTrace();
 				return false;
 			}
-
 		}
 		return true;
 
