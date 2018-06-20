@@ -29,14 +29,6 @@ public class ConfServlet extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,6 +38,7 @@ public class ConfServlet extends HttpServlet {
 		pageFlg  = (String) session.getAttribute("pageFlg");
 		EmployeeModel empModel;
 		EmployeeDAO employeeDao;
+
 		if(pageFlg.equals("RegistrationServlet")){
 			empModel = (EmployeeModel) session.getAttribute("employeeModel");
 			employeeDao = new EmployeeDAO();

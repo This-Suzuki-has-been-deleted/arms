@@ -20,7 +20,7 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="main">
-	<h2>${eMsg }</h2>
+	<h2>${eMsg }${Msg }</h2>
 	<h2>出退勤一覧</h2>
 	<form action="WorkServlet" method="GET">
 	<%  %>
@@ -46,7 +46,7 @@
 		</tr>
 	</table>
 	<br>
-	<h3>${ANNUAL.year}年  ${MOUNTHLY.month}月</h3>
+	<h3>${now_year}年  ${now_month}月</h3>
 	<form action="WorkServlet" method="GET">
 		<button type="submit" name="m_btn" value="-1" class="wl2_button">前月</button>
 		<button type="submit" name="m_btn" value="1" class="wl_button">次月</button>

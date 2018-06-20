@@ -53,10 +53,10 @@ public class WorkModifiServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//
 		HttpSession session = request.getSession();
 		DateMath dateMath = new DateMath();
-		WorkTimeModel workTimeModel = (WorkTimeModel) session
-				.getAttribute("workTimeModel");
+		WorkTimeModel workTimeModel = (WorkTimeModel) session.getAttribute("workTimeModel");
 		Timestamp attendanceTime = null;
 		Timestamp leavingTime = null;
 		Date dates = new Date();

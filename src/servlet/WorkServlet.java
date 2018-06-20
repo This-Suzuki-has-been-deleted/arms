@@ -51,19 +51,13 @@ public class WorkServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		session.removeAttribute("eMsg");
+		session.removeAttribute("Msg");
 
 		PassChanger passChanger = new PassChanger();
 		passChanger.indexOut(request, response);
 
 		// ログイン中のユーザーの情報をセッションから得る
 		EmployeeModel myEmp = (EmployeeModel) session.getAttribute("Employee");
-
-		// //ログインチェック
-		// if(myEmp == null){
-		// RequestDispatcher dispatcher = request
-		// .getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-		// dispatcher.forward(request, response);
-		// }
 
 		// 宣言
 		AnnualDAO annualDao = new AnnualDAO();
@@ -86,13 +80,14 @@ public class WorkServlet extends HttpServlet {
 
 		String[] week = { "日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日" };
 
-		int year;
-		int month;
+		int year ;
+		int month = 0;
 		String eMsg = null;
 
 		first.set(Calendar.DATE, 1);
 		int firstWeek = (first.get(Calendar.DAY_OF_WEEK) - 1);
 		int maxDayCnt = now.getActualMaximum(Calendar.DAY_OF_MONTH);
+		String Msg = null;
 
 		// セッションに曜日の情報が入っている配列をセット
 		session.setAttribute("week", week);
@@ -103,13 +98,21 @@ public class WorkServlet extends HttpServlet {
 
 		// yearとmonthの初期値を設定
 		if (yearBuf == null) {
-			year = now.get(Calendar.YEAR);// セッションに年が入っていなかった場合は今日の年を取得
-			session.setAttribute("now_year", year);
+				year = now.get(Calendar.YEAR);// セッションに年が入っていなかった場合は今日の年を取得
+				session.setAttribute("now_year", year);
 		} else if (Integer.parseInt(yearBuf) == 1) {
 			year = (int) session.getAttribute("now_year") + 1; // セッションに年が入っていた場合はその年を取得
 		} else {
 			year = (int) session.getAttribute("now_year") - 1;
 		}
+
+
+		//3年以上過去に行ってしまうのを防ぐ処理
+		if(year < (now.get(Calendar.YEAR)-3) || year > (now.get(Calendar.YEAR)) ){
+			year = (int) session.getAttribute("now_year");
+		}
+		Msg = year + "年の勤務表";
+
 
 		if (monthBuf == null) {
 			month = now.get(Calendar.MONTH) + 1; // セッションに月が入っていなかった場合は今日の月を取得
@@ -118,6 +121,11 @@ public class WorkServlet extends HttpServlet {
 			month = (int) session.getAttribute("now_month") + 1; // セッションに月が入っていた場合はその月を取得
 		} else {
 			month = (int) session.getAttribute("now_month") - 1;
+		}
+
+		if (month == 0){
+				month = 12;
+				year=year-1;
 		}
 
 		session.setAttribute("now_year", year);
@@ -173,12 +181,15 @@ public class WorkServlet extends HttpServlet {
 				wtm.setNightTimeM((int) nightTime % 60);
 			}
 			// 年間と月間の勤務時間を変換
+			/*
+			 * epic 946652400000 = 2000/01/01 00:00:00.0000000 と同じ扱いとなる。詳しくは「エポックミリ秒」で検索
+			 * 計算式
+			 *  (元々入っている日付のエポックミリ秒 - epic)をエポックミリ秒に変換 / 60000  = x分
+			 */
 			long epic = 946652400000L;
 			WorkTimeDateModel workTimeDateModel = new WorkTimeDateModel();
-			workTimeDateModel.setM_workTime(new Date(monthlyModel
-					.getM_workTime().getTime() - epic).getTime() / 60000);
-			workTimeDateModel.setM_overTime(new Date(monthlyModel
-					.getM_overTime().getTime() - epic).getTime() / 60000);
+			workTimeDateModel.setM_workTime(new Date(monthlyModel.getM_workTime().getTime() - epic).getTime() / 60000);
+			workTimeDateModel.setM_overTime(new Date(monthlyModel.getM_overTime().getTime() - epic).getTime() / 60000);
 			workTimeDateModel.setM_nightTime(new Date(monthlyModel
 					.getM_nightTime().getTime() - epic).getTime() / 60000);
 
@@ -194,6 +205,7 @@ public class WorkServlet extends HttpServlet {
 			session.setAttribute("MOUNTHLY", monthlyModel);
 			session.setAttribute("WorkTimeDate", workTimeDateModel);
 			session.setAttribute("Worktime", workTimeList);
+			session.setAttribute("Msg", Msg);
 		} else {
 			session.setAttribute("eMsg", eMsg);
 			session.removeAttribute("WorkTimeDate");
