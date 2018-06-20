@@ -71,7 +71,6 @@ public class InfoChangeServlet extends HttpServlet {
 		employeeModel.setEmployeeName(request.getParameter("employeeName"));
 		employeeModel.setDepNo(request.getParameter("selectDivisionNo"));
 		employeeModel.setAuthNo(request.getParameter("selectAuthorityNo"));
-		EmployeeDAO employeeDao = new EmployeeDAO();
 		AuthDAO authDao = new AuthDAO();
 		DepDAO depDao = new DepDAO();
 		depModel = depDao.findAllByDepNo(employeeModel.getDepNo());

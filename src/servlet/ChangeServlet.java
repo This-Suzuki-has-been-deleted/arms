@@ -149,7 +149,6 @@ public class ChangeServlet extends HttpServlet {
 			}catch(NullPointerException e){
 				msg = "未入力の項目があります。";
 			}
-			EmployeeDAO employeeDao = new EmployeeDAO();
 			employeeUser.setEmployeeNo(employeeNo);
 			employeeUser.setEmployeeName(employeeName);
 			employeeUser.setAuthNo(authorityNo);
