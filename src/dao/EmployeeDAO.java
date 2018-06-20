@@ -75,70 +75,6 @@ public class EmployeeDAO {
 		return empmodel;
 	}
 
-	// 社員名をキーに社員検索（重複チェック
-	public ArrayList<EmployeeModel> findByEmployeeName(String empname,String empno) {
-
-		conn = null;
-		pStmt = null;
-		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
-
-		try {
-			conn = DriverManager
-					.getConnection(
-							"jdbc:mysql://localhost:3306/arms"
-									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
-							"root", "password");
-
-			// SQLの実行
-			String sql = "select EmployeeNo,EmployeeName,DivisionName,AuthorityName "
-					+ "from Employee AS e LEFT JOIN employeedivision AS ed ON(e.DivisionNo = ed.DivisionNo)"
-					+ " LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority) "
-					+ "where EmployeeName LIKE '%?%' AND DivisionNo <> '999' AND EmployeeNo <> ?)";
-
-			pStmt = conn.prepareStatement(sql);
-			EmployeeModel empmodel = new EmployeeModel();
-
-			pStmt.setString(1, empname); // (1,xxx)１個目のハテナ
-			pStmt.setString(2, empno);
-
-			// 結果の取得と出力
-			ResultSet rs = pStmt.executeQuery();
-
-			while (rs.next()) {
-				String employeeno = rs.getString("EmployeeNo");
-				String employeename = rs.getString("EmployeeName");
-				String divisionname = rs.getString("EmployeeDivisionName");
-				String authorityno = rs.getString("EmployeeAuthorityNo");
-				// Date enteringdate = rs.getDate("EmployeeEnteringDate");
-				String password = rs.getString("employeePassword");
-
-				empmodel.setEmployeeNo(employeeno);
-				empmodel.setEmployeeName(employeename);
-				empmodel.setDepName(divisionname);
-				empmodel.setAuthNo(authorityno);
-				empmodel.setPassword(password);
-
-				employeelist.add(empmodel);
-
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			try {
-				// 切断
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return null;
-			}
-
-		}
-		return employeelist;
-
-	}
-
 	public String findByAuthName(String authno) {
 
 		conn = null;
@@ -276,7 +212,7 @@ public class EmployeeDAO {
 		return divisionname;
 	}
 
-	// 部署をリストに詰める
+	// ログイン中ユーザの所属部署以外をリストに詰める
 	public ArrayList<DepModel> findByDepNo(EmployeeModel emodel) { // 部署 = Dep
 
 		conn = null;
@@ -346,7 +282,7 @@ public class EmployeeDAO {
 			String sql = "select E.EmployeeNo,E.EmployeeName,E.employeedivisionNo,E.employeeAuthorityNo,ED.DivisionName,EP.AuthorityName "
 					+ "from Employee AS E LEFT JOIN employeedivision AS ED ON(E.employeeDivisionNo = ED.DivisionNo)"
 					+ " LEFT JOIN employeeposition AS EP ON(E.employeeAuthorityNo = EP.employeeAuthorityNo) "
-					+ " WHERE  E.employeeAuthorityNo <> '999' AND E.EmployeeNo <> ?";
+					+ " WHERE  E.employeeAuthorityNo <> '999'";
 
 			if (employee_name != "") {
 				sql = sql +  " AND E.EmployeeName LIKE ?";		//SQLの％記号はpreparestatementだと変換されるため
@@ -357,24 +293,94 @@ public class EmployeeDAO {
 
 			int mathpageno = (lim * pageno) -20;
 
-
 			pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, employee_no);
 			if (employee_name != "") {
-				pStmt.setString(2, employee_name);
-				pStmt.setString(3, dep_no);
-				pStmt.setInt(4,mathpageno);
-				pStmt.setInt(5,lim);
-
-			}else{
+				pStmt.setString(1, employee_name);
 				pStmt.setString(2, dep_no);
 				pStmt.setInt(3,mathpageno);
 				pStmt.setInt(4,lim);
-			}
 
+			}else{
+				pStmt.setString(1, dep_no);
+				pStmt.setInt(2,mathpageno);
+				pStmt.setInt(3,lim);
+			}
 			// 結果の取得と出力
 			ResultSet rs = pStmt.executeQuery();
+			while (rs.next()) {
+				 empmodel = new EmployeeModel();
+				String employeeno = rs.getString("E.EmployeeNo");
+				String employeename = rs.getString("E.EmployeeName");
+				String divisionno = rs.getString("E.employeeDivisionNo");
+				String divisionname = rs.getString("ED.DivisionName");
+				String authorityno = rs.getString("E.employeeAuthorityNo");
+				String authorityname = rs.getString("EP.AuthorityName");
 
+				empmodel.setEmployeeNo(employeeno);
+				empmodel.setEmployeeName(employeename);
+				empmodel.setDepNo(divisionno);
+				empmodel.setDepName(divisionname);
+				empmodel.setAuthNo(authorityno);
+				empmodel.setAuthName(authorityname);
+
+				employeelist.add(empmodel);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				// 切断
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return employeelist;
+	}
+
+	//全社員一覧
+	public ArrayList<EmployeeModel> findByAll( String employee_name,int pageno) {
+		conn = null;
+		pStmt = null;
+		int lim = 20;
+		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
+		EmployeeModel empmodel = new EmployeeModel();
+
+		try {
+			conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/arms"
+									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
+							"root", "password");
+
+			// SQLの実行
+			String sql = "select E.EmployeeNo,E.EmployeeName,E.employeedivisionNo,E.employeeAuthorityNo,ED.DivisionName,EP.AuthorityName "
+					+ "from Employee AS E LEFT JOIN employeedivision AS ED ON(E.employeeDivisionNo = ED.DivisionNo)"
+					+ " LEFT JOIN employeeposition AS EP ON(E.employeeAuthorityNo = EP.employeeAuthorityNo) "
+					+ " WHERE  E.employeeAuthorityNo <> '999'";
+
+			if (employee_name != "") {
+				sql = sql +  " AND E.EmployeeName LIKE ?";		//SQLの％記号はpreparestatementだと変換されるため
+				employee_name = "%" + employee_name + "%";		//% + + %をsetしてあげる
+			}
+			sql = sql + " ORDER BY E.employeeDivisionNo,E.EmployeeNo LIMIT ?,?";
+
+			int mathpageno = (lim * pageno) -20;
+
+			pStmt = conn.prepareStatement(sql);
+			if (employee_name != "") {
+				pStmt.setString(1, employee_name);
+				pStmt.setInt(2,mathpageno);
+				pStmt.setInt(3,lim);
+
+			}else{
+				pStmt.setInt(1,mathpageno);
+				pStmt.setInt(2,lim);
+			}
+			// 結果の取得と出力
+			ResultSet rs = pStmt.executeQuery();
 			while (rs.next()) {
 				 empmodel = new EmployeeModel();
 				String employeeno = rs.getString("E.EmployeeNo");
@@ -425,22 +431,32 @@ public class EmployeeDAO {
 							"root", "password");
 
 			// SQLの実行
-			String cntsql = "select Count(*) AS Counter FROM Employee WHERE employeeAuthorityNo <> '999'  AND EmployeeNo <> ?";
+			String cntsql = "select Count(*) AS Counter FROM Employee WHERE employeeAuthorityNo <> '999'";
 
 			if (employee_name != "") {
 				cntsql = cntsql +  " AND EmployeeName LIKE ?";		//SQLの％記号はpreparestatementだと変換されるため
 				employee_name = "%" + employee_name + "%";		//% + + %をsetしてあげる
 			}
-			cntsql = cntsql + " AND employeedivisionNo = ?";
 
-			pStmt = conn.prepareStatement(cntsql);
-			pStmt.setString(1, employee_no);
+			if(dep_no == "00") {
+				pStmt = conn.prepareStatement(cntsql);
+				pStmt.setString(1, employee_no);
 
-			if (employee_name != "") {
-				pStmt.setString(2, employee_name);
-				pStmt.setString(3, dep_no);
-			}else{
-				pStmt.setString(2, dep_no);
+				if (employee_name != "") {
+					pStmt.setString(1, employee_name);
+				}
+
+			}else {
+				cntsql = cntsql + " AND employeedivisionNo = ?";
+				pStmt = conn.prepareStatement(cntsql);
+				pStmt.setString(1, employee_no);
+
+				if (employee_name != "") {
+					pStmt.setString(1, employee_name);
+					pStmt.setString(2, dep_no);
+				}else{
+					pStmt.setString(1, dep_no);
+				}
 			}
 
 			// 結果の取得と出力

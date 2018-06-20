@@ -46,16 +46,13 @@ public class EmployeeServlet extends HttpServlet {
 		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
 		emodel.setDepName(employeeDao.findByDepName(emodel.getDepNo()));	//depnoを渡してdepnameをset
 
-		//deplist = employeeDao.findAllByDepNo(emodel.getDepNo());
-
-
 		deplist = (ArrayList<DepModel>) d_dao.findDepAll();		//追加
 
 		session.setAttribute("Employee",emodel);
 		session.setAttribute("DepList",deplist);
 		session.setAttribute("PAGENO",pageno);
 		session.setAttribute("SELECTPG",nowpage);
-		session.setAttribute("pageTitle", "社員検索");
+		session.setAttribute("pageTitle","社員検索");
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");
@@ -66,41 +63,41 @@ public class EmployeeServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
+			ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
+
 		//検索結果の情報を削除
 		session.removeAttribute("RESULT");
 
 		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
 
-		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
+
 
 		//社員名が入力されていた場合取得
 		String emp_Name = request.getParameter("employee_name");
-
 		//社員名が入力されていなかった場合セッションから社員名情報を取得
 		if(emp_Name != null){
 			session.setAttribute("SELECTNAME",emp_Name);
 		}
-
 		//社員番号が入力されていた場合取得
 		String dep_No = request.getParameter("dep_no");
+		if(dep_No == "00") {
 
-		//社員番号が入力されていなかった場合セッションから社員名情報を取得
-		if(dep_No != null){
-			session.setAttribute("SELECTDEP",dep_No);
+		}else {
+			//JSPの入力値をセッションに保存
+			if(dep_No != null){
+				session.setAttribute("SELECTDEP",dep_No);
+			}
 		}
 
 		//ページ番号の選択された番号を取得
 		selectno = request.getParameter("pgno");		//ページ選択value
-
 		//ページ番号が選択されていなかった場合初期値をセット
 		if(selectno == null) {
 			pageno = 1;
 			selectno = "1";
 		}
-
 		pageno = Integer.parseInt(selectno);		//検索件数分のページ
 		nowpage = Integer.parseInt(selectno);		//現在表示しているページ
-
 		//社員名、部署番号が入力されているかどうか
 		if(dep_No == null  && emp_Name == null) {	//社員番号、部署番号ともに入力されていなかった場合
 			emp_Name = (String) session.getAttribute("SELECTNAME");
@@ -111,12 +108,16 @@ public class EmployeeServlet extends HttpServlet {
 			dep_No = (String) session.getAttribute("SELECTDEP");
 		}
 
-		//社員検索
-		employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),dep_No,emp_Name,pageno); // 検索結果取得 ログイン番号、入力部署、入力社員名、ページ番号
+
+		//社員検索呼出し	部署検索OR全社員一覧（00=全部署検索）
+		if(dep_No == "00") {
+			employeelist = employeeDao.findByAll(emp_Name,pageno);
+		}else {
+			employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),dep_No,emp_Name,pageno); // 検索結果取得 ログイン番号、入力部署、入力社員名、ページ番号
+		}
 
 		//ページ数取得
-
-		pageno = employeeDao.CountEmp(emodel.getEmployeeNo(),dep_No,emp_Name); //ページ数取得
+		pageno = employeeDao.CountEmp(emodel.getEmployeeNo(),dep_No,emp_Name);
 
 		//セッションに表示内容をセット
 		session.setAttribute("RESULT",employeelist);

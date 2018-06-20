@@ -17,6 +17,7 @@
 		<form method="post" action="EmployeeServlet">
 			社員名 <input type="text" name="employee_name">
 			部署名<select name="dep_no">
+			<option value="00">全部署</option>
 				<c:forEach var="deplist" items="${DepList}">
 					<c:if test="${Employee.authNo == '003' || Employee.authNo =='999'}">
 						<c:choose>
