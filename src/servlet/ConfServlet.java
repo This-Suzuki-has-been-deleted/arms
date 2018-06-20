@@ -49,7 +49,7 @@ public class ConfServlet extends HttpServlet {
 		if(pageFlg.equals("RegistrationServlet")){
 			empModel = (EmployeeModel) session.getAttribute("employeeModel");
 			employeeDao = new EmployeeDAO();
-			employeeDao.InsertEmployee(empModel);
+			employeeDao.insertEmployee(empModel);
 			session.setAttribute("Msg", "完了です！");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/employeeRegistration.jsp");
 			dispatcher.forward(request, response);
