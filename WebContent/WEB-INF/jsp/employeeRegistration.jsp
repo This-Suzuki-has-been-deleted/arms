@@ -9,8 +9,8 @@
 <%
 	EmployeeModel myEmp = (EmployeeModel) session
 			.getAttribute("Employee");
-	ArrayList<DepModel> depList = (ArrayList<DepModel>) session
-			.getAttribute("depList");
+	@SuppressWarnings("unchecked")
+	ArrayList<DepModel> depList = (ArrayList<DepModel>) session.getAttribute("depList");
 	String eMsg = (String) session.getAttribute("eMsg");
 	String msg = (String) session.getAttribute("Msg");
 	session.removeAttribute("eMsg");

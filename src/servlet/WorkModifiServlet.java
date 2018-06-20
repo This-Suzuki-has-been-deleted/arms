@@ -17,7 +17,6 @@ import model.AnnualModel;
 import model.MonthlyModel;
 import model.WorkTimeModel;
 import others.DateMath;
-import validation.Validation;
 import dao.AnnualDAO;
 import dao.MonthlyDAO;
 import dao.WorkDAO;
@@ -86,14 +85,7 @@ public class WorkModifiServlet extends HttpServlet {
 
 		workTimeModel.setAttendance(attendanceTime);
 		workTimeModel.setLeaving(leavingTime);
-		Validation validation = new Validation();
 
-		/**
-		 * if(validation.(workTimeModel)){ String eMsg = "入力誤り有";
-		 * session.setAttribute("eMsg",eMsg); RequestDispatcher dispatcher =
-		 * request.getRequestDispatcher("WEB-INF/jsp/workTimeChange.jsp");
-		 * dispatcher.forword(request,response); }
-		 */
 		WorkDAO workDao = new WorkDAO();
 		WorkTimeModel workTime = new WorkTimeModel();
 		workTime = workDao.findWorkTime(workTimeModel.getEmployeeNo(),
