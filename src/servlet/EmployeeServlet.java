@@ -25,7 +25,6 @@ public class EmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	DepDAO d_dao = new DepDAO();
-
 	EmployeeDAO employeeDao = new EmployeeDAO();
 	ArrayList<DepModel> deplist = new ArrayList<DepModel>();
 
@@ -46,12 +45,12 @@ public class EmployeeServlet extends HttpServlet {
 		passChanger.indexOut(request, response);
 
 		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
-		emodel.setDepName(employeeDao.findByDepName(emodel.getDepNo())); // depnoを渡してdepnameをset
+		emodel.setDepName(d_dao.findByDepName(emodel.getDepNo())); // depnoを渡してdepnameをset
 
 		//地震の所属部署以外をdeplistにいれる
 		deplist = (ArrayList<DepModel>) d_dao.findDepAll(); // 追加
 
-
+		// セッションに表示内容をセット
 		session.setAttribute("Employee", emodel);
 		session.setAttribute("DepList", deplist);
 		session.setAttribute("PAGENO", pageno);
@@ -104,28 +103,34 @@ public class EmployeeServlet extends HttpServlet {
 
 		// ページ番号の選択された番号を取得
 		selectno = request.getParameter("pgno"); // ページ選択value
+
 		// ページ番号が選択されていなかった場合初期値をセット
 		if (selectno == null) {
 			pageno = 1;
 			selectno = "1";
 		}
+
 		pageno = Integer.parseInt(selectno); // 検索件数分のページ
 		nowpage = Integer.parseInt(selectno); // 現在表示しているページ
+
 
 		// 社員検索呼出し 部署検索OR全社員一覧（00=全部署検索）
 		if (dep_No.equals("00")) {
 			employeelist = employeeDao.findByAll(emp_Name, pageno);
 		} else {
-			employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),
-					dep_No, emp_Name, pageno); // 検索結果取得 ログイン番号、入力部署、入力社員名、ページ番号
+			// 検索結果取得 ログイン番号、入力部署、入力社員名、ページ番号
+			employeelist = employeeDao.findByNameDep(emodel.getEmployeeNo(),dep_No, emp_Name, pageno);
 		}
+
 		// ページ数取得
 		pageno = employeeDao.CountEmp(dep_No, emp_Name); // ページ数取得
+
 
 		// セッションに表示内容をセット
 		session.setAttribute("RESULT", employeelist);
 		session.setAttribute("PAGENO", pageno);
 		session.setAttribute("SELECTPG", nowpage);
+
 
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher("/WEB-INF/jsp/employeeSearch.jsp");
