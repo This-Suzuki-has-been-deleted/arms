@@ -49,6 +49,7 @@ public class RegistrationServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
+		//初期パスワード変更
 		PassChanger passChanger = new PassChanger();
 		passChanger.indexOut(request, response);
 
@@ -77,10 +78,9 @@ public class RegistrationServlet extends HttpServlet {
 		// 宣言
 		EmployeeModel employeeModel = new EmployeeModel();
 		EmployeeModel employee = null;
-		// EmployeeModel myEmp = (EmployeeModel)
-		// request.getAttribute("Employee");
 
 		LoginLogic ll = new LoginLogic();
+
 		EmployeeDAO ed = new EmployeeDAO();
 
 		Validation validation = new Validation();
@@ -91,31 +91,23 @@ public class RegistrationServlet extends HttpServlet {
 		String textName; // 入力内容を受け取る変数
 		String selectDivisionNo;
 		String selectAuthorityNo;
-		String pageFlg;
+		final String pageFlg = "RegistrationServlet";
 		String msg;
 
-		pageFlg = null;
 		msg = null;
 
 		HttpSession session = request.getSession();
-
-		// // ログインチェック
-		// if (myEmp == null) {
-		// RequestDispatcher dispatcher = request
-		// .getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-		// dispatcher.forward(request, response);
-		// }
 
 		// 部署 division,dep
 		// 権限 authority
 
 		// 入力値受け取り
-
 		textCode = request.getParameter("textCode");
 		textName = request.getParameter("textName");
 		selectDivisionNo = request.getParameter("selectDivisionNo");
 		selectAuthorityNo = request.getParameter("selectAuthorityNo");
 
+		//入力値に全角、半角スペースを入力されていた場合スペースを消す
 		textCode = spaceKill.stringSpaceKill(textCode);
 		textName = spaceKill.stringSpaceKill(textName);
 
@@ -164,7 +156,6 @@ public class RegistrationServlet extends HttpServlet {
 
 		session.setAttribute("employeeModel", employeeModel);
 
-		pageFlg = "RegistrationServlet";
 		session.setAttribute("pageFlg", pageFlg);
 
 		RequestDispatcher dispatcher = request
