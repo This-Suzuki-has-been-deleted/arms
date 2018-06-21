@@ -44,7 +44,7 @@ public class TestDateMath {
 		Date temp_date2 = sdf.parse("2018/01/01 00:10:00");
 		long date1 = temp_date1.getTime();
 		long date2 = temp_date2.getTime();
-		System.out.println(date1 + " " + date2);
+		//System.out.println(date1 + " " + date2);
 		assertEquals("差が正しく出ていない",10,dateMath.diff(date1, date2));
 	}
 
