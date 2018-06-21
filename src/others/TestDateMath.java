@@ -19,7 +19,7 @@ public class TestDateMath {
 	//事前処理
 	public static void setUp(){
 		System.out.println("DateMathテスト開始");
-        DateMath dateMath = new DateMath();
+        dateMath = new DateMath();
 	}
 
 	@AfterClass
