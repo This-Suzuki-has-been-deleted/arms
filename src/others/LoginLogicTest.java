@@ -23,14 +23,16 @@ public class LoginLogicTest {
 	}
 
 	@Test
+	public void PassHashCheck(){
+		assertNotNull("結果がnullになってる", loginlogic.passHash("abcd1234"));
+	}
+
+	@Test
 	// 評価するメソッドの戻り値がtrueかどうか
 	public void loginCheck(){
 		assertTrue("IDとPW一致してない",loginlogic.login("aa12345678",loginlogic.passHash("admin1234")));
 	}
 
-	@Test
-	public void PassHashCheck(){
-		assertNotNull("結果がnullになってる", loginlogic.passHash("abcd1234"));
-	}
+
 
 }
