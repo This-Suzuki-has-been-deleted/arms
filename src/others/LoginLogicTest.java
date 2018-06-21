@@ -32,7 +32,4 @@ public class LoginLogicTest {
 	public void loginCheck(){
 		assertTrue("IDとPW一致してない",loginlogic.login("aa12345678",loginlogic.passHash("admin1234")));
 	}
-
-
-
 }
