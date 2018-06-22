@@ -27,8 +27,9 @@ public class PassChanger {
 						.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 				dispatcher.forward(request, response);
 			}
-		}else{
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+		} else {
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

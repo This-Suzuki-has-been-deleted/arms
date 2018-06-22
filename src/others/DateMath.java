@@ -42,23 +42,6 @@ public class DateMath {
 	}
 
 	/**
-	 * 深夜時間計算の時、22時以降に業務を開始した際を考慮した 二つの時間の差(分)を算出するメソッド 未実装です
-	 *
-	 * @param date1
-	 * @param date2
-	 * @param startTime
-	 * @return
-	 */
-	public int nightTimeDiff(long date1, long date2, long startTime) {
-
-		int diff = (int) (date1 - date2) / (1000 * 60);
-		if (diff <= 0) {
-			diff = 0;
-		}
-		return diff;
-	}
-
-	/**
 	 * 呼び出された日の定時をlongで返すメソッド
 	 *
 	 * @param year

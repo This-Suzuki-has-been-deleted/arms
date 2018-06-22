@@ -92,7 +92,7 @@ public class ChangeServlet extends HttpServlet {
 			employeeNo = employee.getEmployeeNo();
 		}
 		//権限が一般、もしくは社員番号が同じだった時
-		if(employee.getAuthNo().equals("01") || employee.getEmployeeNo() == employeeNo ){
+		if(employee.getAuthNo().equals("001") || employee.getEmployeeNo() == employeeNo ){
 			String password = request.getParameter("pass");
 			String nextPassword = request.getParameter("nextPass");
 			String Msg = null;
