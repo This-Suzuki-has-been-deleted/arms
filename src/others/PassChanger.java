@@ -25,7 +25,7 @@ public class PassChanger {
 			if (myEm.getPassword().equals("bd94dcda26fccb4e68d6a31f9b5aac0b571ae266d822620e901ef7ebe3a11d4f")) {
 				session.setAttribute("pageTitle", "初期パスワード変更");
 				RequestDispatcher dispatcher = request
-						.getRequestDispatcher("/WEB-INF/jsp/passChange.jsp");
+						.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 				dispatcher.forward(request, response);
 			}
 		} else {

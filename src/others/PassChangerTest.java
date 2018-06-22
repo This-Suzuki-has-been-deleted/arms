@@ -26,13 +26,14 @@ public class PassChangerTest {
 		em.setEmployeeNo("aa00000001");
 		em.setEmployeeName("高橋ゆうすけ");
 		em.setPassword("bd94dcda26fccb4e68d6a31f9b5aac0b571ae266d822620e901ef7ebe3a11d4f");
+		//em.setPassword("aasdfgfh");
 		em.setDepNo("01");
 		em.setDepName("総務部");
 		em.setAuthNo("001");
 		em.setAuthName("管理者");
 		em.setDelFlg(0);
 
-		session.setAttribute("em", em);
+		session.setAttribute("Employee", em);
 		System.out.println("テスト開始");
 	}
 
@@ -45,7 +46,7 @@ public class PassChangerTest {
 	public void indexOutTest() {
 		HttpSession session = req.getSession();
 		EmployeeModel em = new EmployeeModel();
-		em = (EmployeeModel) session.getAttribute("em");
+		em = (EmployeeModel) session.getAttribute("Employee");
 		PassChanger pc = new PassChanger();
 		try {
 			pc.indexOut(req, resp);
@@ -56,10 +57,10 @@ public class PassChangerTest {
 			if (em.getPassword()
 					.equals("bd94dcda26fccb4e68d6a31f9b5aac0b571ae266d822620e901ef7ebe3a11d4f")) {
 				// session.setAttribute("pageTitle", "初期パスワード変更");
-				assertThat("/WEB-INF/jsp/passChange.jsp",is(resp.getForwardedUrl()));
+				assertThat("WEB-INF/jsp/passChange.jsp",is(resp.getForwardedUrl()));
 			}
 		} else {
-			assertThat("/WEB-INF/jsp/login.jsp", is(resp.getForwardedUrl()));
+			assertThat("/WEB-INF/jsp/login.jsp",is(resp.getForwardedUrl()));
 		}
 	}
 }
