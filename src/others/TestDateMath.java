@@ -28,6 +28,7 @@ public class TestDateMath {
 		System.out.println("DateMathテスト終了");
 	}
 
+
 	@Test
 	//TimeStampに指定した分数を加算出来るかテスト
 	public void testAddMinute() throws ParseException{
