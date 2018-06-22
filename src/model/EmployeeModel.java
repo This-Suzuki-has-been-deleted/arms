@@ -8,6 +8,18 @@ public class EmployeeModel {
 	private AuthModel authModel = new AuthModel();
 	private DepModel depModel = new DepModel();
 
+	public EmployeeModel(String employeeno, String employeename, String depno,String authno,String depname,String authname) {
+
+		setEmployeeNo(employeeno);
+		setEmployeeName(employeename);
+		setDepNo(depno);
+		setAuthNo(authno);
+		setDepName(depname);
+		setAuthName(authname);
+	}
+
+	public EmployeeModel() {}
+
 	public String getEmployeeNo() {
 		return employeeNo;
 	}

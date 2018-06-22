@@ -298,62 +298,6 @@ public class EmployeeDAO {
 		return cnt;
 	}
 
-	// 社員情報全件表示（現在は使用しない）
-	public ArrayList<EmployeeModel> findAll() {
-
-		conn = null;
-		pStmt = null;
-		ArrayList<EmployeeModel> employeelist = new ArrayList<EmployeeModel>();
-		EmployeeModel empmodel = new EmployeeModel();
-		try {
-			conn = DriverManager
-					.getConnection(
-							"jdbc:mysql://localhost:3306/arms"
-									+ "?verifyServerCertificate =false&useSSL=false&requireSSL = false",
-							"root", "password");
-			// SQLの実行
-			String sql = "select EmployeeNo,EmployeeName,DivisionName,AuthorityName "
-					+ "from Employee AS e LEFT JOIN employeedivision AS ed ON(e.DivisionNo = ed.DivisionNo)"
-					+ " LEFT JOIN employeeposition AS ep ON(e.EmployeeAuthority = ep.EmployeeAuthority))";
-
-			pStmt = conn.prepareStatement(sql);
-
-			// 結果の取得と出力
-			ResultSet rs = pStmt.executeQuery();
-			while (rs.next()) {
-
-				String employeeno = rs.getString("EmployeeNo");
-				String employeename = rs.getString("EmployeeName");
-				String divisionname = rs.getString("DivisionName");
-				String authorityname = rs.getString("AuthorityName"); // SQLの値をgetでもってくる　上のsqlで宣言したもの
-
-				empmodel.setEmployeeNo(employeeno);
-				empmodel.setEmployeeName(employeename);
-				empmodel.setDepName(divisionname);
-				empmodel.setAuthName(authorityname);
-
-				employeelist.add(empmodel);
-
-			}
-			return employeelist;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			try {
-				// 切断
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return null;
-			}
-
-		}
-		// return tr;
-
-	}
-
 	public boolean insertEmployee(EmployeeModel empmodel) {
 
 		conn = null;

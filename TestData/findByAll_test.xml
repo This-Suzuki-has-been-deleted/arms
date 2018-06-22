@@ -1,0 +1,4 @@
+<dataset>
+<testtable EmployeeNo="bb12345678" EmployeeName = "小澤" EmployeeDivisionNo = "01" EmployeeAuthorityNo = "001"  DivisionName="総務部" AuthorityName="一般"/>
+<testtable EmployeeNo="cc12345678" EmployeeName = "高濱" EmployeeDivisionNo = "01" EmployeeAuthorityNo = "001"  DivisionName="総務部" AuthorityName="一般"/>
+</dataset>
