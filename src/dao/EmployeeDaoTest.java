@@ -4,7 +4,6 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,7 +19,6 @@ import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.operation.DatabaseOperation;
 import org.hamcrest.beans.SamePropertyValuesAs;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,17 +43,6 @@ public class EmployeeDaoTest {
 			// IDatabaseConnectionの作成
 			connection = new DatabaseConnection(conn);
 
-			// データセットの取得
-			// 検索機能テストの場合書き換え必要
-			IDataSet setDataSet = new FlatXmlDataSetBuilder()
-					.build(new FileInputStream(
-							"C:\\pleiades\\workspace\\testXunitSample\\TestData\\testdata001.xml"));
-
-			// セットアップ実行
-			DatabaseOperation.CLEAN_INSERT.execute(connection, setDataSet);
-
-		} catch (FileNotFoundException ex) {
-			ex.printStackTrace();
 		} finally {
 			if (connection != null) {
 				connection.close();
@@ -65,7 +52,6 @@ public class EmployeeDaoTest {
 			}
 		}
 	}
-
 
 
 	EmployeeDAO edao = new EmployeeDAO();
@@ -209,10 +195,6 @@ public class EmployeeDaoTest {
 	}
 
 
-
-
-
-
 	// 【テスト②】下記データの登録を行う。
 	// 【期待値】事前登録した内容含め2件の結果と内容が一致すること
 	@Test
@@ -222,8 +204,6 @@ public class EmployeeDaoTest {
 		EmployeeModel emodel = new EmployeeModel();
 		emodel.setEmployeeNo("aa87654321");
 		emodel.setEmployeeName("test君");
-		emodel.setPassword("bd94dcda26fccb4e68d6a31f9b5aac0b571ae266d822620e901ef7ebe3a11d4f");
-		emodel.setDelFlg(0);
 		emodel.setAuthNo("01");
 		emodel.setDepNo("001");
 
@@ -236,7 +216,7 @@ public class EmployeeDaoTest {
 							"C:\\pleiades\\workspace\\testXunitSample\\TestData\\insert_test.xml"));
 
 			// 抽出するSQLを作成
-			String actualSql = "select * from employee where EmployeeNo ='aa87654321'";
+			String actualSql = "select EmployeeNo,EmployeeDivisionNo,EmployeeAuthorityNo,EmployeeName from employee where EmployeeNo ='aa87654321'";
 
 			// 作成日、更新日など照合の対象とならないデータです。
 			// (注意：対象外のカラムが無くても空文字を引数として渡します)
