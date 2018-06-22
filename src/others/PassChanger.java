@@ -16,13 +16,12 @@ public class PassChanger {
 
 	public void indexOut(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		//LoginLogic ll = new LoginLogic();
+		LoginLogic ll = new LoginLogic();
 		session = request.getSession();
 
 		myEm = (EmployeeModel) session.getAttribute("Employee");
 		if (myEm != null) {
-			// if (myEm.getPassword().equals(ll.passHash("pass1234"))) {
-			if (myEm.getPassword().equals("bd94dcda26fccb4e68d6a31f9b5aac0b571ae266d822620e901ef7ebe3a11d4f")) {
+			if (myEm.getPassword().equals(ll.passHash("pass1234"))) {
 				session.setAttribute("pageTitle", "初期パスワード変更");
 				RequestDispatcher dispatcher = request
 						.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
