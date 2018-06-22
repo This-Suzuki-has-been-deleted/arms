@@ -10,5 +10,14 @@
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/testXunitSample"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/testXunitSample/WebContent/WEB-INF/lib/DBunit/hamcrest-library-1.3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/DBunit/dbunit-2.4.9.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/DBunit/hamcrest-library-1.3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/DBunit/logback-classic-1.1.7.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/DBunit/logback-core-1.1.7.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/DBunit/mysql-connector-java-5.1.38-bin.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/DBunit/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/HTTPunit/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/HTTPunit/spring-core-3.2.3.release.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/HTTPunit/spring-mock-2.0.6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
