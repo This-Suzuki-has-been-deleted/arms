@@ -69,7 +69,7 @@ public class EmployeeDaoTest {
 							"C:\\Users\\user10\\git\\arms\\TestData\\findEmployee_test.xml"));
 
 			// 抽出するSQLを作成
-			String actualSql = "select * from employee where EmployeeNo ='aa12345678'";
+			String actualSql = "select * from testtable where EmployeeNo ='aa12345678'";
 
 			// 作成日、更新日など照合の対象とならないデータです。
 			// (注意：対象外のカラムが無くても空文字を引数として渡します)
