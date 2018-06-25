@@ -204,9 +204,9 @@ public class EmployeeDaoTest {
 		EmployeeModel emodel = new EmployeeModel();
 		emodel.setEmployeeNo("aa87654321");
 		emodel.setEmployeeName("test君");
-		emodel.setAuthNo("01");
-		emodel.setDepNo("001");
-
+		emodel.setAuthNo("001");
+		emodel.setDepNo("01");
+		emodel.setPassword("bd94dcda26fccb4e68d6a31f9b5aac0b571ae266d822620e901ef7ebe3a11d4f");
 		edao.insertEmployee(emodel);
 
 		try {
