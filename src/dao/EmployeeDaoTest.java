@@ -20,6 +20,7 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.hamcrest.beans.SamePropertyValuesAs;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +28,7 @@ public class EmployeeDaoTest {
 
 	Connection conn = null;
 	IDatabaseConnection connection = null;
-
+	EmployeeDAO edao = new EmployeeDAO();
 	@Before
 	public void setUp() throws Exception {
 		try {
@@ -43,18 +44,23 @@ public class EmployeeDaoTest {
 			// IDatabaseConnectionの作成
 			connection = new DatabaseConnection(conn);
 
-		} finally {
-			if (connection != null) {
-				connection.close();
-			}
-			if (conn != null) {
-				conn.close();
-			}
+		}catch (Exception ex){
+			ex.printStackTrace();
+		}
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		if (connection != null) {
+			connection.close();
+		}
+		if (conn != null) {
+			conn.close();
 		}
 	}
 
 
-	EmployeeDAO edao = new EmployeeDAO();
+
 
 	public void  社員情報取得機能()throws Exception {
 
