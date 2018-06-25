@@ -24,6 +24,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+
 public class EmployeeDaoTest {
 
 	Connection conn = null;
@@ -61,7 +62,7 @@ public class EmployeeDaoTest {
 
 
 
-
+	@Test
 	public void  社員情報取得機能()throws Exception {
 
 		EmployeeDAO edao = new EmployeeDAO();
@@ -102,6 +103,7 @@ public class EmployeeDaoTest {
 		}
 	}
 
+	@Test
 	public void 社員情報検索() throws Exception {
 
 
@@ -146,6 +148,7 @@ public class EmployeeDaoTest {
 
 	}
 
+	@Test
 	public void 全社員一覧() throws Exception {
 
 		EmployeeDAO edao = new EmployeeDAO();
@@ -250,6 +253,7 @@ public class EmployeeDaoTest {
 
 	}
 
+	@Test
 	public void 社員情報変更() throws SQLException {
 
 		EmployeeModel emodel = new EmployeeModel();
