@@ -66,7 +66,7 @@ public class EmployeeDaoTest {
 			// 期待値リストをxmlファイルから読み込む
 			IDataSet expectedSet = new FlatXmlDataSetBuilder()
 					.build(new FileInputStream(
-							"C:\\pleiades\\workspace\\testXunitSample\\TestData\\findEmployee_test.xml"));
+							"C:\\pleiades\\workspace\\ArmsProject\\TestData\\findEmployee_test.xml"));
 
 			// 抽出するSQLを作成
 			String actualSql = "select * from employee where EmployeeNo ='aa12345678'";
@@ -150,7 +150,7 @@ public class EmployeeDaoTest {
 			// 期待値リストをxmlファイルから読み込む
 			IDataSet expectedSet = new FlatXmlDataSetBuilder()
 					.build(new FileInputStream(
-							"C:\\pleiades\\workspace\\testXunitSample\\TestData\\findByAll_test.xml"));
+							"C:\\pleiades\\workspace\\ArmsProject\\TestData\\findByAll_test.xml"));
 
 			// 抽出するSQLを作成
 			String actualSql = "select * from employee where EmployeeNo ='aa87654321'";
@@ -213,7 +213,7 @@ public class EmployeeDaoTest {
 			// 期待値リストをxmlファイルから読み込む
 			IDataSet expectedSet = new FlatXmlDataSetBuilder()
 					.build(new FileInputStream(
-							"C:\\pleiades\\workspace\\testXunitSample\\TestData\\insert_test.xml"));
+							"C:\\pleiades\\workspace\\ArmsProject\\TestData\\insert_test.xml"));
 
 			// 抽出するSQLを作成
 			String actualSql = "select EmployeeNo,EmployeeDivisionNo,EmployeeAuthorityNo,EmployeeName from employee where EmployeeNo ='aa87654321'";
@@ -260,7 +260,7 @@ public class EmployeeDaoTest {
 			// 期待値リストをxmlファイルから読み込む
 			IDataSet expectedSet = new FlatXmlDataSetBuilder()
 					.build(new FileInputStream(
-							"C:\\pleiades\\workspace\\testXunitSample\\TestData\\update_test.xml"));
+							"C:\\pleiades\\workspace\\ArmsProject\\TestData\\update_test.xml"));
 
 			// 抽出するSQLを作成
 			String actualSql = "select * from employee where ID ='aa87654321'";

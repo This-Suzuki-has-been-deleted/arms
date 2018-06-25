@@ -314,7 +314,7 @@ public class EmployeeDAO {
 			conn.setAutoCommit(false);
 
 			// SQLの実行
-			String sql = "insert into Employee(EmployeeNo,EmployeeDivisionNo,employeeAuthorityNo,EmployeeEnteringDate,EmployeeName,EmployeePassword)"
+			String sql = "insert into Employee(EmployeeNo,employeeDivisionNo,employeeAuthorityNo,EmployeeName)"
 					+ "values(?,?,?,?,?,?);";
 
 			pStmt = conn.prepareStatement(sql);
