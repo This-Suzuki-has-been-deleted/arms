@@ -261,8 +261,8 @@ public class EmployeeDaoTest {
 		emodel.setEmployeeName("testちゃん");
 		emodel.setPassword("bd94dcda26fccb4e68d6a31f9b5aac0b571ae266d822620e901ef7ebe3a11d4f");
 		emodel.setDelFlg(0);
-		emodel.setAuthNo("02");
-		emodel.setDepNo("002");
+		emodel.setAuthNo("002");
+		emodel.setDepNo("02");
 
 		edao.insertEmployee(emodel);
 
@@ -273,7 +273,7 @@ public class EmployeeDaoTest {
 							"C:\\Users\\user10\\git\\arms\\TestData\\update_test.xml"));
 
 			// 抽出するSQLを作成
-			String actualSql = "select * from employee where ID ='aa87654321'";
+			String actualSql = "select * from employee where employeeID ='aa87654321'";
 
 			// 作成日、更新日など照合の対象とならないデータです。
 			// (注意：対象外のカラムが無くても空文字を引数として渡します)
