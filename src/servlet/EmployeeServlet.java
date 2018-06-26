@@ -44,6 +44,7 @@ public class EmployeeServlet extends HttpServlet {
 		PassChanger passChanger = new PassChanger();
 		passChanger.indexOut(request, response);
 
+		session.removeAttribute("Msg");
 		session.removeAttribute("eMsg");
 //		session.removeAttribute("PAGENO");
 		session.removeAttribute("RESULT");
