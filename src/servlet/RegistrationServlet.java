@@ -55,6 +55,7 @@ public class RegistrationServlet extends HttpServlet {
 		passChanger.indexOut(request, response);
 
 		session.removeAttribute("eMsg");
+		session.removeAttribute("Msg");
 
 		// 部署のプルダウンメニューのために一覧を持ってくる
 		ArrayList<DepModel> depList = (ArrayList<DepModel>) dd.findDepAll();

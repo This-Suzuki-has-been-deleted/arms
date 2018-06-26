@@ -40,8 +40,9 @@
 				<c:if test="${Employee.authNo == '003' || Employee.authNo == 999}">
 					<!-- EmployeeModelのセッション名Employee -->
 					<th class="t_top2">権限</th>
-				</c:if>
+
 				<th class="t_top2">編集</th>
+				</c:if>
 			</tr>
 
 			<c:forEach var="Emp" items="${RESULT}">
@@ -51,7 +52,7 @@
 					<td>${Emp.depName}</td>
 					<c:if test="${Employee.authNo == '003' || Employee.authNo == 999}">
 						<td>${Emp.authName}</td>
-					</c:if>
+
 					<td>
 						<form action="InfoChangeServlet" method="POST">
 							<input type="hidden" value="${Emp.employeeNo}" name="employeeNo" />
@@ -62,6 +63,7 @@
 							<input type="image" src="images/icon.png">
 						</form>
 					</td>
+					</c:if>
 				</tr>
 
 			</c:forEach>
