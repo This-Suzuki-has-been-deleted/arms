@@ -18,7 +18,7 @@ import others.LoginLogic;
 public class ConfServletTest {
 
 	@BeforeClass
-	public static void setUp(){
+	public static void SetUp(){
 		System.out.println("ConfServletTest開始");
 	}
 
@@ -28,7 +28,7 @@ public class ConfServletTest {
 	}
 
 	@Test
-	public void RegistrationServletテスト() {
+	public void 登録テスト() {
 		// サーブレット生成
 		ConfServlet unitText = new ConfServlet();
 
@@ -63,11 +63,11 @@ public class ConfServletTest {
 		assertThat("RegistrationServlet", is(session.getAttribute("pageFlg")));
 
 		// フォワード先確認（response.getForwardedUrl()）
-		assertThat("EmployeeServlet", is(resp.getRedirectedUrl()));
+		assertThat("/WEB-INF/jsp/employeeRegistration.jsp", is(resp.getForwardedUrl()));
 	}
-	
+
 	@Test
-	public void ChangeServletテスト() {
+	public void 変更テスト() {
 		// サーブレット生成
 		ConfServlet unitText = new ConfServlet();
 

@@ -95,26 +95,33 @@ public class WorkServlet extends HttpServlet {
 		session.setAttribute("firstWeek", firstWeek);
 		// セッションに月末の日にちをセット
 		session.setAttribute("maxDayCnt", maxDayCnt);
+		int fl = 0;
+		if(yearBuf == null && monthBuf == null){
+			fl = 100;//
+		}
 
 		// yearとmonthの初期値を設定
-		if (yearBuf == null) {
+		if (yearBuf == null && fl == 100 ) {
 				year = now.get(Calendar.YEAR);// セッションに年が入っていなかった場合は今日の年を取得
 				session.setAttribute("now_year", year);
-		} else if (Integer.parseInt(yearBuf) == 1) {
-			year = (int) session.getAttribute("now_year") + 1; // セッションに年が入っていた場合はその年を取得
+				fl=10;
 		} else {
+			year = (int) session.getAttribute("now_year");
+		}
+
+		if(yearBuf == null){
+			yearBuf = "0";
+		}
+
+		if (Integer.parseInt(yearBuf) == 1) {
+			year = (int) session.getAttribute("now_year") + 1; // セッションに年が入っていた場合はその年を取得
+		} else if(Integer.parseInt(yearBuf) == -1){
 			year = (int) session.getAttribute("now_year") - 1;
 		}
 
+		fl = 100;
 
-		//3年以上過去に行ってしまうのを防ぐ処理
-		if(year < (now.get(Calendar.YEAR)-3) || year > (now.get(Calendar.YEAR)) ){
-			year = (int) session.getAttribute("now_year");
-		}
-		Msg = year + "年の勤務表";
-
-
-		if (monthBuf == null) {
+		if (monthBuf == null && fl == 100) {
 			month = now.get(Calendar.MONTH) + 1; // セッションに月が入っていなかった場合は今日の月を取得
 			session.setAttribute("now_month", month);
 		} else if (Integer.parseInt(monthBuf) == 1) {
@@ -123,10 +130,27 @@ public class WorkServlet extends HttpServlet {
 			month = (int) session.getAttribute("now_month") - 1;
 		}
 
+		//12月と１月の切り替え処理
 		if (month == 0){
-				month = 12;
-				year=year-1;
+			month = 12;
+			year=year-1;
 		}
+
+		if(month == 13){
+			month = 1;
+			year=year+1;
+		}
+
+		//3年以上過去に行ってしまうのを防ぐ処理
+		if(year < (now.get(Calendar.YEAR)-3) || year > (now.get(Calendar.YEAR)) ){
+			year = (int) session.getAttribute("now_year");
+		}
+		Msg = year + "年の勤務表";
+
+
+
+
+
 
 		session.setAttribute("now_year", year);
 		session.setAttribute("now_month", month);
