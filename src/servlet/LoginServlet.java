@@ -120,11 +120,13 @@ public class LoginServlet extends HttpServlet {
 			}
 			//ここまで
 			if(employeePw.equals("pass1234")){
+				session.removeAttribute("eMsg");
 				session.setAttribute("pageTitle", "初期パスワード変更");
 				dispatcher = request.getRequestDispatcher("WEB-INF/jsp/passChange.jsp");
 				dispatcher.forward(request, response);
 			}else{
 				session.removeAttribute("Msg");
+				session.removeAttribute("eMsg");
 				session.setAttribute("pageTitle", "メインメニュー");
 				dispatcher = request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
