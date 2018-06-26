@@ -45,9 +45,15 @@ public class EmployeeServlet extends HttpServlet {
 		passChanger.indexOut(request, response);
 
 		session.removeAttribute("eMsg");
-		session.removeAttribute("PAGENO");
+//		session.removeAttribute("PAGENO");
 		session.removeAttribute("RESULT");
-		session.removeAttribute("SELECTPG");
+//		session.removeAttribute("SELECTPG");
+		pageno = 1;
+		selectno = "1";
+		nowpage = 1;
+
+
+
 
 		EmployeeModel emodel = (EmployeeModel) session.getAttribute("Employee");
 		emodel.setDepName(d_dao.findByDepName(emodel.getDepNo())); // depnoを渡してdepnameをset
