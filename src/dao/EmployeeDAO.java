@@ -177,7 +177,7 @@ public class EmployeeDAO {
 					+ " WHERE  E.employeeAuthorityNo <> '999'";
 
 			if (employee_name != "") {
-				sql = sql +  " AND E.EmployeeName LIKE ?";		//SQLの％記号はpreparestatementだと変換されるため
+			sql = sql +  " AND E.EmployeeName LIKE ?";		//SQLの％記号はpreparestatementだと変換されるため
 				employee_name = "%" + employee_name + "%";		//% + + %をsetしてあげる
 			}
 			sql = sql + " ORDER BY E.EmployeeNo,E.employeeDivisionNo LIMIT ?,?";

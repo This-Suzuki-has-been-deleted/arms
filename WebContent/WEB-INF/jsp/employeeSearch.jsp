@@ -17,18 +17,18 @@
 		<form method="post" action="EmployeeServlet">
 			社員名 <input type="text" name="employee_name">
 			部署名<select name="dep_no">
+			<c:if test="${Employee.authNo == '003' || Employee.authNo =='999'}">
 			<option value="00">全部署</option>
+			</c:if>
 				<c:forEach var="deplist" items="${DepList}">
-					<c:if test="${Employee.authNo == '003' || Employee.authNo =='999'}">
 						<c:choose>
 							<c:when test="${Employee.depNo == deplist.depNo}">
 								<option value="${deplist.depNo}" selected>${deplist.depName}</option>
 							</c:when>
-							<c:otherwise>
+							<c:when test="${Employee.authNo == '003' || Employee.authNo =='999'}">
 								<option value="${deplist.depNo}">${deplist.depName}</option>
-							</c:otherwise>
+							</c:when>
 						</c:choose>
-					</c:if>
 				</c:forEach>
 			</select><input type="submit" value="検索" class="s_button">
 		</form>

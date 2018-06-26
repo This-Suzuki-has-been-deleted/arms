@@ -1,0 +1,4 @@
+<dataset>
+<employee EmployeeNo="aa65374665" EmployeeDivisionNo = "01" EmployeeAuthorityNo = "001" EmployeeName="小澤ラプンツェル" />
+<employee EmployeeNo="bb12345678" EmployeeDivisionNo = "01" EmployeeAuthorityNo = "001" EmployeeName="小澤" />
+</dataset>

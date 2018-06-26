@@ -81,13 +81,13 @@ public class EmployeeDaoTest {
 			// 作成日、更新日など照合の対象とならないデータです。
 			// (注意：対象外のカラムが無くても空文字を引数として渡します)
 			// String[] ignoreCols={""}; ←このような形。
-			String[] ignoreCols = {""};
+			String[] ignoreCols = {"employeeEnteringDate","delFlg", "leaveNum"};
 
 			// ここで対象となるデータとxmlが等しいかをチェックできます。
 			Assertion.assertEqualsByQuery(expectedSet, // 期待値
 					this.connection,// コネクション
 					actualSql, // SQL文
-					"testtable", // 対象テーブル
+					"employee", // 対象テーブル
 					ignoreCols // 比較しないカラム名の配列
 					);
 		} catch (IOException | DatabaseUnitException | SQLException ex) {
@@ -106,30 +106,28 @@ public class EmployeeDaoTest {
 	@Test
 	public void 社員情報検索() throws Exception {
 
-
 		EmployeeDAO edao = new EmployeeDAO();
-
+		//実施結果リスト
 		List<EmployeeModel> actualList = edao.findByNameDep("aa12345678","01","小",1);
 
 		//期待値リスト
 		List<EmployeeModel> expectedList = new ArrayList<EmployeeModel>();
 
 		EmployeeModel emodel1 = new EmployeeModel(
-				"bb12345678",
-				"小澤",
-				"01",
-				"999",
-				"総務部",
-				"一般"
-				);
-		EmployeeModel emodel2 = new EmployeeModel(
 				"aa65374665",
 				"小澤ラプンツェル",
 				"01",
 				"001",
 				"総務部",
-				"一般"
-				);
+				"一般");
+
+		EmployeeModel emodel2 = new EmployeeModel(
+				"bb12345678",
+				"小澤",
+				"01",
+				"001",
+				"総務部",
+				"一般");
 
 		//リストに保存
 		expectedList.add(emodel1);
@@ -140,12 +138,9 @@ public class EmployeeDaoTest {
 
 		//【比較】取得内容が同じであること
 		for(int i=0 ; actualList.size() > i ; i++){
-			assertThat(actualList.get(i),
-					is(SamePropertyValuesAs.samePropertyValuesAs(expectedList.get(i))));
+			assertThat(actualList,
+					is(SamePropertyValuesAs.samePropertyValuesAs(expectedList)));
 		}
-
-
-
 	}
 
 	@Test
@@ -153,7 +148,7 @@ public class EmployeeDaoTest {
 
 		EmployeeDAO edao = new EmployeeDAO();
 
-		edao.findByAll("高橋",1);
+		edao.findByAll("小",1);
 
 		try {
 			// 期待値リストをxmlファイルから読み込む
@@ -162,7 +157,11 @@ public class EmployeeDaoTest {
 							"C:\\Users\\user10\\git\\arms\\TestData\\findByAll_test.xml"));
 
 			// 抽出するSQLを作成
-			String actualSql = "select * from employee where EmployeeNo ='aa87654321'";
+			String actualSql = "select E.EmployeeNo,E.EmployeeName,E.employeedivisionNo,E.employeeAuthorityNo,ED.DivisionName,EP.AuthorityName "
+					+ "from Employee AS E LEFT JOIN employeedivision AS ED ON(E.employeeDivisionNo = ED.DivisionNo)"
+					+ " LEFT JOIN employeeposition AS EP ON(E.employeeAuthorityNo = EP.employeeAuthorityNo) "
+					+ " WHERE  E.employeeAuthorityNo <> '999' AND E.EmployeeName like '%小%' "
+					+ " ORDER BY E.EmployeeNo,E.employeeDivisionNo";
 
 			// 作成日、更新日など照合の対象とならないデータです。
 			// (注意：対象外のカラムが無くても空文字を引数として渡します)
@@ -173,7 +172,7 @@ public class EmployeeDaoTest {
 			Assertion.assertEqualsByQuery(expectedSet, // 期待値
 					this.connection,// コネクション
 					actualSql, // SQL文
-					"testtable", // 対象テーブル
+					"employee", // 対象テーブル
 					ignoreCols // 比較しないカラム名の配列
 					);
 		} catch (IOException | DatabaseUnitException | SQLException ex) {
@@ -225,7 +224,7 @@ public class EmployeeDaoTest {
 							"C:\\Users\\user10\\git\\arms\\TestData\\insert_test.xml"));
 
 			// 抽出するSQLを作成
-			String actualSql = "select EmployeeNo,EmployeeDivisionNo,EmployeeAuthorityNo,EmployeeName from employee where EmployeeNo ='aa87654321'";
+			String actualSql = "select EmployeeNo,EmployeeDivisionNo,EmployeeAuthorityNo,EmployeeName,EmployeePassword from employee where EmployeeNo ='aa87654321'";
 
 			// 作成日、更新日など照合の対象とならないデータです。
 			// (注意：対象外のカラムが無くても空文字を引数として渡します)
@@ -236,7 +235,7 @@ public class EmployeeDaoTest {
 			Assertion.assertEqualsByQuery(expectedSet, // 期待値
 					this.connection,// コネクション
 					actualSql, // SQL文
-					"testtable", // 対象テーブル
+					"employee", // 対象テーブル
 					ignoreCols // 比較しないカラム名の配列
 					);
 		} catch (IOException | DatabaseUnitException | SQLException ex) {
@@ -257,14 +256,14 @@ public class EmployeeDaoTest {
 	public void 社員情報変更() throws SQLException {
 
 		EmployeeModel emodel = new EmployeeModel();
-		emodel.setEmployeeNo("aa87654321");
+		emodel.setEmployeeNo("aa00000001");
 		emodel.setEmployeeName("testちゃん");
 		emodel.setPassword("bd94dcda26fccb4e68d6a31f9b5aac0b571ae266d822620e901ef7ebe3a11d4f");
 		emodel.setDelFlg(0);
 		emodel.setAuthNo("002");
 		emodel.setDepNo("02");
 
-		edao.insertEmployee(emodel);
+		edao.updateEmployee(emodel);
 
 		try {
 			// 期待値リストをxmlファイルから読み込む
@@ -273,18 +272,18 @@ public class EmployeeDaoTest {
 							"C:\\Users\\user10\\git\\arms\\TestData\\update_test.xml"));
 
 			// 抽出するSQLを作成
-			String actualSql = "select * from employee where employeeNo ='aa87654321'";
+			String actualSql = "select * from employee where employeeNo ='aa00000001'";
 
 			// 作成日、更新日など照合の対象とならないデータです。
 			// (注意：対象外のカラムが無くても空文字を引数として渡します)
 			// String[] ignoreCols={""}; ←このような形。
-			String[] ignoreCols = { "create_dt", "update_dt" };
+			String[] ignoreCols = { "employeeEnteringDate","delFlg", "leaveNum" };
 
 			// ここで対象となるデータとxmlが等しいかをチェックできます。
 			Assertion.assertEqualsByQuery(expectedSet, // 期待値
 					this.connection,// コネクション
 					actualSql, // SQL文
-					"testtable", // 対象テーブル
+					"employee", // 対象テーブル
 					ignoreCols // 比較しないカラム名の配列
 					);
 		} catch (IOException | DatabaseUnitException | SQLException ex) {
