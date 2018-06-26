@@ -7,6 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String cngdate = "";
+	String Msg = (String)session.getAttribute("Msg");
+	session.removeAttribute("Msg");
 
 %>
 <!DOCTYPE html>
@@ -20,7 +22,7 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="main">
-	<h2>${eMsg }${Msg }</h2>
+	<h2>${eMsg }<c:out value="<%=Msg%>"></c:out></h2>
 	<h2>出退勤一覧</h2>
 	<form action="WorkServlet" method="GET">
 	<%  %>
