@@ -24,7 +24,7 @@
 	</tr>
 </table>
 <br>
-<div class="p_centers"><input type="submit" value="戻る" class="pc_button"><input type="submit" value="確認" class="p_button"></div>
+<div class="p_centers"><input type="submit" value="確認" class="p_button"></div>
 <div class="clear"></div>
 </form>
 </div>
