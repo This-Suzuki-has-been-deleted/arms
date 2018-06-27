@@ -214,15 +214,14 @@ public class WorkServlet extends HttpServlet {
 			WorkTimeDateModel workTimeDateModel = new WorkTimeDateModel();
 			workTimeDateModel.setM_workTime(new Date(monthlyModel.getM_workTime().getTime() - epic).getTime() / 60000);
 			workTimeDateModel.setM_overTime(new Date(monthlyModel.getM_overTime().getTime() - epic).getTime() / 60000);
-			workTimeDateModel.setM_nightTime(new Date(monthlyModel
-					.getM_nightTime().getTime() - epic).getTime() / 60000);
+			workTimeDateModel.setM_nightTime(new Date(monthlyModel.getM_nightTime().getTime() - epic).getTime() / 60000);
 
-			workTimeDateModel.setY_workTime(new Date(annualModel
-					.getY_workTime().getTime() - epic).getTime() / 60000);
-			workTimeDateModel.setY_overTime(new Date(annualModel
-					.getY_overTime().getTime() - epic).getTime() / 60000);
-			workTimeDateModel.setY_nightTime(new Date(annualModel
-					.getY_nightTime().getTime() - epic).getTime() / 60000);
+			workTimeDateModel.setY_workTime(new Date(annualModel.getY_workTime().getTime() - epic).getTime() / 60000);
+			workTimeDateModel.setY_overTime(new Date(annualModel.getY_overTime().getTime() - epic).getTime() / 60000);
+			workTimeDateModel.setY_nightTime(new Date(annualModel.getY_nightTime().getTime() - epic).getTime() / 60000);
+
+			System.out.println(workTimeDateModel.getY_workTime() +"  "+workTimeDateModel.getY_overTime()+"  "+workTimeDateModel.getY_nightTime());
+			System.out.println(workTimeDateModel.getM_workTime() +"  "+workTimeDateModel.getM_overTime()+"  "+workTimeDateModel.getM_nightTime());
 
 			// セッションに表示内容をセット
 			session.setAttribute("ANNUAL", annualModel);

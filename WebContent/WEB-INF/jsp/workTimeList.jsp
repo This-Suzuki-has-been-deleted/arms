@@ -1,5 +1,6 @@
 <%@page import="model.WorkTimeModel"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="model.WorkTimeDateModel" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -9,7 +10,7 @@
 	String cngdate = "";
 	String Msg = (String)session.getAttribute("Msg");
 	session.removeAttribute("Msg");
-
+	WorkTimeDateModel Time = (WorkTimeDateModel)session.getAttribute("WorkTimeDate");
 %>
 <!DOCTYPE html>
 <html>
@@ -37,15 +38,18 @@
 			<th class="t_top3">残業合計時間</th>
 			<th class="t_top3">総勤務合計時間</th>
 		</tr>
+		<%if(Time != null){ %>
 		<tr>
 			<td>${ANNUAL.year}</td>
-			<td><fmt:formatNumber value="${WorkTimeDate.y_nightTime/60}" pattern="###時間" maxFractionDigits="0" />
-				<fmt:formatNumber value="${WorkTimeDate.y_nightTime%60}" pattern="##分" /></td>
-			<td><fmt:formatNumber value="${WorkTimeDate.y_overTime/60}" pattern="###時間" maxFractionDigits="0" />
-				<fmt:formatNumber value="${WorkTimeDate.y_overTime%60}" pattern="##分" /></td>
-			<td><fmt:formatNumber value="${WorkTimeDate.y_workTime/60}" pattern="###時間" maxFractionDigits="0" />
-				<fmt:formatNumber value="${WorkTimeDate.y_workTime%60}" pattern="##分" /></td>
+
+			<td><fmt:formatNumber value="<%=(int)(Time.getY_nightTime()/60)%>" pattern="###時間" maxFractionDigits="0" />
+				<fmt:formatNumber value="<%=(int)(Time.getY_nightTime()%60)%>" pattern="##分" /></td>
+			<td><fmt:formatNumber value="<%=(int)(Time.getY_overTime()/60)%>" pattern="###時間" maxFractionDigits="0" />
+				<fmt:formatNumber value="<%=(int)(Time.getY_overTime()%60) %>" pattern="##分" /></td>
+			<td><fmt:formatNumber value="<%=(int)(Time.getY_workTime()/60) %>" pattern="###時間" maxFractionDigits="0" />
+				<fmt:formatNumber value="<%=(int)(Time.getY_workTime()%60) %>" pattern="##分" /></td>
 		</tr>
+		<%} %>
 	</table>
 	<br>
 	<h3>${now_year}年  ${now_month}月</h3>
@@ -54,6 +58,7 @@
 		<button type="submit" name="m_btn" value="1" class="wl_button">次月</button>
 	</form>
 	<table>
+
 		<tr>
 			<th class="t_top3">日付</th>
 			<th class="t_top3">曜日</th>
@@ -92,15 +97,17 @@
 			<th class="t_top3">残業合計時間</th>
 			<th class="t_top3">総勤務合計時間</th>
 		</tr>
+		<%if(Time != null){ %>
 		<tr>
 			<td>${MOUNTHLY.month}</td>
-			<td><fmt:formatNumber value="${WorkTimeDate.m_nightTime/60}" pattern="###" maxFractionDigits="0" />
-				<fmt:formatNumber value="${WorkTimeDate.m_nightTime%60}" pattern="時間##分" /></td>
-			<td><fmt:formatNumber value="${WorkTimeDate.m_overTime/60}" pattern="###" maxFractionDigits="0" />
-				<fmt:formatNumber value="${WorkTimeDate.m_overTime%60}" pattern="時間##分" /></td>
-			<td><fmt:formatNumber value="${WorkTimeDate.m_workTime/60}" pattern="###" maxFractionDigits="0" />
-				<fmt:formatNumber value="${WorkTimeDate.m_workTime%60}" pattern="時間##分" /></td>
+			<td><fmt:formatNumber value="<%=(int)(Time.getM_nightTime()/60)%>" pattern="###時間" maxFractionDigits="0" />
+				<fmt:formatNumber value="<%=(int)(Time.getM_nightTime()%60)%>" pattern="##分" /></td>
+			<td><fmt:formatNumber value="<%=(int)(Time.getM_overTime()/60)%>" pattern="###時間" maxFractionDigits="0" />
+				<fmt:formatNumber value="<%=(int)(Time.getM_overTime()%60) %>" pattern="##分" /></td>
+			<td><fmt:formatNumber value="<%=(int)(Time.getM_workTime()/60) %>" pattern="###時間" maxFractionDigits="0" />
+				<fmt:formatNumber value="<%=(int)(Time.getM_workTime()%60) %>" pattern="##分" /></td>
 		</tr>
+		<%} %>
 	</table>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/navigation.jsp" />

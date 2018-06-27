@@ -136,6 +136,9 @@ public class WorkModifiServlet extends HttpServlet {
 		System.out.println(annual.getY_workTime()+"  "+annual.getY_overTime()+"  "+annual.getY_nightTime());
 		System.out.println(monthly.getM_workTime()+"  "+monthly.getM_overTime()+"  "+monthly.getM_nightTime());
 
+		System.out.println(annual.getY_workTime().getTime()+"  "+annual.getY_overTime().getTime()+"  "+annual.getY_nightTime().getTime());
+		System.out.println(monthly.getM_workTime().getTime()+"  "+monthly.getM_overTime().getTime()+"  "+monthly.getM_nightTime().getTime());
+
 		annualDao.updateAnnualTime(annual);
 		monthlyDao.updateMonthlyTime(monthly);
 
