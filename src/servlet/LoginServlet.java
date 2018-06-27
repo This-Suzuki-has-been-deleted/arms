@@ -95,12 +95,12 @@ public class LoginServlet extends HttpServlet {
 						}else{
 							session.setAttribute("work", wm); // 当日を参照する
 							session.setAttribute("buttonvalue", "退勤"); // ボタンのバリューを退勤に
-							session.setAttribute("record", "1");
+							session.setAttribute("record", "0");
 						}
 					}
 				} else {
 					session.setAttribute("work", wm); // 昨日を参照する
-					session.setAttribute("record", "0");
+					session.setAttribute("record", "1");
 					session.setAttribute("buttonvalue", "退勤"); // ボタンのバリューを退勤に
 				}
 			} else {	//前日レコード無し
@@ -115,6 +115,7 @@ public class LoginServlet extends HttpServlet {
 					}else{
 						session.setAttribute("work", wm); // 当日を参照する
 						session.setAttribute("buttonvalue", "退勤"); // ボタンのバリューを退勤に
+						session.setAttribute("record", "0");
 					}
 				}
 			}
