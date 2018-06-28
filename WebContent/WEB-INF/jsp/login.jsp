@@ -13,7 +13,6 @@
 		<div class="login-triangle"></div>
 
 		<h2 class="login-header">ログイン</h2>
-		<h3>${eMsg}</h3>
 		<form class="login-container" action="LoginServlet" method="POST">
 			<p>
 				社 員 番 号：<input type="text" name="syainNo" placeholder="id">
@@ -25,6 +24,7 @@
 				<input type="submit" value="Login" class="login_button">
 			</div>
 		</form>
+		<h3 style="text-align:center;color:red">${eMsg}</h3>
 	</div>
 
 </body>

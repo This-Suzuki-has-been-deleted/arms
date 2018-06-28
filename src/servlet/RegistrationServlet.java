@@ -128,23 +128,23 @@ public class RegistrationServlet extends HttpServlet {
 			if (validation.employeeCodeValidation(textCode)) { // 社員番号が入力されていてかつ入力形式が正しいかチェック
 				employee = ed.findEmployee(textCode);
 				if (employee.getEmployeeNo() != null) { // 社員番号が既に存在しているかチェック
-					msg = "・社員番号が重複しています。";
+					msg = "社員番号が重複しています。";
 					if (!(validation.nullCheck(textName))) { // 社員名が入力されているかチェック
-						msg = msg + "・未入力項目があります。";
+						msg = msg + "未入力項目があります。";
 					}
 				} else { // 社員番号が存在していなかった場合
 					if (!(validation.nullCheck(textName))) { // 社員名が入力されているかチェック
-						msg = "・未入力項目があります。";
+						msg = "未入力項目があります。";
 					}
 				}
 			} else { // 社員番号の入力形式が正しくなかった場合
-				msg = "・入力形式に誤りがあります。";
+				msg = "入力形式に誤りがあります。";
 				if (!(validation.nullCheck(textName))) { // 社員名が入力されているかチェック
-					msg = msg + "\n・未入力項目があります。";
+					msg = msg + "未入力項目があります。";
 				}
 			}
 		} else { // 社員番号が入力されていなかった場合
-			msg = "・未入力項目があります。";
+			msg = "未入力項目があります。";
 		}
 
 		// 入力内容に不正なものがあった場合エラーメッセージをセッションにセットして登録画面へ遷移
