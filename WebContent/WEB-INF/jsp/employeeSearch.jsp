@@ -15,8 +15,8 @@
 	<h3 style="color:red">${Msg }</h3>
 	<div class="main">
 		<form method="post" action="EmployeeServlet">
-			社員名 <input type="text" name="employee_name">
-			部署名<select name="dep_no">
+			社員名 <input type="text" name="employee_name">　
+			部署名 <select name="dep_no">　
 			<c:if test="${Employee.authNo == '003' || Employee.authNo =='999'}">
 			<option value="00">全部署</option>
 			</c:if>
@@ -30,7 +30,7 @@
 							</c:when>
 						</c:choose>
 				</c:forEach>
-			</select><input type="submit" value="検索" class="s_button">
+			</select>　<input type="submit" value="検索" class="s_button">
 		</form>
 		<br>
 		<div class="scroll_bar2">

@@ -17,7 +17,7 @@
 	margin-bottom:0px;
 }
 .clock{
-	font-size:80%
+	font-size:80%;
 	margin-right:15px;
 	margin-top:0px;
 	margin-bottom:0px;
@@ -26,7 +26,6 @@
 .clear{
 	clear:both;
 }
-
 
 
 .side ul {
@@ -86,8 +85,7 @@
 }
 
 .side{
-	width:20%;
-	float:left;
+	float:right;
 }
 .main{
 	width:80%;
