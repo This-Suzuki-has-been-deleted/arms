@@ -175,3 +175,14 @@
 	font-color:red;
 	text-align:center;
 }
+.scroll_bar{
+	overflow:auto;
+	width:100%; height:200px;
+	padding:5px;
+	border:1px doted #000000;
+	color:#000000;
+	line-height:1.5em;
+}
+.bottom{
+	margin-bottom:20px;
+}

@@ -57,8 +57,8 @@
 		<button type="submit" name="m_btn" value="-1" class="wl2_button">前月</button>
 		<button type="submit" name="m_btn" value="1" class="wl_button">次月</button>
 	</form>
+	<div class="scroll_bar">
 	<table>
-
 		<tr>
 			<th class="t_top3">日付</th>
 			<th class="t_top3">曜日</th>
@@ -88,9 +88,10 @@
 			</tr>
 		</c:forEach>
 	</table>
+	</div>
 	<br>
 	<h3>当月勤務時間</h3>
-	<table>
+	<table class="bottom">
 		<tr>
 			<th class="t_top3">月（当月）</th>
 			<th class="t_top3">深夜勤務合計時間</th>
