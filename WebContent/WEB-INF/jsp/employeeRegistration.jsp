@@ -33,8 +33,8 @@
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="main">
 		<form method="post" action="RegistrationServlet">
-			<h3 style="color:red"><%=eMsg %></h3>
-			<%=msg %>
+			<h3 align="center" style="color:red"><%=eMsg %></h3>
+			<h3 align="center" style="color:red"><%=msg %></h3>
 				<div class="regi_table">
 				<table>
 					<tr>
