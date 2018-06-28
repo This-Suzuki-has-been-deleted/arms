@@ -33,6 +33,7 @@
 			</select><input type="submit" value="検索" class="s_button">
 		</form>
 		<br>
+		<div class="scroll_bar2">
 		<table border="1">
 			<tr>
 				<th class="t_top">社員番号</th>
@@ -69,6 +70,7 @@
 
 			</c:forEach>
 		</table>
+		</div>
 		<%
 			int pageno = (Integer) session.getAttribute("PAGENO");
 			int nowpage = (Integer) session.getAttribute("SELECTPG");
@@ -124,6 +126,7 @@
 		</div>
 		<div class="clear"></div>
 	</div>
+	<div class="bottom"></div>
 	<jsp:include page="/WEB-INF/jsp/navigation.jsp" />
 	<div class="clear"></div>
 	<jsp:include page="/WEB-INF/jsp/footer.jsp" />
