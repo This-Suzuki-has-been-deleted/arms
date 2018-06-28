@@ -38,7 +38,7 @@
 <body>
 <div class="bodys">
 <jsp:include page="WEB-INF/jsp/header.jsp" />
-<h1 class="msg"><%=msg %></h1>
+<h3 class="msg"><%=msg %></h3>
 <div class="main">
 	<div class="timestamp_box">
 		<p class="timestamp_title">勤怠登録</p>
