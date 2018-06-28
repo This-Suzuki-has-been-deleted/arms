@@ -23,7 +23,7 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="main">
-	<h2>${eMsg }<c:out value="<%=Msg%>"></c:out></h2>
+	<h3 style="color:red">${eMsg }</h3><h3><c:out value="<%=Msg%>"></c:out></h3>
 	<h2>出退勤一覧</h2>
 	<form action="WorkServlet" method="GET">
 	<%  %>

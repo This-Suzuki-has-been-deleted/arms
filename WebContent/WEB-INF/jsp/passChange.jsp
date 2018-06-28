@@ -11,7 +11,7 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp" />
 <div class="main">
-<p>${eMsg}</p>
+<h3 style="color:red">${eMsg}</h3>
 <form action="ChangeServlet" method="post">
 <table>
 	<tr>

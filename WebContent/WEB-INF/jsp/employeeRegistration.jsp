@@ -33,7 +33,7 @@
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	<div class="main">
 		<form method="post" action="RegistrationServlet">
-			<%=eMsg %>
+			<h3 style="color:red"><%=eMsg %></h3>
 			<%=msg %>
 				<div class="regi_table">
 				<table>

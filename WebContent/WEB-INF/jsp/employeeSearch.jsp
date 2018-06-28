@@ -12,7 +12,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
-	<h3>${Msg }</h3>
+	<h3 style="color:red">${Msg }</h3>
 	<div class="main">
 		<form method="post" action="EmployeeServlet">
 			社員名 <input type="text" name="employee_name">
@@ -32,6 +32,7 @@
 				</c:forEach>
 			</select><input type="submit" value="検索" class="s_button">
 		</form>
+		<br>
 		<table border="1">
 			<tr>
 				<th class="t_top">社員番号</th>

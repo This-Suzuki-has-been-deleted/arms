@@ -170,6 +170,8 @@ public class WorkServlet extends HttpServlet {
 		if (monthlyModel.getEmployeeNo() == null) {
 			if (eMsg == null) {
 				eMsg = month + "月の勤務表はありません。";
+			}else{
+				eMsg = eMsg +"<br>"+ month + "月の勤務表はありません";
 			}
 
 			session.removeAttribute("MOUNTHLY");
