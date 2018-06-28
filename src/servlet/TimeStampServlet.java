@@ -81,6 +81,9 @@ public class TimeStampServlet extends HttpServlet {
 
 		} else if(value.equals("退勤")){
 			String record = (String)session.getAttribute("record");
+			if(record == null){
+				record = "0";
+			}
 			LocalDateTime today = LocalDateTime.now();
 			int year = today.getYear();
 			int month = today.getMonthValue();
