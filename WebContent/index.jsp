@@ -16,7 +16,7 @@
 		msg = "";
 	}
 	Date dates = (Date)session.getAttribute("index_date");
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 hh時mm分");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
 	PassChanger passChanger = new PassChanger();
 	passChanger.indexOut(request, response);
 	if(dates!=null){
@@ -36,8 +36,9 @@
 <title>メインメニュー</title>
 </head>
 <body>
+<div class="bodys">
 <jsp:include page="WEB-INF/jsp/header.jsp" />
-<h1><%=msg %></h1>
+<h1 class="msg"><%=msg %></h1>
 <div class="main">
 	<div class="timestamp_box">
 		<p class="timestamp_title">勤怠登録</p>
@@ -56,6 +57,6 @@
 <div class="clear"></div>
 <jsp:include page="WEB-INF/jsp/footer.jsp" />
 
-
+</div>
 </body>
 </html>
